@@ -1,3 +1,7 @@
 Django==3.0.*
 channels
 selenium
+djangorestframework
+markdown
+django-filter
+django-rest-swagger

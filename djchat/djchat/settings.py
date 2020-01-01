@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+    'rest_framework_swagger',
     'channels',
     'chat',
 ]
@@ -126,6 +128,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+# Channels Configuration Options
+# https://channels.readthedocs.io/en/latest/
+
 ASGI_APPLICATION = "djchat.routing.application"
 CHANNEL_LAYERS = {
     'default': {
@@ -134,4 +139,12 @@ CHANNEL_LAYERS = {
             "hosts": [('127.0.0.1', 6379)],
         },
     },
+}
+
+
+# DRF Configuration Options
+# https://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
