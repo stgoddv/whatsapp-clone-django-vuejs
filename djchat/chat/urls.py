@@ -2,10 +2,10 @@ from django.urls import path
 from rest_framework import routers
 
 from . import views
-from . import api
+from .api import message
 
 router = routers.SimpleRouter()
-router.register(r'messages/pending', api.MessageViewSet)
+router.register(r'api/messages', message.MessageViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
