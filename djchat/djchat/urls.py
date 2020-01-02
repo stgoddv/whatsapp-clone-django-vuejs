@@ -6,6 +6,8 @@ schema_view = get_swagger_view(title='Chat API')
 
 urlpatterns = [
     path('chat/', include('chat.urls')),
+
+    path('api/v1/', include('chat.api.urls')),
     path('api/v1/', include('rest_framework.urls')),
 
     path('admin/', admin.site.urls),
