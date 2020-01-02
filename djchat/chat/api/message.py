@@ -3,8 +3,13 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 from chat.serializers import MessageSerializer, CreateMessageSerializer
 from chat.models import Message, Room
+
+channel_layer = get_channel_layer()
 
 
 class MessageViewSet(viewsets.ViewSet):
@@ -41,5 +46,10 @@ class MessageViewSet(viewsets.ViewSet):
             author=user,
             pending_reception=room.participants.all())
         # Push to participants
-        # Return OK
+        for participant in room.participants.all():
+            async_to_sync(channel_layer.group_send)(
+                f"group_general_user_{participant.id}", {
+                    "type": "chat_message",
+                    "message": "update"
+                })
         return Response(serializer.data, status=status.HTTP_201_CREATED)
