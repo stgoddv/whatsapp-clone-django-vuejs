@@ -4,6 +4,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 
 
+# Api tests TODO
+
+# que pueda devolver los mensajes pendientes pero no los no pendientes
+
+# que no pueda ver mensajes de otras personas (que no le corresponde)
+
+# que solo pueda ver los fields que se esperan, y no adicionales o menos de esos
+
+
 class ChatTests(ChannelsLiveServerTestCase):
     serve_static = True  # emulate StaticLiveServerTestCase
 
