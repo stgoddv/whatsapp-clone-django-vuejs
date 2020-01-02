@@ -41,6 +41,7 @@ class Room(models.Model):
         PRIVATE = 1
         GROUP = 2
 
+    # group name
     kind = models.IntegerField(choices=RoomKind.choices)
     participants = models.ManyToManyField(
         settings.AUTH_USER_MODEL,

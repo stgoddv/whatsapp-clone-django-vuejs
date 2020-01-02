@@ -1,5 +1,3 @@
-from django.contrib.auth import get_user_model
-
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -7,8 +5,6 @@ from rest_framework.exceptions import PermissionDenied
 
 from chat.serializers import MessageSerializer, CreateMessageSerializer
 from chat.models import Message, Room
-
-User = get_user_model()
 
 
 class MessageViewSet(viewsets.ViewSet):
@@ -29,8 +25,10 @@ class MessageViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
+        """
+        Create new message in backend and signal participants to receive it
+        """
         user = request.user
-        content = request.data
         # Validation
         serializer = CreateMessageSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
