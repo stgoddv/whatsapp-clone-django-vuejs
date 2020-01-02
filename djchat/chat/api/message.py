@@ -41,8 +41,7 @@ class MessageViewSet(viewsets.ViewSet):
         # Message creation
         message = serializer.save(
             author=user,
-            pending_reception=room.participants.all()
-        )
+            pending_reception=room.participants.all())
         # Push to participants
         # Return OK
         return Response(serializer.data, status=status.HTTP_201_CREATED)
