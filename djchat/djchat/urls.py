@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from rest_framework_swagger.views import get_swagger_view
 from django_registration.backends.one_step.views import RegistrationView
 # https://django-registration.readthedocs.io/en/3.0.1/
 
 from users.forms import CustomUserForm
+from core.views import IndexTemplateView
 
 schema_view = get_swagger_view(title='Chat API')
 
@@ -33,4 +34,7 @@ urlpatterns = [
 
     # Swagger
     path('api/v1/', schema_view),
+
+    # Default
+    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
 ]
