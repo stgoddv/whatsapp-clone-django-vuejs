@@ -4,3 +4,4 @@ __pycache__
 .pyc
 db.sqlite3
 webpack-stats.json
+node_modules
