@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'channels',
     'crispy_forms',
+    'webpack_loader',
 
     'chat',
     'users',
@@ -170,3 +171,11 @@ CRIPSY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = "accounts/login/"
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Django webpack loader
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
+    }
+}
