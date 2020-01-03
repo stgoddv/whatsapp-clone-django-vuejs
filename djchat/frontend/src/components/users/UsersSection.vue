@@ -11,7 +11,7 @@
     >
       <user />
       <user />
-      <user />
+      <user isSelected />
       <user />
       <user />
       <user />

@@ -2,7 +2,7 @@
   <div class="relative text-gray-600">
     <input
       type="search"
-      name="serch"
+      name="search"
       placeholder="Search"
       class="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border"
     >
