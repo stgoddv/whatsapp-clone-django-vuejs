@@ -27,9 +27,7 @@ export default {
     ReceivedMessage
   },
   mounted() {
-    console.log("montado");
     let sc = this.$refs["messages"];
-    console.log(sc.scrollHeight);
     sc.scrollTo(0, sc.scrollHeight);
   }
 };

@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <div class="container mx-auto md:px-4">
+    <div class="container mx-auto">
       <router-view />
     </div>
   </div>

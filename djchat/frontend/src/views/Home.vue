@@ -4,23 +4,22 @@
     <div class="flex flex-wrap mt-5">
 
       <div class="w-3/12 p-3">
-        <p class="text-2xl my-4">Whatsapp Clone</p>
 
         <div
-          class="shadow-md border rounded-lg"
-          style="min-height: 12rem;"
+          class="shadow-md border rounded-lg bg-white"
+          style="min-height: 16.4rem;"
         >
         </div>
 
         <div
-          class="shadow-md border rounded-lg"
-          style="min-height: 12rem; margin-top: 1rem;"
+          class="shadow-md border rounded-lg bg-white"
+          style="min-height: 16.4rem; margin-top: 1rem;"
         >
         </div>
       </div>
 
       <div class="w-9/12 p-3">
-        <div class="shadow-md border rounded-lg">
+        <div class="shadow-md border rounded-lg bg-white">
           <div class="flex flex-col justify-between mx-8">
 
             <!-- Seccion de mensajes -->
