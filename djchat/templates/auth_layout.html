@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    html,
+    body {
+        height: 100%;
+        font-family: "Playfair Display", serif;
+    }
+
+    .auth-box {
+        border: 3px solid lightgray;
+        border-radius: 10px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        width: 600px;
+        margin: auto;
+    }
+
+    .login-form-container {
+        width: 300px;
+        margin: auto;
+    }
+
+    .registration-form-container {
+        width: 400px;
+        margin: auto;
+    }
+
+    .outer-area {
+        margin-top: 100px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="outer-area">
+    <div class="auth-box text-center">
+        {% block auth %}
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
