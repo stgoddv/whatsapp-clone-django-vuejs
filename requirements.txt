@@ -5,3 +5,6 @@ djangorestframework
 markdown
 django-filter
 django-rest-swagger
+django-registration
+django-crispy-forms
+six

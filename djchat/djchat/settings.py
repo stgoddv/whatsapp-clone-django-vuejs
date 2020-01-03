@@ -40,8 +40,12 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_swagger',
+
     'channels',
+    'crispy_forms',
+
     'chat',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +152,13 @@ CHANNEL_LAYERS = {
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
+
+# Custom User Model
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Django crispy forms
+CRIPSY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = "accounts/login/"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
