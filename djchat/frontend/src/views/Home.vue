@@ -3,22 +3,14 @@
 
     <div class="flex flex-wrap mt-5">
 
-      <div class="w-3/12 p-3">
+      <div class="w-1/3 p-3">
 
-        <div
-          class="shadow-md border rounded-lg bg-white"
-          style="min-height: 16.4rem;"
-        >
-        </div>
+        <!-- Seccion conversaciones  -->
+        <users-section />
 
-        <div
-          class="shadow-md border rounded-lg bg-white"
-          style="min-height: 16.4rem; margin-top: 1rem;"
-        >
-        </div>
       </div>
 
-      <div class="w-9/12 p-3">
+      <div class="w-2/3 p-3">
         <div class="shadow-md border rounded-lg bg-white">
           <div class="flex flex-col justify-between mx-8">
 
@@ -35,6 +27,7 @@
                 href="http://www.freepik.com"
               >Background vector created by kjpargeter - www.freepik.com</a>
             </div>
+
           </div>
         </div>
 
@@ -47,11 +40,13 @@
 <script>
 import SendForm from "@/components/SendForm.vue";
 import MessagesSection from "@/components/messages/MessagesSection.vue";
+import UsersSection from "@/components/users/UsersSection.vue";
 
 export default {
   components: {
     SendForm,
-    MessagesSection
+    MessagesSection,
+    UsersSection
   }
 };
 </script>
