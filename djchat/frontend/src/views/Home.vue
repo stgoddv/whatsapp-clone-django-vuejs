@@ -57,32 +57,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.chat {
-  background-image: url("~@/assets/imgs/main-bg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-/* Scrollbar */
-/* width */
-.scrollbar::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-.scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-.scrollbar::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-/* Handle on hover */
-.scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-</style>
