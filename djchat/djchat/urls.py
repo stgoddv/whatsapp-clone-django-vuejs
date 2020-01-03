@@ -29,8 +29,9 @@ urlpatterns = [
     # DRF Auth Rest
     path('api/v1/', include('rest_framework.urls')),
 
-    # API
+    # Apps Endpoints
     path('api/v1/', include('chat.api.urls')),
+    path('api/v1/', include('users.api.urls')),
 
     # Swagger
     path('api/v1/', schema_view),
