@@ -16,6 +16,7 @@ class Message(models.Model):
         on_delete=models.CASCADE)
     room = models.ForeignKey(
         'Room',
+        related_name='messages',
         on_delete=models.CASCADE)
     body = models.TextField(max_length=500, default='')
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -47,7 +48,7 @@ class Room(models.Model):
         settings.AUTH_USER_MODEL,
         related_name='rooms')
 
-    timestamp = models.DateTimeField(
+    created_at = models.DateTimeField(
         verbose_name='Creation Date',
         auto_now_add=True)
     last_activity = models.DateTimeField(

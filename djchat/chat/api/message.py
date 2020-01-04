@@ -45,6 +45,8 @@ class MessageViewSet(viewsets.ViewSet):
         message = serializer.save(
             author=user,
             pending_reception=room.participants.all())
+        # Update activity timestamp of rooms
+        room.save()
         # Push to participants
         for participant in room.participants.all():
             async_to_sync(channel_layer.group_send)(

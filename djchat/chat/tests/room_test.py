@@ -40,9 +40,10 @@
 # Verificar creacion de varios grupos duplicados
 
 
-# timestamp de actividad - verificar que al enviarse un mensaje en la room
-# el timestamp sea actualizado
+# timestamp de actividad - verificar que el envio de mensaje actualiza el timestamp
 
 # verificar que lo mas reciente llegue antes que lo menos reciente
 
 # verificar que mensajes sobre el limite no llegan pero bajo el limite si
+
+# verificar que efectivamente llegue el ultimo mensaje de cada room, y no otro
