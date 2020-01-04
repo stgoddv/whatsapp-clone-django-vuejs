@@ -19,13 +19,9 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class CreateMessageSerializer(serializers.ModelSerializer):
-    target = serializers.ModelField(
-        model_field=User()._meta.get_field('id'),
-        required=False)
-
     class Meta:
         model = Message
-        fields = ('room', 'body', 'target',)
+        fields = ('room', 'body',)
 
 
 class RoomSerializer(serializers.ModelSerializer):
