@@ -31,7 +31,7 @@ class LastMessagesRoomAPIView(APIView):
         # get room
         room = get_object_or_404(request.user.rooms.all(), id=room_id)
         room_serializer = RoomSerializer(
-            data=room,
+            room,
             context={'request': request})
         # get messages
         messages = room.messages.all().order_by('-timestamp')[:10]
