@@ -7,27 +7,19 @@
     <!-- Lista de usuarios -->
     <div
       class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
-      style="height: 30rem;"
+      style="height: 20rem;"
     >
-      <user
+      <div
         v-for="(room, index) in rooms"
         :key="room.id"
-        :room="room"
-        :isSelected="index === selectedIndex"
-      />
-      <!-- <user />
-      <user isSelected />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user />
-      <user /> -->
+        @click="selectRoom(index)"
+      >
+        <user
+          :room="room"
+          :isSelected="index === selectedRoomIndex"
+        />
+      </div>
+
     </div>
 
   </div>
@@ -46,7 +38,7 @@ export default {
     return {
       rooms: [],
       users: [],
-      selectedIndex: 0
+      selectedRoomIndex: null
     };
   },
   components: {
@@ -58,6 +50,10 @@ export default {
       let res = await axios.get("/api/v1/rooms/recents");
       this.users = res.data.users;
       this.rooms = res.data.rooms;
+    },
+    selectRoom(index) {
+      this.selectedRoomIndex = index;
+      console.log("selecting room");
     }
   },
   created() {
