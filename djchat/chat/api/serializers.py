@@ -1,6 +1,9 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 from chat.models import Message, Room
+
+User = get_user_model()
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -16,9 +19,13 @@ class MessageSerializer(serializers.ModelSerializer):
 
 
 class CreateMessageSerializer(serializers.ModelSerializer):
+    target = serializers.ModelField(
+        model_field=User()._meta.get_field('id'),
+        required=False)
+
     class Meta:
         model = Message
-        fields = ('room', 'body',)
+        fields = ('room', 'body', 'target',)
 
 
 class RoomSerializer(serializers.ModelSerializer):
