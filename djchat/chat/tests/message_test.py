@@ -20,3 +20,5 @@
 # verificar que efectivamente el orden sea el correcto
 
 # verificar que el usuario no puede preguntar por una sala a la que no pertenece
+
+# verificar que isOwner sea true para cuando el autor esta testeando y false en caso contrario
