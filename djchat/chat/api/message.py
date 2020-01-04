@@ -34,7 +34,9 @@ class LastMessagesRoomAPIView(APIView):
         # get messages
         messages = room.messages.all().order_by('-timestamp')[:10]
         messages_serializer = MessageSerializer(
-            messages, context={'request': request}, many=True)
+            messages,
+            context={'request': request},
+            many=True)
         # get participants
         participants = set()
         for message in messages_serializer.data:
@@ -62,8 +64,9 @@ class MessageViewSet(viewsets.ViewSet):
         """
         pending_messages_qs = Message.objects\
             .get_pending_messages(request.user)
-        serializer = MessageSerializer(pending_messages_qs, context={
-                                       'request': request}, many=True)
+        serializer = MessageSerializer(pending_messages_qs,
+                                       context={'request': request},
+                                       many=True)
         return Response(serializer.data)
 
     def create(self, request):

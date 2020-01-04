@@ -24,7 +24,9 @@ class RecentRoomsAPIView(APIView):
         # get recent rooms
         qs_rooms = request.user.rooms.all().order_by('-last_activity')[:10]
         room_serializer = RoomSerializer(
-            qs_rooms, context={'request': request}, many=True)
+            qs_rooms,
+            context={'request': request},
+            many=True)
         # get participants of the rooms
         participants = set()
         for room_data in room_serializer.data:
@@ -52,7 +54,9 @@ class RoomViewSet(viewsets.ViewSet):
         # get all rooms
         qs_rooms = request.user.rooms.all()
         room_serializer = RoomSerializer(
-            qs_rooms, context={'request': request}, many=True)
+            qs_rooms,
+            context={'request': request},
+            many=True)
         # get participants of the rooms
         participants = set()
         for room_data in room_serializer.data:
