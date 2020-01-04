@@ -12,11 +12,15 @@
       >
       <div class="text-sm w-full">
         <div class="flex justify-between">
-          <p class="text-gray-900 text-left">Jonathan Reinink</p>
-          <p class="text-gray-600 text-xs text-left">15:42</p>
+          <p class="text-gray-900 text-left">{{ room.group_name }}</p>
+          <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
         <div class="flex justify-between">
-          <p class="text-gray-600 text-md text-left">buena cabros eso es lo que está ...</p>
+          <p
+            v-if="room.last_message"
+            class="text-gray-600 text-md text-left"
+          >{{ room.last_message.body }}</p>
+          <p v-else></p>
           <p class="circle mx-1">5</p>
         </div>
 
@@ -26,11 +30,26 @@
 </template>
 
 <script>
+import dateFormat from "dateformat";
+
 export default {
+  computed: {
+    lastActivity() {
+      let last_activity = dateFormat(
+        new Date(this.room.last_activity),
+        "hh:MM"
+      );
+      return last_activity;
+    }
+  },
   props: {
     isSelected: {
       type: Boolean,
       default: false
+    },
+    room: {
+      type: Object,
+      required: true
     }
   }
 };

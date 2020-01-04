@@ -38,5 +38,5 @@ urlpatterns = [
     path('api/v1/', schema_view),
 
     # Default
-    # re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
+    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
 ]

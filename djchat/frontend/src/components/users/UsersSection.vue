@@ -9,8 +9,13 @@
       class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
       style="height: 30rem;"
     >
-      <user />
-      <user />
+      <user
+        v-for="(room, index) in rooms"
+        :key="room.id"
+        :room="room"
+        :isSelected="index === selectedIndex"
+      />
+      <!-- <user />
       <user isSelected />
       <user />
       <user />
@@ -22,7 +27,7 @@
       <user />
       <user />
       <user />
-      <user />
+      <user /> -->
     </div>
 
   </div>
@@ -32,10 +37,24 @@
 import User from "./User.vue";
 import Search from "@/components/Search.vue";
 
+import axios from "@/backend";
+
 export default {
+  data() {
+    return {
+      rooms: [],
+      users: [],
+      selectedIndex: 0
+    };
+  },
   components: {
     User,
     Search
+  },
+  async mounted() {
+    let res = await axios.get("/api/v1/rooms/recents");
+    this.users = res.data.users;
+    this.rooms = res.data.rooms;
   }
 };
 </script>
