@@ -23,7 +23,8 @@ class RecentRoomsAPIView(APIView):
         """
         # get recent rooms
         qs_rooms = request.user.rooms.all().order_by('-last_activity')[:10]
-        room_serializer = RoomSerializer(qs_rooms, many=True)
+        room_serializer = RoomSerializer(
+            qs_rooms, context={'request': request}, many=True)
         # get participants of the rooms
         participants = set()
         for room_data in room_serializer.data:
@@ -50,7 +51,8 @@ class RoomViewSet(viewsets.ViewSet):
         """
         # get all rooms
         qs_rooms = request.user.rooms.all()
-        room_serializer = RoomSerializer(qs_rooms, many=True)
+        room_serializer = RoomSerializer(
+            qs_rooms, context={'request': request}, many=True)
         # get participants of the rooms
         participants = set()
         for room_data in room_serializer.data:
@@ -69,7 +71,7 @@ class RoomViewSet(viewsets.ViewSet):
         """
         user = request.user
         # Validation of fields
-        serializer = RoomSerializer(data=request.data)
+        serializer = RoomSerializer(request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         participants = serializer.validated_data.get('participants')
         if not user in participants:
@@ -91,7 +93,7 @@ class RoomViewSet(viewsets.ViewSet):
                 .first()
             # If there exists private room return it
             if room_qs:
-                return Response(RoomSerializer(room_qs).data, status=status.HTTP_200_OK)
+                return Response(RoomSerializer(room_qs, context={'request': request}).data, status=status.HTTP_200_OK)
         # Create room
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

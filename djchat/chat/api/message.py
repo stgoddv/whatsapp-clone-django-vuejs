@@ -27,12 +27,14 @@ class LastMessagesRoomAPIView(APIView):
         """
         List rooms with recent conversations
         """
+        print('aca')
         # get room
         room = get_object_or_404(request.user.rooms.all(), id=room_id)
-        room_serializer = RoomSerializer(room)
+        room_serializer = RoomSerializer(room, context={'request': request})
         # get messages
         messages = room.messages.all().order_by('-timestamp')[:10]
-        messages_serializer = MessageSerializer(messages, many=True)
+        messages_serializer = MessageSerializer(
+            messages, context={'request': request}, many=True)
         # get participants
         participants = set()
         for message in messages_serializer.data:
@@ -60,7 +62,8 @@ class MessageViewSet(viewsets.ViewSet):
         """
         pending_messages_qs = Message.objects\
             .get_pending_messages(request.user)
-        serializer = MessageSerializer(pending_messages_qs, many=True)
+        serializer = MessageSerializer(pending_messages_qs, context={
+                                       'request': request}, many=True)
         return Response(serializer.data)
 
     def create(self, request):
