@@ -12,7 +12,7 @@ from chat.models import Room
 User = get_user_model()
 
 
-class RecentRoomsViewSet(APIView):
+class RecentRoomsAPIView(APIView):
     """
     Endpoints related to managing rooms with recent activity
     """

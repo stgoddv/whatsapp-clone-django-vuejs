@@ -2,14 +2,51 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.views import APIView
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-from .serializers import MessageSerializer, CreateMessageSerializer
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+
+from .serializers import MessageSerializer, CreateMessageSerializer, RoomSerializer
+from users.api.serializers import UserSerializer
 from chat.models import Message, Room
 
 channel_layer = get_channel_layer()
+User = get_user_model()
+
+
+class LastMessagesRoomAPIView(APIView):
+    """
+    Endpoints related to managing rooms with recent activity
+    """
+    permission_classes = [IsAuthenticated]
+    queryset = Message.objects.all()
+
+    def get(self, request, room_id, format=None):
+        """
+        List rooms with recent conversations
+        """
+        # get room
+        room = get_object_or_404(request.user.rooms.all(), id=room_id)
+        room_serializer = RoomSerializer(room)
+        # get messages
+        messages = room.messages.all().order_by('-timestamp')[:10]
+        messages_serializer = MessageSerializer(messages, many=True)
+        # get participants
+        participants = set()
+        for message in messages_serializer.data:
+            participants.add(message['author'])
+        participants_obj = User.objects.filter(id__in=participants)
+        users_serializer = UserSerializer(participants_obj, many=True)
+        # combine response
+        return Response({
+            'messages': messages_serializer.data,
+            'room': room_serializer.data,
+            'users': users_serializer.data,
+        })
 
 
 class MessageViewSet(viewsets.ViewSet):

@@ -47,3 +47,7 @@
 # verificar que mensajes sobre el limite no llegan pero bajo el limite si
 
 # verificar que efectivamente llegue el ultimo mensaje de cada room, y no otro
+
+# verificar que el usuario pertenece a todas las rooms que llegan
+
+# Verificar autorización

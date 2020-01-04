@@ -11,3 +11,12 @@
 
 # que al crear un mensaje se pueda ver en la sgte llamada a mensajes pendientes pero
 # no en la subsiguiente
+
+
+# mensajes recientes por sala
+
+# verificar que llegan efectivametne los 10 mas recientes por sala
+
+# verificar que efectivamente el orden sea el correcto
+
+# verificar que el usuario no puede preguntar por una sala a la que no pertenece
