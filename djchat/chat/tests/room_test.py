@@ -42,3 +42,7 @@
 
 # timestamp de actividad - verificar que al enviarse un mensaje en la room
 # el timestamp sea actualizado
+
+# verificar que lo mas reciente llegue antes que lo menos reciente
+
+# verificar que mensajes sobre el limite no llegan pero bajo el limite si

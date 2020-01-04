@@ -2,9 +2,27 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ParseError
+from rest_framework.views import APIView
 
 from .serializers import RoomSerializer
 from chat.models import Room
+
+
+class RecentRoomsViewSet(APIView):
+    """
+    Endpoints related to managing rooms with recent activity
+    """
+    permission_classes = [IsAuthenticated]
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+    def get(self, request, format=None):
+        """
+        List rooms with recent conversations
+        """
+        qs = request.user.rooms.all().order_by('-last_activity')[:3]
+        serializer = RoomSerializer(qs, many=True)
+        return Response(serializer.data)
 
 
 class RoomViewSet(viewsets.ViewSet):
