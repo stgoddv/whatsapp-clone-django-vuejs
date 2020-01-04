@@ -51,8 +51,20 @@ class RoomViewSet(viewsets.ViewSet):
         """
         List rooms in which the current user is a participant
         """
-        serializer = RoomSerializer(request.user.rooms.all(), many=True)
-        return Response(serializer.data)
+        # get all rooms
+        qs_rooms = request.user.rooms.all()
+        room_serializer = RoomSerializer(qs_rooms, many=True)
+        # get participants of the rooms
+        participants = set()
+        for room_data in room_serializer.data:
+            participants = participants.union(set(room_data['participants']))
+        participants_obj = User.objects.filter(id__in=participants)
+        users_serializer = UserSerializer(participants_obj, many=True)
+        # combine response
+        return Response({
+            'rooms': room_serializer.data,
+            'users': users_serializer.data
+        })
 
     def create(self, request):
         """
