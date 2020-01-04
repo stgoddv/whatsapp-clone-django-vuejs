@@ -3,9 +3,13 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
+from django.contrib.auth import get_user_model
 
+from users.api.serializers import UserSerializer
 from .serializers import RoomSerializer
 from chat.models import Room
+
+User = get_user_model()
 
 
 class RecentRoomsViewSet(APIView):
@@ -14,15 +18,25 @@ class RecentRoomsViewSet(APIView):
     """
     permission_classes = [IsAuthenticated]
     queryset = Room.objects.all()
-    serializer_class = RoomSerializer
 
     def get(self, request, format=None):
         """
         List rooms with recent conversations
         """
-        qs = request.user.rooms.all().order_by('-last_activity')[:3]
-        serializer = RoomSerializer(qs, many=True)
-        return Response(serializer.data)
+        # get recent rooms
+        qs_rooms = request.user.rooms.all().order_by('-last_activity')[:3]
+        room_serializer = RoomSerializer(qs_rooms, many=True)
+        # get participants of the rooms
+        participants = set()
+        for room_data in room_serializer.data:
+            participants = participants.union(set(room_data['participants']))
+        participants_obj = User.objects.filter(id__in=participants)
+        users_serializer = UserSerializer(participants_obj, many=True)
+        # combine response
+        return Response({
+            'rooms': room_serializer.data,
+            'users': users_serializer.data
+        })
 
 
 class RoomViewSet(viewsets.ViewSet):
