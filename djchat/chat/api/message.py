@@ -1,6 +1,5 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
 
@@ -22,7 +21,6 @@ class LastMessagesRoomAPIView(APIView):
     """
     Endpoints related to managing rooms with recent activity
     """
-    permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
 
     def get(self, request, room_id, format=None):
@@ -53,7 +51,6 @@ class MessageViewSet(viewsets.ViewSet):
     """
     Endpoints related to managing messages
     """
-    permission_classes = [IsAuthenticated]
     queryset = Message.objects.all()
     serializer_class = CreateMessageSerializer
 

@@ -1,6 +1,5 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
@@ -16,7 +15,6 @@ class RecentRoomsAPIView(APIView):
     """
     Endpoints related to managing rooms with recent activity
     """
-    permission_classes = [IsAuthenticated]
     queryset = Room.objects.all()
 
     def get(self, request, format=None):
@@ -43,7 +41,6 @@ class RoomViewSet(viewsets.ViewSet):
     """
     Endpoints related to managing rooms
     """
-    permission_classes = [IsAuthenticated]
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
