@@ -26,6 +26,7 @@ class CreateMessageSerializer(serializers.ModelSerializer):
 
 class RoomSerializer(serializers.ModelSerializer):
     last_message = serializers.SerializerMethodField()
+    group_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Room
@@ -34,3 +35,12 @@ class RoomSerializer(serializers.ModelSerializer):
     def get_last_message(self, obj):
         last_message = obj.messages.all().order_by('-timestamp').first()
         return MessageSerializer(last_message, context=self.context).data
+
+    def get_group_name(self, obj):
+        if obj.kind == 1:
+            # If private then return name of the other participant
+            current_user = self.context['request'].user
+            participants = list(obj.participants.all())
+            participants.remove(current_user)
+            return participants[0].username
+        return obj.group_name

@@ -51,3 +51,16 @@
 # verificar que el usuario pertenece a todas las rooms que llegan
 
 # Verificar autorización
+
+
+# Nombre de grupo
+
+# Verificar que puedo crear private sin nombre y queda en null
+
+# verificar que private con nombre queda en null tambien
+
+# verificar que no puedo crear group sin nombre
+
+# verificar que puros espacios cuenta como sin nombre
+
+# verificar que grupo con nombre queda ok

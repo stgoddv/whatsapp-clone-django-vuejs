@@ -79,6 +79,7 @@ class RoomViewSet(viewsets.ViewSet):
             data=request.data,
             context={'request': request})
         serializer.is_valid(raise_exception=True)
+        # Validate participant number
         participants = serializer.validated_data.get('participants')
         if not user in participants:
             participants.append(user)
@@ -99,7 +100,20 @@ class RoomViewSet(viewsets.ViewSet):
                 .first()
             # If there exists private room return it
             if room_qs:
-                return Response(RoomSerializer(room_qs, context={'request': request}).data, status=status.HTTP_200_OK)
+                return Response(RoomSerializer(room_qs,
+                                               context={'request': request}).data,
+                                status=status.HTTP_200_OK)
+            # Be sure to clear group name in private chats
+            if 'group_name' in serializer.validated_data:
+                serializer.validated_data['group_name'] = None
+        elif (kind == 2):
+            # Group chats must have a name
+            if not 'group_name' in serializer.validated_data:
+                raise ParseError(
+                    detail='Group rooms must have a name.')
+            if len(serializer.validated_data['group_name'].strip()) == 0:
+                raise ParseError(
+                    detail='Group rooms must have a name.')
         # Create room
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
