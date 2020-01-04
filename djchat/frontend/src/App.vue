@@ -10,6 +10,29 @@
   </div>
 </template>
 
+<script>
+import { EventBus } from "@/eventBus";
+
+export default {
+  created() {
+    // Websocket support
+    var chatSocket = new WebSocket(
+      "ws://" + window.location.host + "/ws/notifications/"
+    );
+
+    chatSocket.onmessage = function(e) {
+      var data = JSON.parse(e.data);
+      var message = data["message"];
+      EventBus.$emit(message);
+    };
+
+    chatSocket.onclose = function() {
+      console.error("Chat socket closed unexpectedly");
+    };
+  }
+};
+</script>
+
 <style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

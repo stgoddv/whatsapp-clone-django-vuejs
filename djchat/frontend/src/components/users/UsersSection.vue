@@ -39,6 +39,8 @@ import Search from "@/components/Search.vue";
 
 import axios from "@/backend";
 
+import { EventBus } from "@/eventBus";
+
 export default {
   data() {
     return {
@@ -51,10 +53,20 @@ export default {
     User,
     Search
   },
-  async mounted() {
-    let res = await axios.get("/api/v1/rooms/recents");
-    this.users = res.data.users;
-    this.rooms = res.data.rooms;
+  methods: {
+    async fetchRecentRooms() {
+      let res = await axios.get("/api/v1/rooms/recents");
+      this.users = res.data.users;
+      this.rooms = res.data.rooms;
+    }
+  },
+  created() {
+    EventBus.$on("update", () => {
+      this.fetchRecentRooms();
+    });
+  },
+  mounted() {
+    this.fetchRecentRooms();
   }
 };
 </script>
