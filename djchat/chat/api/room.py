@@ -24,7 +24,7 @@ class RecentRoomsViewSet(APIView):
         List rooms with recent conversations
         """
         # get recent rooms
-        qs_rooms = request.user.rooms.all().order_by('-last_activity')[:3]
+        qs_rooms = request.user.rooms.all().order_by('-last_activity')[:10]
         room_serializer = RoomSerializer(qs_rooms, many=True)
         # get participants of the rooms
         participants = set()
