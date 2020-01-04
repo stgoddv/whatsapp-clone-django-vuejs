@@ -15,7 +15,10 @@
           <p class="text-gray-900 text-left">Jonathan Reinink</p>
           <p class="text-gray-600 text-xs text-left">15:42</p>
         </div>
-        <p class="text-gray-600 text-md text-left">buena cabros eso es lo que está ...</p>
+        <div class="flex justify-between">
+          <p class="text-gray-600 text-md text-left">buena cabros eso es lo que está ...</p>
+          <p class="circle mx-1">5</p>
+        </div>
 
       </div>
     </div>
@@ -32,3 +35,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+  background: #38b2ac;
+}
+</style>

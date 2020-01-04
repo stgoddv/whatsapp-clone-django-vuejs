@@ -5,3 +5,4 @@ __pycache__
 db.sqlite3
 webpack-stats.json
 node_modules
+notes.txt
