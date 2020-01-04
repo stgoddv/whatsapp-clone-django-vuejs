@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ParseError
 
-from chat.serializers import RoomSerializer
+from .serializers import RoomSerializer
 from chat.models import Room
 
 

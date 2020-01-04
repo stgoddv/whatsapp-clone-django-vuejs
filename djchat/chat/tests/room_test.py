@@ -38,3 +38,7 @@
 # si hay 2 con autor permitir
 
 # Verificar creacion de varios grupos duplicados
+
+
+# timestamp de actividad - verificar que al enviarse un mensaje en la room
+# el timestamp sea actualizado

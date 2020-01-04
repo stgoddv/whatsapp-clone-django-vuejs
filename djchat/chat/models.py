@@ -47,6 +47,11 @@ class Room(models.Model):
         settings.AUTH_USER_MODEL,
         related_name='rooms')
 
+    timestamp = models.DateTimeField(
+        verbose_name='Creation Date', auto_now_add=True)
+    last_activity = models.DateTimeField(
+        verbose_name='Last activity date', auto_now=True)
+
     class Meta:
         verbose_name = "Sala"
         verbose_name_plural = "Salas"

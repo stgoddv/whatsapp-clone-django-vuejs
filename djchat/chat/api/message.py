@@ -6,7 +6,7 @@ from rest_framework.exceptions import PermissionDenied
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 
-from chat.serializers import MessageSerializer, CreateMessageSerializer
+from .serializers import MessageSerializer, CreateMessageSerializer
 from chat.models import Message, Room
 
 channel_layer = get_channel_layer()
