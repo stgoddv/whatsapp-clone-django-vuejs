@@ -29,14 +29,9 @@
 import User from "./User.vue";
 import Search from "@/components/Search.vue";
 
-import axios from "@/backend";
-
-import { EventBus } from "@/eventBus";
-
 export default {
   data() {
     return {
-      rooms: [],
       users: [],
       selectedRoomIndex: null
     };
@@ -46,23 +41,14 @@ export default {
     Search
   },
   methods: {
-    async fetchRecentRooms() {
-      let res = await axios.get("/api/v1/rooms/recents");
-      this.users = res.data.users;
-      this.rooms = res.data.rooms;
-    },
     selectRoom(index) {
       this.selectedRoomIndex = index;
-      console.log("selecting room");
     }
   },
-  created() {
-    EventBus.$on("update", () => {
-      this.fetchRecentRooms();
-    });
-  },
-  mounted() {
-    this.fetchRecentRooms();
+  computed: {
+    rooms() {
+      return this.$store.state.rooms;
+    }
   }
 };
 </script>

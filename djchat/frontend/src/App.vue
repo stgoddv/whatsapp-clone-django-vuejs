@@ -14,21 +14,27 @@
 import { EventBus } from "@/eventBus";
 
 export default {
+  methods: {
+    initializeWebSocketSupport() {
+      var chatSocket = new WebSocket(
+        "ws://" + window.location.host + "/ws/notifications/"
+      );
+      chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var message = data["message"];
+        if (message === "update") {
+          console.log("updatingsingla receive");
+        }
+        EventBus.$emit(message);
+      };
+      chatSocket.onclose = function() {
+        console.error("Chat socket closed unexpectedly");
+      };
+    }
+  },
   created() {
-    // Websocket support
-    var chatSocket = new WebSocket(
-      "ws://" + window.location.host + "/ws/notifications/"
-    );
-
-    chatSocket.onmessage = function(e) {
-      var data = JSON.parse(e.data);
-      var message = data["message"];
-      EventBus.$emit(message);
-    };
-
-    chatSocket.onclose = function() {
-      console.error("Chat socket closed unexpectedly");
-    };
+    this.initializeWebSocketSupport();
+    this.$store.dispatch("fetchRecentActivity");
   }
 };
 </script>

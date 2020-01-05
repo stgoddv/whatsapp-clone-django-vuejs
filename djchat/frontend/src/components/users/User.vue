@@ -18,9 +18,9 @@
         </div>
         <div class="flex justify-between">
           <p
-            v-if="room.last_message"
+            v-if="lastMessage"
             class="text-gray-600 text-md text-left"
-          >{{ room.last_message.body }}</p>
+          >{{ lastMessage.body }}</p>
           <p v-else></p>
           <p class="circle mx-1">5</p>
         </div>
@@ -41,6 +41,13 @@ export default {
         "hh:MM"
       );
       return last_activity;
+    },
+    lastMessage() {
+      const messages = this.room.messages;
+      const _lastMessage = messages[messages.length - 1];
+      return this.$store.state.messages.find(
+        message => message.id === _lastMessage
+      );
     }
   },
   props: {
