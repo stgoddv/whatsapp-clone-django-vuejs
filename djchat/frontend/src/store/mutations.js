@@ -1,6 +1,11 @@
 
 const mutations = {
   SET_ROOMS(state, rooms) {
+    // let stateRooms = state.rooms;
+
+    // state.rooms = state.rooms.concat(rooms.filter(room => ))
+    // stateRooms = stateRooms.concat(rooms.filter(room => stateRooms.findIndex(el => )))
+
     state.rooms = rooms;
   },
   SET_MESSAGES(state, messages) {
