@@ -13,6 +13,29 @@ const actions = {
         commit('SET_MESSAGES', response.data.messages);
         commit('SET_USERS', response.data.users);
         commit('SET_ROOMS', response.data.rooms);
+        resolve(response);
+      }).catch(error => reject(error));
+    });
+  },
+  fetchMessages({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get("/api/v1/messages/").then(response => {
+        const messages = response.data;
+        commit('PUSH_MESSAGES', messages);
+        messages.forEach(msg => {
+          // get or create room
+          // por ahora get DEBUG
+          commit('ADD_MESSAGES_TO_ROOM', {
+            messageId: msg.id,
+            roomId: msg.room
+          });
+          // counter no leidos -> el gran tema no resuelto 
+          // es que esto deberia estar en el back.
+
+          // que suba en panel de conversaciones a primer puesto
+          // console.log(msg);
+        });
+        resolve(response);
       }).catch(error => reject(error));
     });
   }

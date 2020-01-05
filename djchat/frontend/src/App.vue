@@ -16,6 +16,7 @@ import { EventBus } from "@/eventBus";
 export default {
   methods: {
     initializeWebSocketSupport() {
+      var _this = this;
       var chatSocket = new WebSocket(
         "ws://" + window.location.host + "/ws/notifications/"
       );
@@ -23,7 +24,7 @@ export default {
         var data = JSON.parse(e.data);
         var message = data["message"];
         if (message === "update") {
-          console.log("updatingsingla receive");
+          _this.$store.dispatch("fetchMessages");
         }
         EventBus.$emit(message);
       };
@@ -32,9 +33,9 @@ export default {
       };
     }
   },
-  created() {
+  async created() {
+    await this.$store.dispatch("fetchRecentActivity");
     this.initializeWebSocketSupport();
-    this.$store.dispatch("fetchRecentActivity");
   }
 };
 </script>

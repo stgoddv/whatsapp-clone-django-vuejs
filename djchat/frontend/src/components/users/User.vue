@@ -22,7 +22,7 @@
             class="text-gray-600 text-md text-left"
           >{{ lastMessage.body }}</p>
           <p v-else></p>
-          <p class="circle mx-1">5</p>
+          <!-- <p class="circle mx-1">5</p> -->
         </div>
 
       </div>
