@@ -31,9 +31,10 @@ const actions = {
           });
           // counter no leidos -> el gran tema no resuelto 
           // es que esto deberia estar en el back.
-
           // que suba en panel de conversaciones a primer puesto
-          // console.log(msg);
+          commit('REORDER_ROOM_TO_TOP', {
+            roomId: msg.room
+          });
         });
         resolve(response);
       }).catch(error => reject(error));

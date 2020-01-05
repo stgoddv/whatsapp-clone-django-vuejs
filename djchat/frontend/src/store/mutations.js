@@ -16,6 +16,12 @@ const mutations = {
     const room = state.rooms.find(el => el.id === roomId);
     room.messages.push(messageId);
   },
+  REORDER_ROOM_TO_TOP(state, { roomId }) {
+    const oldPosition = state.rooms.findIndex(el => el.id === roomId);
+    const tmp = state.rooms[oldPosition];
+    state.rooms.splice(oldPosition, 1);
+    state.rooms.splice(0, 0, tmp);
+  }
 };
 
 export default mutations;
