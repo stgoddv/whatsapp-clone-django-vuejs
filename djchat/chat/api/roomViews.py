@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
 
 from users.api.serializers import UserSerializer
-from .serializers import RoomSerializer
-from chat.models import Room
+from .serializers import RoomSerializer, MessageSerializer
+from chat.models import Room, Message
 
 User = get_user_model()
 
@@ -27,15 +27,23 @@ class RecentRoomsAPIView(APIView):
             qs_rooms,
             context={'request': request},
             many=True)
-        # get participants of the rooms
+        # get relations of the rooms
         participants = set()
+        messages = set()
         for room_data in room_serializer.data:
             participants = participants.union(set(room_data['participants']))
+            messages.add(room_data['last_message'])
+        # build relation responses
         participants_obj = User.objects.filter(id__in=participants)
         users_serializer = UserSerializer(participants_obj, many=True)
+        messages_obj = Message.objects.filter(id__in=messages)
+        messages_serializer = MessageSerializer(messages_obj,
+                                                context={'request': request},
+                                                many=True)
         # combine response
         return Response({
             'rooms': room_serializer.data,
+            'messages': messages_serializer.data,
             'users': users_serializer.data
         })
 
@@ -57,15 +65,23 @@ class RoomViewSet(viewsets.ViewSet):
             qs_rooms,
             context={'request': request},
             many=True)
-        # get participants of the rooms
+        # get relations of the rooms
         participants = set()
+        messages = set()
         for room_data in room_serializer.data:
             participants = participants.union(set(room_data['participants']))
+            messages.add(room_data['last_message'])
+        # build relation responses
         participants_obj = User.objects.filter(id__in=participants)
         users_serializer = UserSerializer(participants_obj, many=True)
+        messages_obj = Message.objects.filter(id__in=messages)
+        messages_serializer = MessageSerializer(messages_obj,
+                                                context={'request': request},
+                                                many=True)
         # combine response
         return Response({
             'rooms': room_serializer.data,
+            'messages': messages_serializer.data,
             'users': users_serializer.data
         })
 
