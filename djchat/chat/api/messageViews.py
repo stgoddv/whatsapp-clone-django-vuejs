@@ -27,14 +27,20 @@ class LastMessagesRoomAPIView(APIView):
         """
         List rooms with recent conversations
         """
-        print('aca')
         # get room
         room = get_object_or_404(request.user.rooms.all(), id=room_id)
         room_serializer = RoomSerializer(
             room,
             context={'request': request})
         # get messages
-        messages = room.messages.all().order_by('-timestamp')[:10]
+        offset = self.request.query_params.get('offset')
+        offset = int(offset) if offset else None
+        if offset:
+            messages = room.messages    \
+                .filter(id__lt=offset)  \
+                .order_by('-id')[:10]
+        else:
+            messages = room.messages.order_by('-timestamp')[:10]
         messages_serializer = MessageSerializer(
             messages,
             context={'request': request},
