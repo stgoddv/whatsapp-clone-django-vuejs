@@ -24,10 +24,15 @@
 # verificar que isOwner sea true para cuando el autor esta testeando y false en caso contrario
 
 
-# Traer mensajes recientes
+# Traer mensajes recientes por sala
 
 # probar que si no hay parametro offset entonces se traigan los ultimos 10 por tiempo
 
 # si hay offset entonces los 10 seguientes a partir de el id entregado
 
 # autenticación
+
+
+# Mesajes recientes
+
+# verificar que efectivamente vengan users y rooms correctos

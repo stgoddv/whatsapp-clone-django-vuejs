@@ -72,10 +72,29 @@ class MessageViewSet(viewsets.ViewSet):
         """
         pending_messages_qs = Message.objects\
             .get_pending_messages(request.user)
-        serializer = MessageSerializer(pending_messages_qs,
-                                       context={'request': request},
-                                       many=True)
-        return Response(serializer.data)
+        messages_serializer = MessageSerializer(pending_messages_qs,
+                                                context={'request': request},
+                                                many=True)
+        # get relations of the rooms
+        rooms = set()
+        for message_data in messages_serializer.data:
+            rooms.add(message_data['room'])
+        rooms_obj = Room.objects.filter(id__in=rooms)
+        rooms_serializer = RoomSerializer(rooms_obj,
+                                          context={'request': request},
+                                          many=True)
+        # get relations of the users
+        users = set()
+        for room_data in rooms_serializer.data:
+            users = users.union(set(room_data['participants']))
+        users_obj = User.objects.filter(id__in=users)
+        users_serializer = UserSerializer(users_obj, many=True)
+        # combine response
+        return Response({
+            'messages': messages_serializer.data,
+            'rooms': rooms_serializer.data,
+            'users': users_serializer.data,
+        })
 
     def create(self, request):
         """
