@@ -3,7 +3,7 @@
     <div class="shadow-md border rounded-lg m-5 px-4 relative bg-green-200">
 
       <div class="mb-3 mt-2">
-        <p class="text-left">buena cabros eso es lo que está pasando con la volá y la onda del asado.</p>
+        <p class="text-left">buena cabros eso es lo que está pasando con la volá y la onda .</p>
       </div>
 
       <div

@@ -8,7 +8,7 @@
       </div>
 
       <div class="mb-3">
-        <p class="text-left">buena cabros eso es lo que está pasando con la volá y la onda del asado.</p>
+        <p class="text-left">buena cabros eso es lo que está pasando con la volá y la onda.</p>
       </div>
 
       <div
