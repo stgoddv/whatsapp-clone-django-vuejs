@@ -137,7 +137,7 @@ export default {
           this.scrollToBottom();
         }
       });
-      if (!this.fixScrollToBottom) {
+      if (!this.fixScrollToBottom && !this.fetchingMessages) {
         this.newMessagesReceived = true;
       }
     }
