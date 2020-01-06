@@ -47,9 +47,10 @@ export default {
   },
   computed: {
     rooms() {
-      // falta ordenar por actividad
-      // y que al llegar un nuevo mensaje se actualice la actividad
-      return this.$store.state.rooms;
+      let sortedRooms = Object.values(this.$store.state.rooms).sort((a, b) => {
+        return new Date(b.last_activity) - new Date(a.last_activity);
+      });
+      return sortedRooms;
     }
   }
 };
