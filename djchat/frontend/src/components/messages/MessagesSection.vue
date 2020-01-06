@@ -1,6 +1,9 @@
 <template>
   <div class="relative">
-    <div v-if="!$store.state.selectedRoom" class="alert">
+    <div
+      v-if="!$store.state.selectedRoom"
+      class="alert"
+    >
       <div
         class="select-none mt-6 border 
         border-teal-500 shadow rounded-lg py-3"
@@ -12,13 +15,30 @@
 
     <div
       ref="messages"
-      class="messages-section border rounded-lg border-teal-500 py-2 chat scrollbar overflow-y-auto"
+      class="messages-section border rounded-lg border-teal-500 pb-2 chat scrollbar overflow-y-auto"
       style="min-height: 20rem; max-height: 25rem;"
+      @scroll="onScroll"
     >
       <div v-if="$store.state.selectedRoom">
-        <div v-for="message in messages" :key="message.id">
-          <sent-message :message="message" v-if="message.imOwner" />
-          <received-message :message="message" v-else />
+        <div
+          v-if="fetchingMessages"
+          class="py-1"
+          style="background-color: rgba(255,255,255,0.7);"
+        >
+          <p class="text-sm">Loading older messages.</p>
+        </div>
+        <div
+          v-for="message in messages"
+          :key="message.id"
+        >
+          <sent-message
+            :message="message"
+            v-if="message.imOwner"
+          />
+          <received-message
+            :message="message"
+            v-else
+          />
         </div>
       </div>
     </div>
@@ -31,7 +51,10 @@ import ReceivedMessage from "./ReceivedMessage.vue";
 
 export default {
   data() {
-    return {};
+    return {
+      fetchingMessages: false,
+      fixScrollToBottom: true
+    };
   },
   components: {
     SentMessage,
@@ -41,6 +64,33 @@ export default {
     scrollToBottom() {
       let sc = this.$refs["messages"];
       sc.scrollTo(0, sc.scrollHeight);
+    },
+    onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
+      if (scrollTop + clientHeight >= scrollHeight) {
+        this.fixScrollToBottom = true;
+      } else {
+        this.fixScrollToBottom = false;
+      }
+      if (scrollTop < 50 && !this.fetchingMessages) {
+        this.fetchPastMessages();
+      }
+    },
+    fetchPastMessages() {
+      if (!this.fetchingMessages) {
+        this.fetchingMessages = true;
+        let roomId = this.$store.state.selectedRoom;
+        this.$store
+          .dispatch("fetchPastMessages", {
+            firstMessageId: this.messages[0].id,
+            roomId
+          })
+          .then(() => {
+            this.fetchingMessages = false;
+          })
+          .catch(() => {
+            this.fetchingMessages = false;
+          });
+      }
     }
   },
   mounted() {
@@ -56,17 +106,18 @@ export default {
     }
   },
   watch: {
-    selectedRoom(roomId) {
+    selectedRoom() {
+      this.fetchingMessages = false;
       if (this.messages.length < 3) {
-        this.$store.dispatch("fetchPastMessages", {
-          firstMessageId: this.messages[0].id,
-          roomId
-        });
+        this.fetchPastMessages();
       }
+      setTimeout(() => this.scrollToBottom(), 10);
     },
     messages() {
       this.$nextTick(() => {
-        this.scrollToBottom();
+        if (this.fixScrollToBottom) {
+          this.scrollToBottom();
+        }
       });
     }
   }
