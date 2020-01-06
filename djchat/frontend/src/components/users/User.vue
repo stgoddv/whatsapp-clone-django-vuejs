@@ -46,7 +46,7 @@ export default {
     lastMessage() {
       let room_messages = this.$store.state.room_messages[this.room.id];
       let last_message = null;
-      if (room_messages.length) {
+      if (room_messages && room_messages.length) {
         last_message = room_messages[room_messages.length - 1];
       }
       return last_message;

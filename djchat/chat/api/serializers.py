@@ -7,13 +7,13 @@ User = get_user_model()
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    imOwner = serializers.SerializerMethodField()
+    is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
         exclude = ('pending_reception',)
 
-    def get_imOwner(self, obj):
+    def get_is_owner(self, obj):
         user = self.context['request'].user
         return True if obj.author.id == user.id else False
 
