@@ -5,19 +5,30 @@
         <p class="text-left">{{ message.body }}</p>
       </div>
 
-      <p v-if="message.sending">Enviando</p>
-
       <div
-        class="absolute"
+        class="absolute flex"
         style="right: 10px; bottom: 5px;"
       >
         <p class="text-xs text-gray-600">{{ time }}</p>
+        <clock-icon
+          v-if="message.sending"
+          size="1x"
+          class="ml-2"
+        ></clock-icon>
+        <check-icon
+          v-else
+          size="1x"
+          class="ml-2"
+        ></check-icon>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { ClockIcon } from "vue-feather-icons";
+import { CheckIcon } from "vue-feather-icons";
+
 import dateFormat from "dateformat";
 
 export default {
@@ -32,6 +43,10 @@ export default {
       let time = dateFormat(new Date(this.message.timestamp), "hh:MM");
       return time;
     }
+  },
+  components: {
+    ClockIcon,
+    CheckIcon
   }
 };
 </script>
