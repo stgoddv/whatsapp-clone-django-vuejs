@@ -43,3 +43,23 @@
 # Verificar que efecticamente los mensajes vengan en orden descendente
 
 # Verificar que al offsetear vengan en orden descendente
+
+
+# read
+
+# verficiar que al crear un mensaje este se marque inicialmente como unread
+# para todos los de la sala
+
+# verificar que llegan los mensajes de las distintas salas como unread
+
+# Verificar que efectivametne puedo marcar un mensaje como leido y que despues no llega
+# en la lista
+
+# Verificar que no puedo marcar mensajes de otras personas como leido
+
+# verificar que al marcar como leido devuelva 204 no content
+
+# verificar que devuelva toda la lista de no leidos
+
+# verificar que si tomo uno de esa lista puedo marcar como leido
+# pero si tomo uno fuera de esa lista entonces no

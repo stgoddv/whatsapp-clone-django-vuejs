@@ -6,12 +6,23 @@ from chat.models import Message, Room
 User = get_user_model()
 
 
+class UnreadMessagesSerializer(serializers.Serializer):
+    room_id = serializers.IntegerField()
+    unread_count = serializers.IntegerField()
+
+
+class IdentifierMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ('id',)
+
+
 class MessageSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
-        exclude = ('pending_reception',)
+        exclude = ('pending_reception', 'pending_read',)
 
     def get_is_owner(self, obj):
         user = self.context['request'].user

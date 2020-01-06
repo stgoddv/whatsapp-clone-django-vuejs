@@ -22,9 +22,14 @@ class Message(models.Model):
         on_delete=models.CASCADE)
     body = models.TextField(max_length=500, default='')
     timestamp = models.DateTimeField(auto_now_add=True)
+
     pending_reception = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name='pending_messages')
+
+    pending_read = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='unread_messages')
 
     front_key = models.UUIDField(
         verbose_name="frontend key",
@@ -41,6 +46,9 @@ class Message(models.Model):
 
     def remove_user_from_pending(self, user):
         self.pending_reception.remove(user)
+
+    def mark_as_read(self, user):
+        self.pending_read.remove(user)
 
 
 class Room(models.Model):
