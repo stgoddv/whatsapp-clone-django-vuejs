@@ -33,10 +33,10 @@ class RoomSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_last_message(self, obj):
+        current_user = self.context['request'].user
         last_message = obj.messages.all().order_by('-timestamp').first()
+        last_message.remove_user_from_pending(current_user)
         return last_message.id if last_message else None
-        # return MessageSerializer(last_message,
-        #                          context=self.context).data if last_message else None
 
     def get_group_name(self, obj):
         if obj.kind == 1:

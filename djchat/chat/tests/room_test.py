@@ -64,3 +64,10 @@
 # verificar que puros espacios cuenta como sin nombre
 
 # verificar que grupo con nombre queda ok
+
+
+# Recents
+
+# si se crea un mensaje y no se ha visto en recents entonces se debe ver en mensajes pendientes
+
+# si se crea un mensaje y se ve en recents -> no debe aparecer en pendientes
