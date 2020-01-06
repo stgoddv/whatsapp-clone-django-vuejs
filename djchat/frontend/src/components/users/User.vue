@@ -1,6 +1,6 @@
 <template>
   <div
-    class="user-row border-b px-3 py-3 
+    class="user-row border-b px-3 py-3 select-none
     cursor-pointer rounded-lg hover:shadow hover:bg-green-200"
     style="transition: box-shadow 0.3s, background-color 0.3s;"
     :class="{ 'bg-green-200': isSelected }"
@@ -44,7 +44,12 @@ export default {
       return last_activity;
     },
     lastMessage() {
-      return this.$store.state.messages[this.room.last_message];
+      let room_messages = this.$store.state.room_messages[this.room.id];
+      let last_message = null;
+      if (room_messages.length) {
+        last_message = room_messages[room_messages.length - 1];
+      }
+      return last_message;
     }
   },
   props: {

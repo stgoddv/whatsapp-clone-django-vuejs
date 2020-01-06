@@ -3,7 +3,6 @@ import axios from "@/backend";
 const actions = {
   syncDB({ commit }, { rooms, users, messages }) {
     commit("SET_ROOMS", rooms);
-    commit("SET_MESSAGES", messages);
     commit("SET_USERS", users);
     commit("LINK_MESSAGES_TO_ROOM", messages);
   },
@@ -42,7 +41,6 @@ const actions = {
       axios
         .get(`/api/v1/messages/${roomId}?offset=${firstMessageId}`)
         .then(response => {
-          commit("SET_MESSAGES", response.data.messages);
           commit("SET_USERS", response.data.users);
           commit("LINK_PAST_MESSAGES_TO_ROOM", {
             pastMessages: response.data.messages,

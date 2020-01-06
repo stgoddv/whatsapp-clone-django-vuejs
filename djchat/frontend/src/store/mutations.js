@@ -11,11 +11,6 @@ const mutations = {
       Vue.set(state.users, element.id, element);
     });
   },
-  SET_MESSAGES(state, messages) {
-    messages.forEach(element => {
-      Vue.set(state.messages, element.id, element);
-    });
-  },
   LINK_MESSAGES_TO_ROOM(state, messages) {
     messages.forEach(element => {
       if (element.room in state.room_messages) {
