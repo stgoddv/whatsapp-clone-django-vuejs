@@ -79,7 +79,7 @@ export default {
       if (!this.fetchingMessages) {
         this.fetchingMessages = true;
         let roomId = this.$store.state.selectedRoom;
-        let firstMessageId = this.messages ? this.messages[0].id : 0;
+        let firstMessageId = this.messages ? this.messages[0].id : null;
         this.$store
           .dispatch("fetchPastMessages", {
             firstMessageId,

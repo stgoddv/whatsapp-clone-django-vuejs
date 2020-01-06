@@ -37,9 +37,12 @@ const actions = {
     });
   },
   fetchPastMessages({ commit }, { firstMessageId, roomId }) {
+    let endpoint = firstMessageId ?
+      `/api/v1/messages/${roomId}?offset=${firstMessageId}`
+      : `/api/v1/messages/${roomId}`;
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/v1/messages/${roomId}?offset=${firstMessageId}`)
+        .get(endpoint)
         .then(response => {
           commit("SET_USERS", response.data.users);
           commit("LINK_PAST_MESSAGES_TO_ROOM", {
