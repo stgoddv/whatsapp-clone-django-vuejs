@@ -4,7 +4,7 @@ from django.conf import settings
 
 class MessageManager(models.Manager):
     def get_pending_messages(self, user):
-        pending_messages_qs = user.pending_messages.all()
+        pending_messages_qs = user.pending_messages.order_by('timestamp')
         for message in pending_messages_qs:
             message.remove_user_from_pending(user)
         return pending_messages_qs
