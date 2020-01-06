@@ -1,4 +1,3 @@
-
 import Vue from "vue";
 import Vuex from "vuex";
 
@@ -14,7 +13,6 @@ export default new Vuex.Store({
   mutations,
   state,
   actions,
-  modules: {
-  },
+  modules: {},
   strict: process.env.NODE_ENV !== "production"
 });

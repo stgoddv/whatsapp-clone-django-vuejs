@@ -1,7 +1,6 @@
 <template>
   <div class="received-message max-w-lg">
     <div class="shadow-md border rounded-lg m-5 px-4 relative bg-white">
-
       <div class="flex justify-between py-1 mt-1">
         <p class="text-xs text-purple-600 font-bold">{{ getUsername }}</p>
         <p class="text-xs text-gray-600">~Email(todo)</p>
@@ -11,13 +10,9 @@
         <p class="text-left">{{ message.body }}</p>
       </div>
 
-      <div
-        class="absolute"
-        style="right: 10px; bottom: 5px;"
-      >
+      <div class="absolute" style="right: 10px; bottom: 5px;">
         <p class="text-xs text-gray-600">{{ time }}</p>
       </div>
-
     </div>
   </div>
 </template>

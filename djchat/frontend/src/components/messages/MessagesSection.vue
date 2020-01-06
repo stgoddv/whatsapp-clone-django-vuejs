@@ -1,9 +1,6 @@
 <template>
   <div class="relative">
-    <div
-      v-if="!$store.state.selectedRoom"
-      class="alert"
-    >
+    <div v-if="!$store.state.selectedRoom" class="alert">
       <div
         class="select-none mt-6 border 
         border-teal-500 shadow rounded-lg py-3"
@@ -19,24 +16,13 @@
       style="min-height: 20rem; max-height: 25rem;"
     >
       <div v-if="$store.state.selectedRoom">
-        <div
-          v-for="message in messages"
-          :key="message.id"
-        >
-          <sent-message
-            :message="message"
-            v-if="message.imOwner"
-          />
-          <received-message
-            :message="message"
-            v-else
-          />
+        <div v-for="message in messages" :key="message.id">
+          <sent-message :message="message" v-if="message.imOwner" />
+          <received-message :message="message" v-else />
         </div>
       </div>
-
     </div>
   </div>
-
 </template>
 
 <script>
