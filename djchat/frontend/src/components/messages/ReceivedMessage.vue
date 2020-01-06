@@ -9,7 +9,7 @@
             class="text-xs font-bold"
             :style="`color: rgb(${getColor.red}, ${getColor.green}, ${getColor.blue});`"
           >{{ getUser.username }}</p>
-          <p class="text-xs text-gray-600">~{{ getUser.email }}</p>
+          <p class="text-xs text-gray-600 ml-3">~{{ getUser.email }}</p>
         </div>
 
         <!-- Message body -->
