@@ -53,7 +53,8 @@ export default {
   data() {
     return {
       fetchingMessages: false,
-      fixScrollToBottom: true
+      fixScrollToBottom: true,
+      noMoreMessages: false
     };
   },
   components: {
@@ -76,7 +77,7 @@ export default {
       }
     },
     fetchPastMessages() {
-      if (!this.fetchingMessages) {
+      if (!this.fetchingMessages && !this.noMoreMessages) {
         this.fetchingMessages = true;
         let roomId = this.$store.state.selectedRoom;
         let firstMessageId = this.messages ? this.messages[0].id : null;
@@ -85,8 +86,11 @@ export default {
             firstMessageId,
             roomId
           })
-          .then(() => {
+          .then(response => {
             this.fetchingMessages = false;
+            if (!response.data.messages.length) {
+              this.noMoreMessages = true;
+            }
           })
           .catch(() => {
             this.fetchingMessages = false;
@@ -109,6 +113,7 @@ export default {
   watch: {
     selectedRoom() {
       this.fetchingMessages = false;
+      this.noMoreMessages = false;
       if (!this.messages || this.messages.length < 3) {
         this.fetchPastMessages();
       }
