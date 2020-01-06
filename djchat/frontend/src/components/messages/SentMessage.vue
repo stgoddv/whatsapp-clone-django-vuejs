@@ -1,17 +1,33 @@
 <template>
-  <div class="sent-message max-w-lg ml-auto">
-    <div class="shadow-md border rounded-lg m-5 px-4 relative bg-green-200">
-      <div class="mb-3 mt-2">
-        <p class="text-left">{{ message.body }}</p>
-      </div>
+  <div class="flex">
+    <div class="sent-message ml-auto max-w-md">
+      <div class="shadow-md border rounded-lg mx-2 my-1 px-4 bg-green-200">
 
-      <div class="absolute flex" style="right: 10px; bottom: 5px;">
-        <p class="text-xs text-gray-600">{{ time }}</p>
-        <clock-icon v-if="message.sending" size="1x" class="ml-2"></clock-icon>
-        <check-icon v-else size="1x" class="ml-2"></check-icon>
+        <!-- Message body -->
+        <div class="mt-1">
+          <p class="text-right">{{ message.body }}</p>
+        </div>
+
+        <!-- Time data -->
+        <div class="flex justify-end mb-1">
+          <p class="text-xs text-gray-600">{{ time }}</p>
+
+          <!-- Sending icons -->
+          <clock-icon
+            v-if="message.sending"
+            size="1x"
+            class="ml-2"
+          ></clock-icon>
+          <check-icon
+            v-else
+            size="1x"
+            class="ml-2"
+          ></check-icon>
+        </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
