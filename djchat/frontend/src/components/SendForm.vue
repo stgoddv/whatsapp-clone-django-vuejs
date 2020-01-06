@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import uuid4 from "uuid4";
+
 import { SendIcon } from "vue-feather-icons";
 
 export default {
@@ -43,9 +45,21 @@ export default {
   methods: {
     sendMessage() {
       if (this.$store.state.selectedRoom) {
+        let front_key = uuid4();
+        let sendingMessage = {
+          room: this.$store.state.selectedRoom,
+          body: this.body,
+          is_owner: true,
+          sending: true,
+          timestamp: new Date().toString(),
+          front_key
+        };
+        this.$store.commit("LINK_MESSAGES_TO_ROOM", [sendingMessage]);
+        this.$store.commit("ADD_MESSAGE_TO_SENDING", sendingMessage);
         this.$store.dispatch("sendMessage", {
           room: this.$store.state.selectedRoom,
-          body: this.body
+          body: this.body,
+          front_key
         });
         this.body = "";
         this.$refs["inputText"].focus();

@@ -13,13 +13,22 @@ const mutations = {
   },
   LINK_MESSAGES_TO_ROOM(state, messages) {
     messages.forEach(element => {
-      if (element.room in state.room_messages) {
-        Vue.set(state.room_messages, element.room, [
-          ...state.room_messages[element.room],
-          element
-        ]);
+      let front_key = element.front_key;
+      if (state.sendingStatus.has(front_key)) {
+        // Pending sending status
+        let message = state.sendingStatus.get(front_key);
+        state.sendingStatus.delete(front_key);
+        delete message.sending;
+        Object.assign(message, element);
       } else {
-        Vue.set(state.room_messages, element.room, [element]);
+        if (element.room in state.room_messages) {
+          Vue.set(state.room_messages, element.room, [
+            ...state.room_messages[element.room],
+            element
+          ]);
+        } else {
+          Vue.set(state.room_messages, element.room, [element]);
+        }
       }
     });
   },
@@ -31,6 +40,9 @@ const mutations = {
   },
   SET_SELECTED_ROOM(state, roomId) {
     state.selectedRoom = roomId;
+  },
+  ADD_MESSAGE_TO_SENDING(state, message) {
+    state.sendingStatus.set(message.front_key, message);
   }
 };
 

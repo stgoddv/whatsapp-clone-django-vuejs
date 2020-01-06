@@ -54,13 +54,15 @@ const actions = {
         .catch(error => reject(error));
     });
   },
-  sendMessage(none, { room, body }) {
+  sendMessage(none, { room, body, front_key }) {
+    let payload = {
+      room,
+      body,
+      ...(front_key ? { front_key } : {})
+    };
     return new Promise((resolve, reject) => {
       axios
-        .post("/api/v1/messages/", {
-          room,
-          body
-        })
+        .post("/api/v1/messages/", payload)
         .then(response => {
           resolve(response);
         })
