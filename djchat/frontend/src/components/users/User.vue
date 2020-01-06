@@ -17,10 +17,7 @@
           <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
         <div class="flex justify-between">
-          <p
-            v-if="lastMessage"
-            class="text-gray-600 text-md text-left"
-          >
+          <p v-if="lastMessage" class="text-gray-600 text-md text-left">
             {{ lastMessage.body }}
           </p>
           <p v-else></p>

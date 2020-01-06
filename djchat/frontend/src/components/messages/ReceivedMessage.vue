@@ -10,10 +10,7 @@
         <p class="text-left">{{ message.body }}</p>
       </div>
 
-      <div
-        class="absolute"
-        style="right: 10px; bottom: 5px;"
-      >
+      <div class="absolute" style="right: 10px; bottom: 5px;">
         <p class="text-xs text-gray-600">{{ time }}</p>
       </div>
     </div>

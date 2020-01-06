@@ -37,8 +37,8 @@ const actions = {
     });
   },
   fetchPastMessages({ commit }, { firstMessageId, roomId }) {
-    let endpoint = firstMessageId ?
-      `/api/v1/messages/${roomId}?offset=${firstMessageId}`
+    let endpoint = firstMessageId
+      ? `/api/v1/messages/${roomId}?offset=${firstMessageId}`
       : `/api/v1/messages/${roomId}`;
     return new Promise((resolve, reject) => {
       axios

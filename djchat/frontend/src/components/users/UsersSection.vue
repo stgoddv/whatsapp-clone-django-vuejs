@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="shadow-md border rounded-lg bg-white"
-    style=""
-  >
+  <div class="shadow-md border rounded-lg bg-white" style="">
     <search class="mt-3" />
     <!-- Lista de usuarios -->
     <div

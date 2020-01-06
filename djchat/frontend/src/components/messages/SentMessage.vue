@@ -5,21 +5,10 @@
         <p class="text-left">{{ message.body }}</p>
       </div>
 
-      <div
-        class="absolute flex"
-        style="right: 10px; bottom: 5px;"
-      >
+      <div class="absolute flex" style="right: 10px; bottom: 5px;">
         <p class="text-xs text-gray-600">{{ time }}</p>
-        <clock-icon
-          v-if="message.sending"
-          size="1x"
-          class="ml-2"
-        ></clock-icon>
-        <check-icon
-          v-else
-          size="1x"
-          class="ml-2"
-        ></check-icon>
+        <clock-icon v-if="message.sending" size="1x" class="ml-2"></clock-icon>
+        <check-icon v-else size="1x" class="ml-2"></check-icon>
       </div>
     </div>
   </div>

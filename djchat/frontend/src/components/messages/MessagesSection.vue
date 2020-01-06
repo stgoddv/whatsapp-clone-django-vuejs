@@ -1,9 +1,6 @@
 <template>
   <div class="relative">
-    <div
-      v-if="!$store.state.selectedRoom"
-      class="alert"
-    >
+    <div v-if="!$store.state.selectedRoom" class="alert">
       <div
         class="select-none mt-6 border 
         border-teal-500 shadow rounded-lg py-3"
@@ -27,18 +24,9 @@
         >
           <p class="text-sm">Loading older messages.</p>
         </div>
-        <div
-          v-for="message in messages"
-          :key="message.id"
-        >
-          <sent-message
-            :message="message"
-            v-if="message.is_owner"
-          />
-          <received-message
-            :message="message"
-            v-else
-          />
+        <div v-for="message in messages" :key="message.id">
+          <sent-message :message="message" v-if="message.is_owner" />
+          <received-message :message="message" v-else />
         </div>
       </div>
     </div>
