@@ -3,7 +3,7 @@
     class="user-row border-b px-3 py-3 
     cursor-pointer rounded-lg hover:shadow hover:bg-green-200"
     style="transition: box-shadow 0.3s, background-color 0.3s;"
-    :class="{ 'bg-green-100': isSelected }"
+    :class="{ 'bg-green-200': isSelected }"
   >
     <div class="flex items-center">
       <img
@@ -17,7 +17,10 @@
           <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
         <div class="flex justify-between">
-          <p v-if="lastMessage" class="text-gray-600 text-md text-left">
+          <p
+            v-if="lastMessage"
+            class="text-gray-600 text-md text-left"
+          >
             {{ lastMessage.body }}
           </p>
           <p v-else></p>
