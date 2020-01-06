@@ -1,17 +1,27 @@
 <template>
-  <div class="shadow-md border rounded-lg bg-white" style="">
+  <div
+    class="shadow-md border rounded-lg bg-white"
+    style=""
+  >
     <search class="mt-3" />
     <!-- Lista de usuarios -->
     <div
       class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
       style="height: 20rem;"
     >
-      <div v-for="room in rooms" :key="room.id" @click="selectRoom(room.id)">
-        <user
-          :room="room"
-          :isSelected="room.id === $store.state.selectedRoom"
-        />
-      </div>
+      <transition-group>
+        <div
+          v-for="room in rooms"
+          :key="room.id"
+          @click="selectRoom(room.id)"
+          class="user-row"
+        >
+          <user
+            :room="room"
+            :isSelected="room.id === $store.state.selectedRoom"
+          />
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -47,6 +57,10 @@ export default {
 </script>
 
 <style scoped>
+.user-row {
+  transition: all 0.5s;
+}
+
 /* Scrollbar */
 /* width */
 .scrollbar::-webkit-scrollbar {
