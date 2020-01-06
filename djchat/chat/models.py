@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 
+import uuid
+
 
 class MessageManager(models.Manager):
     def get_pending_messages(self, user):
@@ -23,6 +25,10 @@ class Message(models.Model):
     pending_reception = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         related_name='pending_messages')
+
+    front_key = models.UUIDField(
+        verbose_name="frontend key",
+        default=uuid.uuid4)
 
     objects = MessageManager()
 

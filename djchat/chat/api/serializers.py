@@ -21,7 +21,7 @@ class MessageSerializer(serializers.ModelSerializer):
 class CreateMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ('room', 'body',)
+        fields = ('room', 'body', 'front_key',)
 
 
 class RoomSerializer(serializers.ModelSerializer):
