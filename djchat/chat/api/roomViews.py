@@ -71,9 +71,10 @@ class RoomViewSet(viewsets.ViewSet):
         for room_data in room_serializer.data:
             participants = participants.union(set(room_data['participants']))
             messages.add(room_data['last_message'])
-        # build relation responses
+        # build participants response
         participants_obj = User.objects.filter(id__in=participants)
         users_serializer = UserSerializer(participants_obj, many=True)
+        # build messages response
         messages_obj = Message.objects.filter(id__in=messages)
         messages_serializer = MessageSerializer(messages_obj,
                                                 context={'request': request},
