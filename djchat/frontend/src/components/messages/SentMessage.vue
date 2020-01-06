@@ -3,16 +3,35 @@
     <div class="shadow-md border rounded-lg m-5 px-4 relative bg-green-200">
 
       <div class="mb-3 mt-2">
-        <p class="text-left">buena cabros eso es lo que está pasando con la volá y la onda .</p>
+        <p class="text-left">{{ message.body }}</p>
       </div>
 
       <div
         class="absolute"
         style="right: 10px; bottom: 5px;"
       >
-        <p class="text-xs text-gray-600">16:42</p>
+        <p class="text-xs text-gray-600">{{ time }}</p>
       </div>
 
     </div>
   </div>
 </template>
+
+<script>
+import dateFormat from "dateformat";
+
+export default {
+  props: {
+    message: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    time() {
+      let time = dateFormat(new Date(this.message.timestamp), "hh:MM");
+      return time;
+    }
+  }
+};
+</script>

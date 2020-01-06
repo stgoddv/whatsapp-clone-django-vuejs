@@ -3,21 +3,44 @@
     <div class="shadow-md border rounded-lg m-5 px-4 relative bg-white">
 
       <div class="flex justify-between py-1 mt-1">
-        <p class="text-xs text-purple-600 font-bold">stgoddv@gmail.com</p>
-        <p class="text-xs text-gray-600">~Santiago</p>
+        <p class="text-xs text-purple-600 font-bold">{{ getUsername }}</p>
+        <p class="text-xs text-gray-600">~Email(todo)</p>
       </div>
 
       <div class="mb-3">
-        <p class="text-left">buena cabros eso es lo que está pasando con la volá y la onda.</p>
+        <p class="text-left">{{ message.body }}</p>
       </div>
 
       <div
         class="absolute"
         style="right: 10px; bottom: 5px;"
       >
-        <p class="text-xs text-gray-600">16:42</p>
+        <p class="text-xs text-gray-600">{{ time }}</p>
       </div>
 
     </div>
   </div>
 </template>
+
+<script>
+import dateFormat from "dateformat";
+
+export default {
+  props: {
+    message: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    time() {
+      return dateFormat(new Date(this.message.timestamp), "hh:MM");
+    },
+    getUsername() {
+      let users = Object.values(this.$store.state.users);
+      let user = users.find(el => el.id === this.message.author);
+      return user.username;
+    }
+  }
+};
+</script>

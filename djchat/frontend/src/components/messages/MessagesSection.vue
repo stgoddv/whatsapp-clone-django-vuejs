@@ -20,16 +20,19 @@
       style="min-height: 20rem; max-height: 25rem;"
     >
       <div v-if="$store.state.selectedRoom">
-        <received-message />
-        <sent-message />
-        <received-message />
-        <sent-message />
-        <received-message />
-        <sent-message />
-        <received-message />
-        <sent-message />
-        <received-message />
-        <sent-message />
+        <div
+          v-for="message in messages"
+          :key="message.id"
+        >
+          <sent-message
+            :message="message"
+            v-if="message.imOwner"
+          />
+          <received-message
+            :message="message"
+            v-else
+          />
+        </div>
       </div>
 
     </div>
@@ -42,13 +45,44 @@ import SentMessage from "./SentMessage.vue";
 import ReceivedMessage from "./ReceivedMessage.vue";
 
 export default {
+  data() {
+    return {
+      messages: []
+    };
+  },
   components: {
     SentMessage,
     ReceivedMessage
   },
+  methods: {
+    scrollToBottom() {
+      let sc = this.$refs["messages"];
+      sc.scrollTo(0, sc.scrollHeight);
+    }
+  },
   mounted() {
-    let sc = this.$refs["messages"];
-    sc.scrollTo(0, sc.scrollHeight);
+    this.scrollToBottom();
+  },
+  computed: {
+    selectedRoom() {
+      return this.$store.state.selectedRoom;
+    }
+  },
+  watch: {
+    selectedRoom(roomId) {
+      let messages = this.$store.state.room_messages[roomId];
+      this.messages = messages;
+      // pedir mensajes antiguos si se da el caso
+      if (this.messages.length < 3) {
+        console.log("menor que 3");
+        // fetchOldMessages
+      }
+    },
+    messages() {
+      this.$nextTick(() => {
+        this.scrollToBottom();
+      });
+    }
   }
 };
 </script>
