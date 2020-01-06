@@ -5,7 +5,10 @@
 
         <!-- Message header -->
         <div class="flex justify-between py-1 mt-1">
-          <p class="text-xs text-purple-600 font-bold">{{ getUser.username }}</p>
+          <p
+            class="text-xs font-bold"
+            :style="`color: rgb(${getColor.red}, ${getColor.green}, ${getColor.blue});`"
+          >{{ getUser.username }}</p>
           <p class="text-xs text-gray-600">~{{ getUser.email }}</p>
         </div>
 
@@ -31,6 +34,8 @@
 <script>
 import dateFormat from "dateformat";
 
+import { colorOffsets, getHash } from "@/global/variables.js";
+
 export default {
   props: {
     message: {
@@ -46,6 +51,18 @@ export default {
       let users = Object.values(this.$store.state.users);
       let user = users.find(el => el.id === this.message.author);
       return user;
+    },
+    getColor() {
+      let username = this.getUser.username;
+      let { red, green, blue } = colorOffsets;
+      red = (getHash(username) + red) ** 2 % 256;
+      green = (getHash(username) + green) ** 2 % 256;
+      blue = (getHash(username) + blue) ** 2 % 256;
+      return {
+        red,
+        green,
+        blue
+      };
     }
   }
 };
