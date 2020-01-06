@@ -12,6 +12,7 @@
     "core-js": "^3.4.4",
     "dateformat": "^3.0.3",
     "tailwindcss": "^1.1.4",
+    "uuid4": "^1.1.4",
     "vue": "^2.6.10",
     "vue-feather-icons": "^5.0.0",
     "vue-router": "^3.1.3",
