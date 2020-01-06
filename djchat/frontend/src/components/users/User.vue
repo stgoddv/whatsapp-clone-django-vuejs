@@ -43,11 +43,7 @@ export default {
       return last_activity;
     },
     lastMessage() {
-      const messages = this.room.messages;
-      const _lastMessage = messages[messages.length - 1];
-      return this.$store.state.messages.find(
-        message => message.id === _lastMessage
-      );
+      return this.$store.state.messages[this.room.last_message];
     }
   },
   props: {

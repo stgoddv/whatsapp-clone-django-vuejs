@@ -1,9 +1,10 @@
 
 const state = {
   selectedRoom: null,
-  rooms: [],
-  messages: [],
-  users: []
+  rooms: {},
+  users: {},
+  messages: {},
+  room_messages: {}
 };
 
 export default state;

@@ -47,6 +47,8 @@ export default {
   },
   computed: {
     rooms() {
+      // falta ordenar por actividad
+      // y que al llegar un nuevo mensaje se actualice la actividad
       return this.$store.state.rooms;
     }
   }
