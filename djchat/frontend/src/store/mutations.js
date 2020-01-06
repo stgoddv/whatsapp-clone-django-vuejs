@@ -20,11 +20,14 @@ const mutations = {
   LINK_MESSAGES_TO_ROOM(state, messages) {
     messages.forEach(element => {
       if (element.room in state.room_messages) {
-        state.room_messages[element.room].push(element);
+        Vue.set(state.room_messages, element.room, [...state.room_messages[element.room], element]);
       } else {
-        state.room_messages[element.room] = [element];
+        Vue.set(state.room_messages, element.room, [element]);
       }
     });
+  },
+  LINK_PAST_MESSAGES_TO_ROOM(state, { pastMessages, roomId }) {
+    Vue.set(state.room_messages, roomId, [...pastMessages, ...state.room_messages[roomId]]);
   },
   SET_SELECTED_ROOM(state, roomId) {
     state.selectedRoom = roomId;

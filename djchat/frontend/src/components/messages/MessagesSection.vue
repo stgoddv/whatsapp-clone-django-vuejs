@@ -1,6 +1,5 @@
 <template>
   <div class="relative">
-
     <div
       v-if="!$store.state.selectedRoom"
       class="alert"
@@ -46,9 +45,7 @@ import ReceivedMessage from "./ReceivedMessage.vue";
 
 export default {
   data() {
-    return {
-      messages: []
-    };
+    return {};
   },
   components: {
     SentMessage,
@@ -66,16 +63,19 @@ export default {
   computed: {
     selectedRoom() {
       return this.$store.state.selectedRoom;
+    },
+    messages() {
+      let selectedRoom = this.$store.state.selectedRoom;
+      return this.$store.state.room_messages[selectedRoom];
     }
   },
   watch: {
     selectedRoom(roomId) {
-      let messages = this.$store.state.room_messages[roomId];
-      this.messages = messages;
-      // pedir mensajes antiguos si se da el caso
       if (this.messages.length < 3) {
-        console.log("menor que 3");
-        // fetchOldMessages
+        this.$store.dispatch("fetchPastMessages", {
+          firstMessageId: this.messages[0].id,
+          roomId
+        });
       }
     },
     messages() {

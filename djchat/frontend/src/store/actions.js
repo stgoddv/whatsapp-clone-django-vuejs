@@ -30,6 +30,19 @@ const actions = {
         resolve(response);
       }).catch(error => reject(error));
     });
+  },
+  fetchPastMessages({ commit }, { firstMessageId, roomId }) {
+    return new Promise((resolve, reject) => {
+      axios.get(`/api/v1/messages/${roomId}?offset=${firstMessageId}`).then(response => {
+        commit('SET_MESSAGES', response.data.messages);
+        commit('SET_USERS', response.data.users);
+        commit('LINK_PAST_MESSAGES_TO_ROOM', {
+          pastMessages: response.data.messages,
+          roomId
+        });
+        resolve(response);
+      }).catch(error => reject(error));
+    });
   }
 };
 
