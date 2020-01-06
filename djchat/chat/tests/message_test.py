@@ -36,3 +36,10 @@
 # Mesajes recientes
 
 # verificar que efectivamente vengan users y rooms correctos
+
+
+# Order
+
+# Verificar que efecticamente los mensajes vengan en orden descendente
+
+# Verificar que al offsetear vengan en orden descendente
