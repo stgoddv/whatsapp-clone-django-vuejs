@@ -29,6 +29,7 @@
 import uuid4 from "uuid4";
 
 import { SendIcon } from "vue-feather-icons";
+import { checkText } from "smile2emoji";
 
 export default {
   data() {
@@ -42,6 +43,7 @@ export default {
   methods: {
     sendMessage() {
       if (this.$store.state.selectedRoom) {
+        this.body = checkText(this.body);
         let front_key = uuid4();
         let sendingMessage = {
           room: this.$store.state.selectedRoom,
