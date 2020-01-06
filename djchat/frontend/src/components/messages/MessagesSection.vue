@@ -18,7 +18,7 @@
     <!-- Messages window -->
     <div
       ref="messages"
-      class="messages-section border rounded-lg border-teal-500 pb-2 chat scrollbar overflow-y-auto overflow-x-hidden"
+      class="messages-section border rounded-lg border-teal-500 chat scrollbar overflow-y-auto overflow-x-hidden"
       style="min-height: 20rem; max-height: 25rem;"
       @scroll="onScroll"
     >
@@ -49,6 +49,21 @@
             v-else
           />
         </div>
+
+        <!-- Fetching older messages alert -->
+        <div
+          v-if="newMessagesReceived"
+          class="py-1 sticky flex justify-center select-none"
+          style="background-color: rgba(255,255,255,0.7);"
+        >
+          <p class="text-sm mx-1">New messages received</p>
+          <p
+            @click="scrollToBottom()"
+            class="text-sm mx-1 text-blue-500 
+            cursor-pointer font-medium hover:font-semibold"
+          >(go to bottom)</p>
+        </div>
+
       </div>
     </div>
   </div>
@@ -63,7 +78,8 @@ export default {
     return {
       fetchingMessages: false,
       fixScrollToBottom: true,
-      noMoreMessages: false
+      noMoreMessages: false,
+      newMessagesReceived: false
     };
   },
   components: {
@@ -78,6 +94,7 @@ export default {
     onScroll({ target: { scrollTop, clientHeight, scrollHeight } }) {
       if (scrollTop + clientHeight >= scrollHeight) {
         this.fixScrollToBottom = true;
+        this.newMessagesReceived = false;
       } else {
         this.fixScrollToBottom = false;
       }
@@ -134,12 +151,21 @@ export default {
           this.scrollToBottom();
         }
       });
+      if (!this.fixScrollToBottom) {
+        this.newMessagesReceived = true;
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+div.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  bottom: 0;
+}
+
 .chat {
   background-image: url("~@/assets/imgs/main-bg.jpg");
   background-repeat: no-repeat;
