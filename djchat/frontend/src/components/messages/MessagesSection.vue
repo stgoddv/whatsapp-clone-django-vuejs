@@ -33,7 +33,7 @@
         >
           <sent-message
             :message="message"
-            v-if="message.imOwner"
+            v-if="message.is_owner"
           />
           <received-message
             :message="message"
@@ -79,9 +79,10 @@ export default {
       if (!this.fetchingMessages) {
         this.fetchingMessages = true;
         let roomId = this.$store.state.selectedRoom;
+        let firstMessageId = this.messages ? this.messages[0].id : 0;
         this.$store
           .dispatch("fetchPastMessages", {
-            firstMessageId: this.messages[0].id,
+            firstMessageId,
             roomId
           })
           .then(() => {
@@ -108,7 +109,7 @@ export default {
   watch: {
     selectedRoom() {
       this.fetchingMessages = false;
-      if (this.messages.length < 3) {
+      if (!this.messages || this.messages.length < 3) {
         this.fetchPastMessages();
       }
       setTimeout(() => this.scrollToBottom(), 10);
