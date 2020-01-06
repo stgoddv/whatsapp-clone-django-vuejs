@@ -5,12 +5,16 @@
       type="text"
       placeholder="Send a message"
       aria-label="Enter text"
+      v-model="body"
+      ref="inputText"
+      @keyup.enter="sendMessage()"
     >
     <button
       class="flex-shrink-0 select-none bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
       :class="{ 'cursor-not-allowed bg-teal-700 border-teal-700': !$store.state.selectedRoom }"
       type="button"
       style="transition: background-color 0.3s;"
+      @click.prevent="sendMessage()"
     >
       <send-icon
         size="1.5x"
@@ -25,8 +29,25 @@
 import { SendIcon } from "vue-feather-icons";
 
 export default {
+  data() {
+    return {
+      body: ""
+    };
+  },
   components: {
     SendIcon
+  },
+  methods: {
+    async sendMessage() {
+      if (this.$store.state.selectedRoom) {
+        await this.$store.dispatch("sendMessage", {
+          room: this.$store.state.selectedRoom,
+          body: this.body
+        });
+        this.body = "";
+        this.$refs["inputText"].focus();
+      }
+    }
   }
 };
 </script>

@@ -43,6 +43,16 @@ const actions = {
         resolve(response);
       }).catch(error => reject(error));
     });
+  },
+  sendMessage(none, { room, body }) {
+    return new Promise((resolve, reject) => {
+      axios.post("/api/v1/messages/", {
+        room,
+        body
+      }).then(response => {
+        resolve(response);
+      }).catch(error => reject(error));
+    });
   }
 };
 
