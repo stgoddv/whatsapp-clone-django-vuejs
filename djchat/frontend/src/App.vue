@@ -37,6 +37,7 @@ export default {
     // First fetch older pending messages and then the recent ones
     await this.$store.dispatch("fetchMessages");
     await this.$store.dispatch("fetchRecentActivity");
+    await this.$store.dispatch("fetchUnreadMessages");
     this.initializeWebSocketSupport();
   }
 };
