@@ -10,13 +10,13 @@
       style="height: 20rem;"
     >
       <div
-        v-for="(room, index) in rooms"
+        v-for="room in rooms"
         :key="room.id"
-        @click="selectRoom(index)"
+        @click="selectRoom(room.id)"
       >
         <user
           :room="room"
-          :isSelected="index === selectedRoomIndex"
+          :isSelected="room.id === $store.state.selectedRoom"
         />
       </div>
 
@@ -32,8 +32,7 @@ import Search from "@/components/Search.vue";
 export default {
   data() {
     return {
-      users: [],
-      selectedRoomIndex: null
+      users: []
     };
   },
   components: {
@@ -41,8 +40,8 @@ export default {
     Search
   },
   methods: {
-    selectRoom(index) {
-      this.selectedRoomIndex = index;
+    selectRoom(roomId) {
+      this.$store.commit("SET_SELECTED_ROOM", roomId);
     }
   },
   computed: {

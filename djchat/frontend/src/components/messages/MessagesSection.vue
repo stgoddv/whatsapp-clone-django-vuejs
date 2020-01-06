@@ -1,20 +1,40 @@
 <template>
-  <div
-    ref="messages"
-    class="messages-section border rounded-lg border-teal-500 py-2 chat scrollbar overflow-y-auto"
-    style="min-height: 20rem; max-height: 25rem;"
-  >
-    <received-message />
-    <sent-message />
-    <received-message />
-    <sent-message />
-    <received-message />
-    <sent-message />
-    <received-message />
-    <sent-message />
-    <received-message />
-    <sent-message />
+  <div class="relative">
+
+    <div
+      v-if="!$store.state.selectedRoom"
+      class="alert"
+    >
+      <div
+        class="select-none mt-6 border 
+        border-teal-500 shadow rounded-lg py-3"
+        style="background-color: rgba(255,255,255,0.6);"
+      >
+        <p class="px-3">Selecciona una conversación para empezar!</p>
+      </div>
+    </div>
+
+    <div
+      ref="messages"
+      class="messages-section border rounded-lg border-teal-500 py-2 chat scrollbar overflow-y-auto"
+      style="min-height: 20rem; max-height: 25rem;"
+    >
+      <div v-if="$store.state.selectedRoom">
+        <received-message />
+        <sent-message />
+        <received-message />
+        <sent-message />
+        <received-message />
+        <sent-message />
+        <received-message />
+        <sent-message />
+        <received-message />
+        <sent-message />
+      </div>
+
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -38,6 +58,15 @@ export default {
   background-image: url("~@/assets/imgs/main-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.alert {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
 }
 
 /* Scrollbar */
