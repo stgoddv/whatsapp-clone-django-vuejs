@@ -2,7 +2,6 @@
   <div class="flex">
     <div class="sent-message ml-auto max-w-md">
       <div class="shadow-md border rounded-lg mx-2 my-1 px-4 bg-green-200">
-
         <!-- Message body -->
         <div class="mt-1">
           <p class="text-right">{{ message.body }}</p>
@@ -18,16 +17,11 @@
             size="1x"
             class="ml-2"
           ></clock-icon>
-          <check-icon
-            v-else
-            size="1x"
-            class="ml-2"
-          ></check-icon>
+          <check-icon v-else size="1x" class="ml-2"></check-icon>
         </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>

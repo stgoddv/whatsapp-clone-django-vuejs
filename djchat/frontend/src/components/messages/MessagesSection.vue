@@ -1,11 +1,7 @@
 <template>
   <div class="relative">
-
     <!-- Fallback when no room is selected yet -->
-    <div
-      v-if="!$store.state.selectedRoom"
-      class="alert"
-    >
+    <div v-if="!$store.state.selectedRoom" class="alert">
       <div
         class="select-none mt-6 border 
         border-teal-500 shadow rounded-lg py-3"
@@ -23,7 +19,6 @@
       @scroll="onScroll"
     >
       <div v-if="$store.state.selectedRoom">
-
         <!-- Fetching older messages alert -->
         <div
           v-if="fetchingMessages"
@@ -34,20 +29,10 @@
         </div>
 
         <!-- Messages section -->
-        <div
-          v-for="message in messages"
-          :key="message.id"
-        >
-
+        <div v-for="message in messages" :key="message.id">
           <!-- Sent or received -->
-          <sent-message
-            :message="message"
-            v-if="message.is_owner"
-          />
-          <received-message
-            :message="message"
-            v-else
-          />
+          <sent-message :message="message" v-if="message.is_owner" />
+          <received-message :message="message" v-else />
         </div>
 
         <!-- Fetching older messages alert -->
@@ -61,9 +46,10 @@
             @click="scrollToBottom()"
             class="text-sm mx-1 text-blue-500 
             cursor-pointer font-medium hover:font-semibold"
-          >(go to bottom)</p>
+          >
+            (go to bottom)
+          </p>
         </div>
-
       </div>
     </div>
   </div>
