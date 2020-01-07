@@ -70,6 +70,7 @@ class Message(models.Model):
         if not self.pending_reception.exists():
             self.signal_to_room('update_message', {
                 'message_id': self.id,
+                'room_id': self.room.id,
                 'kind': 'all_received'
             })
 
@@ -78,6 +79,7 @@ class Message(models.Model):
         if not self.pending_read.exists():
             self.signal_to_room('update_message', {
                 'message_id': self.id,
+                'room_id': self.room.id,
                 'kind': 'all_read'
             })
 
