@@ -37,19 +37,27 @@ import { checkText } from "smile2emoji";
 export default {
   data() {
     return {
-      body: ""
+      body: "",
+      timerId: null
     };
   },
   components: {
     SendIcon
   },
   methods: {
+    throttleFunction(fn, delay) {
+      if (this.timerId) return;
+      fn();
+      this.timerId = setTimeout(() => {
+        this.timerId = null;
+      }, delay);
+    },
     sendMessage() {
-      if (this.$store.state.selectedRoom && this.body.trim()) {
+      if (this.room && this.body.trim()) {
         this.body = checkText(this.body);
         let front_key = uuid4();
         let sendingMessage = {
-          room: this.$store.state.selectedRoom,
+          room: this.room,
           body: this.body,
           is_owner: true,
           sending: true,
@@ -59,13 +67,31 @@ export default {
         this.$store.commit("LINK_MESSAGES_TO_ROOM", [sendingMessage]);
         this.$store.commit("ADD_MESSAGE_TO_SENDING", sendingMessage);
         this.$store.dispatch("sendMessage", {
-          room: this.$store.state.selectedRoom,
+          room: this.room,
           body: this.body,
           front_key
         });
         this.body = "";
         this.$refs["inputText"].focus();
       }
+    }
+  },
+  computed: {
+    room() {
+      return this.$store.state.selectedRoom;
+    }
+  },
+  watch: {
+    body(newValue) {
+      if (newValue != "") {
+        this.throttleFunction(
+          () => this.$store.dispatch("postWriting", this.room),
+          10000
+        );
+      }
+    },
+    room() {
+      this.timerId = null;
     }
   }
 };

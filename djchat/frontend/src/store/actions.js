@@ -90,6 +90,16 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  postWriting(none, room_id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`api/v1/rooms/${room_id}/writing`)
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 
