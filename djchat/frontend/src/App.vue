@@ -26,8 +26,10 @@ export default {
         if (message === "update") {
           await _this.$store.dispatch("fetchUnreadMessages");
           await _this.$store.dispatch("fetchMessages");
+          EventBus.$emit("update");
+        } else if (message === "writing") {
+          EventBus.$emit("writing", data);
         }
-        EventBus.$emit(message);
       };
       chatSocket.onclose = function() {
         console.error("Chat socket closed unexpectedly");
