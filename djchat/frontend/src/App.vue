@@ -29,6 +29,13 @@ export default {
           EventBus.$emit("update");
         } else if (message === "writing") {
           EventBus.$emit("writing", data.data);
+        } else if (message === "update_message") {
+          const { kind, message_id } = data.data;
+          if (kind === "all_received") {
+            _this.$store.commit("MARK_MESSAGE_ALL_RECEIVED", message_id);
+          } else if (kind === "all_read") {
+            _this.$store.commit("MARK_MESSAGE_ALL_READ", message_id);
+          }
         }
       };
       chatSocket.onclose = function() {

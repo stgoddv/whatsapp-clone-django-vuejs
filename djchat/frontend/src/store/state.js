@@ -4,7 +4,13 @@ const state = {
   users: {},
   room_messages: {},
   unreadMessages: {},
-  sendingStatus: new Map()
+
+  // Update signals
+  allReceived: {},
+  allRead: {},
+
+  // This uses map because key is uiid4
+  sendingStatus: new Map(),
 };
 
 export default state;

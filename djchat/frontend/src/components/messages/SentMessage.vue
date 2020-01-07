@@ -18,13 +18,13 @@
             style="font-size: 16px;"
           >access_time</i>
           <i
-            v-if="message.all_received"
+            v-if="allReceived[this.message.id] || this.message.all_received || false"
             class="material-icons ml-2"
-            :class="{ 'font-bold text-teal-400': message.all_read }"
+            :class="{ 'font-bold text-teal-400': allRead[this.message.id] || this.message.all_read || false }"
             style="font-size: 16px;"
           >done_all</i>
           <i
-            v-if="!message.sending && !message.all_received"
+            v-if="!message.sending && !(allReceived[this.message.id] || this.message.all_received || false)"
             class="material-icons ml-2"
             style="font-size: 16px;"
           >done</i>
@@ -49,6 +49,12 @@ export default {
     time() {
       let time = dateFormat(new Date(this.message.timestamp), "hh:MM");
       return time;
+    },
+    allReceived() {
+      return this.$store.state.allReceived;
+    },
+    allRead() {
+      return this.$store.state.allRead;
     }
   },
   created() {

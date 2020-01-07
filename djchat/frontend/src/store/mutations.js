@@ -61,6 +61,12 @@ const mutations = {
         Vue.delete(state.unreadMessages, message_id);
       }
     }
+  },
+  MARK_MESSAGE_ALL_RECEIVED(state, message_id) {
+    Vue.set(state.allReceived, message_id, true);
+  },
+  MARK_MESSAGE_ALL_READ(state, message_id) {
+    Vue.set(state.allRead, message_id, true);
   }
 };
 
