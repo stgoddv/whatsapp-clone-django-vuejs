@@ -1,10 +1,13 @@
 <template>
-  <div class="shadow-md border rounded-lg bg-white" style="">
+  <div
+    class="shadow-md border rounded-lg bg-white"
+    style=""
+  >
     <search class="mt-3" />
     <!-- Lista de usuarios -->
     <div
       class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
-      style="height: 20rem;"
+      style="height: 15rem;"
     >
       <transition-group>
         <div
