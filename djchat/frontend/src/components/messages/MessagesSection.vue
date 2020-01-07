@@ -130,6 +130,7 @@ export default {
         this.fetchPastMessages();
       }
       setTimeout(() => this.scrollToBottom(), 10);
+      this.$store.dispatch("markRoomAsRead", this.selectedRoom);
     },
     messages() {
       this.$nextTick(() => {

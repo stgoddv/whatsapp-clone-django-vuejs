@@ -7,7 +7,6 @@
 
         <!-- Seccion Invitaciones -->
         <invitations />
-
       </div>
 
       <div class="w-2/3 p-3">
@@ -21,10 +20,9 @@
 
             <!-- Footer Copyright -->
             <div class="text-right">
-              <a
-                style="font-size: 9px;"
-                href="http://www.freepik.com"
-              >Background vector created by kjpargeter - www.freepik.com</a>
+              <a style="font-size: 9px;" href="http://www.freepik.com"
+                >Background vector created by kjpargeter - www.freepik.com</a
+              >
             </div>
           </div>
         </div>

@@ -17,7 +17,6 @@
           <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
         <div class="flex justify-between">
-
           <!-- Last message -->
           <div v-if="lastMessage">
             <p
@@ -26,10 +25,7 @@
             >
               {{ whosWriting }} is writing...
             </p>
-            <p
-              v-else
-              class="text-gray-600 text-md text-left"
-            >
+            <p v-else class="text-gray-600 text-md text-left">
               {{ lastMessage.body }}
             </p>
           </div>
@@ -38,7 +34,7 @@
 
           <!-- Unread messages -->
           <p
-            v-if="unreadMessages && unreadMessages != 0"
+            v-if="unreadMessages && unreadMessages != 0 && !isSelected"
             class="circle mx-1"
           >
             {{ unreadMessages }}

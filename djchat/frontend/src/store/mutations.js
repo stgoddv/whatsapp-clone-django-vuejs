@@ -54,6 +54,13 @@ const mutations = {
     if (message_id in state.unreadMessages) {
       Vue.delete(state.unreadMessages, message_id);
     }
+  },
+  REMOVE_ROOM_MESSAGES_FROM_UNREAD(state, room_id) {
+    for (let message_id in state.unreadMessages) {
+      if (state.unreadMessages[message_id] === room_id) {
+        Vue.delete(state.unreadMessages, message_id);
+      }
+    }
   }
 };
 

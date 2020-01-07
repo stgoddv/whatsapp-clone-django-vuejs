@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!-- <div>
             <p>Modal</p>
             <button
@@ -26,21 +25,20 @@
           Close
         </button>
       </card-modal> -->
-
   </div>
 </template>
 
 <script>
-import CardModal from "@/components/Modal.vue";
+// import CardModal from "@/components/Modal.vue";
 
 export default {
   data() {
     return {
-      showModal: false
+      // showModal: false
     };
   },
   components: {
-    CardModal
+    // CardModal
   }
 };
 </script>

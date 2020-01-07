@@ -100,6 +100,17 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  markRoomAsRead({ commit }, room_id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/rooms/${room_id}/read`)
+        .then(response => {
+          commit("REMOVE_ROOM_MESSAGES_FROM_UNREAD", room_id);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 
