@@ -1,7 +1,12 @@
 from django.db import models
 from django.conf import settings
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 import uuid
+
+channel_layer = get_channel_layer()
 
 
 class MessageManager(models.Manager):
@@ -51,11 +56,30 @@ class Message(models.Model):
     def __str__(self):
         return self.body
 
+    def signal_to_room(self, message, data={}):
+        for participant in self.room.participants.all():
+            async_to_sync(channel_layer.group_send)(
+                f"group_general_user_{participant.id}", {
+                    "type": "chat_message",
+                    "message": message,
+                    'data': data
+                })
+
     def remove_user_from_pending(self, user):
         self.pending_reception.remove(user)
+        if not self.pending_reception.exists():
+            self.signal_to_room('update_message', {
+                'message_id': self.id,
+                'kind': 'all_received'
+            })
 
     def mark_as_read(self, user):
         self.pending_read.remove(user)
+        if not self.pending_read.exists():
+            self.signal_to_room('update_message', {
+                'message_id': self.id,
+                'kind': 'all_read'
+            })
 
 
 class Room(models.Model):
