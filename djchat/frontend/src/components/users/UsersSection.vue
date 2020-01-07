@@ -16,6 +16,7 @@
           <user
             :room="room"
             :isSelected="room.id === $store.state.selectedRoom"
+            @whosWriting="$emit('whosWriting', $event)"
           />
         </div>
       </transition-group>

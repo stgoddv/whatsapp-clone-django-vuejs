@@ -3,7 +3,7 @@
     <div class="flex flex-wrap">
       <div class="w-1/3 p-3">
         <!-- Seccion conversaciones  -->
-        <users-section />
+        <users-section @whosWriting="setWriting($event)" />
 
         <!-- Seccion Invitaciones -->
         <invitations />
@@ -16,7 +16,12 @@
             <messages-section class="mt-8" />
 
             <!-- Envio de mensaje -->
-            <send-form class="mt-5" />
+            <div class="relative">
+              <p v-if="whosWriting" class="absolute left-0 text-xs">
+                {{ whosWriting }} is writing...
+              </p>
+              <send-form class="mt-5" />
+            </div>
 
             <!-- Footer Copyright -->
             <div class="text-right">
@@ -43,6 +48,29 @@ export default {
     MessagesSection,
     UsersSection,
     Invitations
+  },
+  data() {
+    return {
+      whosWriting: ""
+    };
+  },
+  computed: {
+    selectedRoom() {
+      return this.$store.state.selectedRoom;
+    }
+  },
+  watch: {
+    selectedRoom() {
+      this.whosWriting = "";
+    }
+  },
+  methods: {
+    setWriting(data) {
+      const { value, room } = data;
+      if (this.selectedRoom === room) {
+        this.whosWriting = value;
+      }
+    }
   }
 };
 </script>

@@ -100,6 +100,9 @@ export default {
   watch: {
     lastMessage() {
       this.whosWriting = "";
+    },
+    whosWriting(value) {
+      this.$emit("whosWriting", { value, room: this.room.id });
     }
   },
   props: {
