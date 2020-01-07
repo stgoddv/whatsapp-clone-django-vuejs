@@ -6,7 +6,7 @@
       style="background-color: rgba(0, 0, 0, 0.75); z-index:1;"
       @click.self="close"
     >
-      <div class="relative w-full max-w-2xl bg-white shadow-lg rounded-lg p-8">
+      <div class="relative w-full max-w-lg bg-white shadow-lg rounded-lg p-8">
         <button
           aria-label="close"
           class="absolute top-0 right-0 text-xl text-gray-500 my-2 mx-4"

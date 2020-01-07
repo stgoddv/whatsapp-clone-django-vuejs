@@ -19,7 +19,10 @@
       style="transition: background-color 0.3s;"
       @click.prevent="sendMessage()"
     >
-      <send-icon size="1.5x" class="custom-class inline-block"></send-icon>
+      <send-icon
+        size="1.5x"
+        class="custom-class inline-block"
+      ></send-icon>
       <p class="inline-block mx-3 text-lg">Enviar</p>
     </button>
   </div>
@@ -42,7 +45,7 @@ export default {
   },
   methods: {
     sendMessage() {
-      if (this.$store.state.selectedRoom) {
+      if (this.$store.state.selectedRoom && this.body.trim()) {
         this.body = checkText(this.body);
         let front_key = uuid4();
         let sendingMessage = {

@@ -34,6 +34,7 @@
           <p class="text-sm mt-8">Say hello to a friend!</p>
 
           <button
+            @click="showModal = true"
             class="absolute py-2 px-4 shadow-md no-underline 
           rounded-full bg-blue-500 text-white font-sans font-semibold 
           text-sm border-blue-500 btn-primary hover:text-white 
@@ -52,6 +53,7 @@
           <p class="text-sm mt-8">You have not received any invitation yet</p>
 
           <button
+            @click="showModal = true"
             class="absolute py-2 px-4 shadow-md no-underline 
           rounded-full bg-blue-500 text-white font-sans font-semibold 
           text-sm border-blue-500 btn-primary hover:text-white 
@@ -66,15 +68,58 @@
       </div>
 
     </div>
+
+    <card-modal
+      :showing="showModal"
+      @close="showModal = false"
+    >
+      <div class="modal-header">
+        <h2 class="text-xl font-bold text-gray-900">Add a Friend!</h2>
+        <p class="mt-3">
+          Enter his / her email and wait for their answer.
+        </p>
+      </div>
+
+      <div class="modal-body mt-3">
+        <div class="max-w-xs mx-auto">
+          <div class="mb-4">
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              placeholder="email"
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <div class="action-buttons mt-6">
+        <button
+          class="bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
+          @click="showModal = false"
+        >
+          Close
+        </button>
+      </div>
+
+    </card-modal>
+
   </div>
 </template>
 
 <script>
+import CardModal from "@/components/Modal.vue";
+
 export default {
   data() {
     return {
-      selectedTab: 0
+      selectedTab: 0,
+      showModal: false
     };
+  },
+  components: {
+    CardModal
   }
 };
 </script>
