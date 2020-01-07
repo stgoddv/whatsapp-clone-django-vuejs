@@ -14,14 +14,25 @@ class UnreadMessageSerializer(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
+    all_received = serializers.SerializerMethodField()
+    all_read = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
         exclude = ('pending_reception', 'pending_read',)
 
     def get_is_owner(self, obj):
+        # True is the request user is the owner
         user = self.context['request'].user
         return True if obj.author.id == user.id else False
+
+    def get_all_received(self, obj):
+        # True is all participants have received it
+        return False if obj.pending_reception.exists() else True
+
+    def get_all_read(self, obj):
+        # True if all participants have read it
+        return False if obj.pending_read.exists() else True
 
 
 class CreateMessageSerializer(serializers.ModelSerializer):

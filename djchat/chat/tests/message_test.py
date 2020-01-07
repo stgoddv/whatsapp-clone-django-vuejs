@@ -63,3 +63,12 @@
 
 # verificar que si tomo uno de esa lista puedo marcar como leido
 # pero si tomo uno fuera de esa lista entonces no
+
+
+# All received and all read
+
+# Check that all receive is true when all users have received it
+# and false when one or more user have not.
+
+# Check that all read is true when all users have read it and
+# false when one or more not.
