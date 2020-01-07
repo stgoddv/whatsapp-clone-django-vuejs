@@ -12,12 +12,23 @@
           <p class="text-xs text-gray-600">{{ time }}</p>
 
           <!-- Sending icons -->
-          <clock-icon
+          <i
             v-if="message.sending"
-            size="1x"
-            class="ml-2"
-          ></clock-icon>
-          <check-icon v-else size="1x" class="ml-2"></check-icon>
+            class="material-icons ml-2"
+            style="font-size: 16px;"
+          >access_time</i>
+          <i
+            v-if="message.all_received"
+            class="material-icons ml-2"
+            :class="{ 'font-bold text-teal-400': message.all_read }"
+            style="font-size: 16px;"
+          >done_all</i>
+          <i
+            v-if="!message.sending && !message.all_received"
+            class="material-icons ml-2"
+            style="font-size: 16px;"
+          >done</i>
+
         </div>
       </div>
     </div>
@@ -25,9 +36,6 @@
 </template>
 
 <script>
-import { ClockIcon } from "vue-feather-icons";
-import { CheckIcon } from "vue-feather-icons";
-
 import dateFormat from "dateformat";
 
 export default {
@@ -42,10 +50,6 @@ export default {
       let time = dateFormat(new Date(this.message.timestamp), "hh:MM");
       return time;
     }
-  },
-  components: {
-    ClockIcon,
-    CheckIcon
   },
   created() {
     if (this.message.id in this.$store.state.unreadMessages) {
