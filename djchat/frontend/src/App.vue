@@ -28,7 +28,7 @@ export default {
           await _this.$store.dispatch("fetchMessages");
           EventBus.$emit("update");
         } else if (message === "writing") {
-          EventBus.$emit("writing", data);
+          EventBus.$emit("writing", data.data);
         }
       };
       chatSocket.onclose = function() {

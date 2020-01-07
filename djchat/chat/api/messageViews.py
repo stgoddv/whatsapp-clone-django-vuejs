@@ -155,6 +155,7 @@ class MessageViewSet(viewsets.ViewSet):
             async_to_sync(channel_layer.group_send)(
                 f"group_general_user_{participant.id}", {
                     "type": "chat_message",
-                    "message": "update"
+                    "message": "update",
+                    'data': {}
                 })
         return Response(serializer.data, status=status.HTTP_201_CREATED)

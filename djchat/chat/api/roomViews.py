@@ -46,10 +46,12 @@ class RoomWritingAPIView(APIView):
         for participant in room.participants.exclude(id=request.user.id):
             async_to_sync(channel_layer.group_send)(
                 f"group_general_user_{participant.id}", {
-                    "type": "chat_writing",
+                    "type": "chat_message",
                     "message": "writing",
-                    'user_id': request.user.id,
-                    'room_id': room.id
+                    'data': {
+                        'user_id': request.user.id,
+                        'room_id': room.id
+                    }
                 })
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
