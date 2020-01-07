@@ -41,14 +41,13 @@ class UnreadMessagesAPIView(APIView):
         """
         Mark an specific messaged as read
         """
-        message_id = request.query_params.get('message_id')
-        message_obj = get_object_or_404(
-            request.user.unread_messages.all(),
-            id=message_id)
-        message_obj.mark_as_read(request.user)
-        serializer = MessageSerializer(
-            message_obj,
-            context={'request': request})
+        try:
+            message_id = request.query_params.get('message_id')
+            message_obj = request.user.unread_messages.get(id=message_id)
+            message_obj.mark_as_read(request.user)
+        except:
+            # Simply avoid error msgs in this endpoint
+            pass
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
