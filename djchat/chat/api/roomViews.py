@@ -2,13 +2,41 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.exceptions import ParseError
 from rest_framework.views import APIView
+
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 
 from users.api.serializers import UserSerializer
 from .serializers import RoomSerializer, MessageSerializer
 from chat.models import Room, Message
 
+channel_layer = get_channel_layer()
 User = get_user_model()
+
+
+class RoomWritingAPIView(APIView):
+    """
+    Signal to users in a room who is writing
+    """
+
+    def post(self, request, room_id, format=None):
+        # Get room
+        room = get_object_or_404(
+            request.user.rooms.all(),
+            id=room_id)
+        # Push writing signal to participants
+        for participant in room.participants.all():
+            async_to_sync(channel_layer.group_send)(
+                f"group_general_user_{participant.id}", {
+                    "type": "chat_writing",
+                    "message": "writing",
+                    'user_id': request.user.id,
+                    'room_id': room.id
+                })
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class RecentRoomsAPIView(APIView):

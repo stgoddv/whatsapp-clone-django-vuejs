@@ -11,4 +11,5 @@ urlpatterns = [
     path('messages/<int:room_id>', messageViews.LastMessagesRoomAPIView.as_view()),
     path('messages/unread', messageViews.UnreadMessagesAPIView.as_view()),
     path('rooms/recents', roomViews.RecentRoomsAPIView.as_view()),
+    path('rooms/<int:room_id>/writing', roomViews.RoomWritingAPIView.as_view()),
 ] + router.urls
