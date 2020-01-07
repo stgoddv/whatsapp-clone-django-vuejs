@@ -16,19 +16,33 @@
             v-if="message.sending"
             class="material-icons ml-2"
             style="font-size: 16px;"
-          >access_time</i>
+            >access_time</i
+          >
           <i
-            v-if="allReceived[this.message.id] || this.message.all_received || false"
+            v-if="
+              allReceived[this.message.id] || this.message.all_received || false
+            "
             class="material-icons ml-2"
-            :class="{ 'font-bold text-teal-400': allRead[this.message.id] || this.message.all_read || false }"
+            :class="{
+              'font-bold text-teal-400':
+                allRead[this.message.id] || this.message.all_read || false
+            }"
             style="font-size: 16px;"
-          >done_all</i>
+            >done_all</i
+          >
           <i
-            v-if="!message.sending && !(allReceived[this.message.id] || this.message.all_received || false)"
+            v-if="
+              !message.sending &&
+                !(
+                  allReceived[this.message.id] ||
+                  this.message.all_received ||
+                  false
+                )
+            "
             class="material-icons ml-2"
             style="font-size: 16px;"
-          >done</i>
-
+            >done</i
+          >
         </div>
       </div>
     </div>

@@ -18,22 +18,15 @@
         </div>
 
         <div class="body-section flex items-center">
-
           <!-- Last message -->
-          <div
-            class="flex-1"
-            v-if="lastMessage"
-          >
+          <div class="flex-1" v-if="lastMessage">
             <p
               v-if="whosWriting"
               class="text-gray-600 text-md text-left italic"
             >
               {{ whosWriting }} is writing...
             </p>
-            <p
-              v-else
-              class="text-gray-600 text-md text-left"
-            >
+            <p v-else class="text-gray-600 text-md text-left">
               {{ truncateString(lastMessage.body, 35) }}
             </p>
           </div>
@@ -47,7 +40,6 @@
               {{ unreadMessages }}
             </p>
           </div>
-
         </div>
       </div>
     </div>

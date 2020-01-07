@@ -10,7 +10,7 @@ const state = {
   allRead: {},
 
   // This uses map because key is uiid4
-  sendingStatus: new Map(),
+  sendingStatus: new Map()
 };
 
 export default state;
