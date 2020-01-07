@@ -62,6 +62,11 @@ export default {
         blue
       };
     }
+  },
+  created() {
+    if (this.message.id in this.$store.state.unreadMessages) {
+      this.$store.dispatch("markMessageAsRead", this.message.id);
+    }
   }
 };
 </script>

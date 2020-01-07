@@ -44,13 +44,16 @@ const mutations = {
   ADD_MESSAGE_TO_SENDING(state, message) {
     state.sendingStatus.set(message.front_key, message);
   },
-  ADD_UNREAD_BY_ROOM(state, rooms) {
-    rooms.forEach(element => {
-      state.unreadByRoom.set(element.room_id, element.unread_count);
+  ADD_UNREAD_MESSAGES(state, messages) {
+    state.unreadMessages = {};
+    messages.forEach(element => {
+      Vue.set(state.unreadMessages, element.id, element.room);
     });
   },
-  ADD_UNREAD_MESSAGES(state, messages) {
-    messages.forEach(element => state.unreadMessages.set(element.id, null));
+  REMOVE_MESSAGE_FROM_UNREAD(state, message_id) {
+    if (message_id in state.unreadMessages) {
+      Vue.delete(state.unreadMessages, message_id);
+    }
   }
 };
 

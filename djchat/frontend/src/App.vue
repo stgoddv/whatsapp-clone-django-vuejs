@@ -20,11 +20,12 @@ export default {
       var chatSocket = new WebSocket(
         "ws://" + window.location.host + "/ws/notifications/"
       );
-      chatSocket.onmessage = function(e) {
+      chatSocket.onmessage = async function(e) {
         var data = JSON.parse(e.data);
         var message = data["message"];
         if (message === "update") {
-          _this.$store.dispatch("fetchMessages");
+          await _this.$store.dispatch("fetchUnreadMessages");
+          await _this.$store.dispatch("fetchMessages");
         }
         EventBus.$emit(message);
       };
@@ -35,9 +36,9 @@ export default {
   },
   async created() {
     // First fetch older pending messages and then the recent ones
+    await this.$store.dispatch("fetchUnreadMessages");
     await this.$store.dispatch("fetchMessages");
     await this.$store.dispatch("fetchRecentActivity");
-    await this.$store.dispatch("fetchUnreadMessages");
     this.initializeWebSocketSupport();
   }
 };

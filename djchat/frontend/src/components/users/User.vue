@@ -21,7 +21,9 @@
             {{ lastMessage.body }}
           </p>
           <p v-else></p>
-          <!-- <p class="circle mx-1">5</p> -->
+          <p v-if="unreadMessages && unreadMessages != 0" class="circle mx-1">
+            {{ unreadMessages }}
+          </p>
         </div>
       </div>
     </div>
@@ -47,6 +49,10 @@ export default {
         last_message = room_messages[room_messages.length - 1];
       }
       return last_message;
+    },
+    unreadMessages() {
+      let unreadMessages = Object.values(this.$store.state.unreadMessages);
+      return unreadMessages.filter(el => el === this.room.id).length;
     }
   },
   props: {

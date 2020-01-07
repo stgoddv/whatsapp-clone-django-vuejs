@@ -3,9 +3,8 @@ const state = {
   rooms: {},
   users: {},
   room_messages: {},
-  sendingStatus: new Map(),
-  unreadMessages: new Map(),
-  unreadByRoom: new Map()
+  unreadMessages: {},
+  sendingStatus: new Map()
 };
 
 export default state;

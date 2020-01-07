@@ -54,18 +54,6 @@ const actions = {
         .catch(error => reject(error));
     });
   },
-  fetchUnreadMessages({ commit }) {
-    return new Promise((resolve, reject) => {
-      axios
-        .get("/api/v1/messages/unread")
-        .then(response => {
-          commit('ADD_UNREAD_BY_ROOM', response.data.unread_by_room);
-          commit('ADD_UNREAD_MESSAGES', response.data.messages);
-          resolve(response);
-        })
-        .catch(error => reject(error));
-    });
-  },
   sendMessage(none, { room, body, front_key }) {
     let payload = {
       room,
@@ -76,6 +64,28 @@ const actions = {
       axios
         .post("/api/v1/messages/", payload)
         .then(response => {
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
+  markMessageAsRead({ commit }, message_id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/messages/unread?message_id=${message_id}`)
+        .then(response => {
+          commit("REMOVE_MESSAGE_FROM_UNREAD", message_id);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
+  fetchUnreadMessages({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/v1/messages/unread")
+        .then(response => {
+          commit("ADD_UNREAD_MESSAGES", response.data.messages);
           resolve(response);
         })
         .catch(error => reject(error));
