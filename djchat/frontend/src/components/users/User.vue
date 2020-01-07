@@ -16,29 +16,38 @@
           <p class="text-gray-900 text-left">{{ room.group_name }}</p>
           <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
-        <div class="flex justify-between">
+
+        <div class="body-section flex items-center">
+
           <!-- Last message -->
-          <div v-if="lastMessage">
+          <div
+            class="flex-1"
+            v-if="lastMessage"
+          >
             <p
               v-if="whosWriting"
               class="text-gray-600 text-md text-left italic"
             >
               {{ whosWriting }} is writing...
             </p>
-            <p v-else class="text-gray-600 text-md text-left">
-              {{ lastMessage.body }}
+            <p
+              v-else
+              class="text-gray-600 text-md text-left"
+            >
+              {{ truncateString(lastMessage.body, 35) }}
             </p>
           </div>
 
-          <div v-else></div>
-
           <!-- Unread messages -->
-          <p
-            v-if="unreadMessages && unreadMessages != 0 && !isSelected"
-            class="circle mx-1"
-          >
-            {{ unreadMessages }}
-          </p>
+          <div class="flex-none ml-2">
+            <p
+              v-if="unreadMessages && unreadMessages != 0 && !isSelected"
+              class="circle mx-1"
+            >
+              {{ unreadMessages }}
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -55,6 +64,14 @@ export default {
     return {
       whosWriting: ""
     };
+  },
+  methods: {
+    truncateString(str, num) {
+      if (str.length <= num) {
+        return str;
+      }
+      return str.slice(0, num) + "...";
+    }
   },
   computed: {
     lastActivity() {
