@@ -11,6 +11,12 @@ class MessageManager(models.Manager):
             message.remove_user_from_pending(user)
         return pending_messages_qs
 
+    def mark_room_as_read(self, user, room):
+        unread_messages_qs = user.unread_messages.filter(room=room)
+        for message in unread_messages_qs:
+            message.mark_as_read(user)
+        return unread_messages_qs
+
 
 class Message(models.Model):
     author = models.ForeignKey(

@@ -17,6 +17,21 @@ channel_layer = get_channel_layer()
 User = get_user_model()
 
 
+class RoomMarkAsReadAPIView(APIView):
+    """
+    Mark all room messages as read
+    """
+
+    def post(self, request, room_id, format=None):
+        # Get room
+        room = get_object_or_404(
+            request.user.rooms.all(),
+            id=room_id)
+        # Mark messages as read
+        Message.objects.mark_room_as_read(request.user, room)
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
 class RoomWritingAPIView(APIView):
     """
     Signal to users in a room who is writing

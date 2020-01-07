@@ -71,3 +71,10 @@
 # si se crea un mensaje y no se ha visto en recents entonces se debe ver en mensajes pendientes
 
 # si se crea un mensaje y se ve en recents -> no debe aparecer en pendientes
+
+
+# Mark room as read
+
+# Que efectivamente pueda marcar los mensajes de una room como leidos
+
+# Que toda la room quede como leido para mi y no para los demás
