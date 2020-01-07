@@ -39,7 +39,7 @@ class UnreadMessagesAPIView(APIView):
 
     def post(self, request, format=None):
         """
-        Mark an specific messaged as read
+        Mark an specific message as read
         """
         try:
             message_id = request.query_params.get('message_id')
