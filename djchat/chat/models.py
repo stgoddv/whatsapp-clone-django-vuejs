@@ -33,7 +33,8 @@ class Message(models.Model):
 
     front_key = models.UUIDField(
         verbose_name="frontend key",
-        default=uuid.uuid4)
+        default=uuid.uuid4,
+        unique=True)
 
     objects = MessageManager()
 
