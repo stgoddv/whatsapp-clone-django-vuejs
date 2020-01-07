@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
 from .serializers import MessageSerializer, CreateMessageSerializer, \
-    RoomSerializer, UnreadMessagesSerializer, IdentifierMessageSerializer
+    RoomSerializer, UnreadMessageSerializer
 
 from users.api.serializers import UserSerializer
 from chat.models import Message, Room
@@ -29,26 +29,11 @@ class UnreadMessagesAPIView(APIView):
         """
         List unread messages for a specific user
         """
-        unread_by_room = {}
-        unread_messages = request.user.unread_messages.all()
-        for message in unread_messages:
-            unread_by_room[message.room.id] = unread_by_room\
-                .get(message.room.id, 0) + 1
-        unread_response = []
-        for key in unread_by_room:
-            unread_response.append({
-                "room_id": key,
-                "unread_count": unread_by_room[key]
-            })
-        unread_response_serializer = UnreadMessagesSerializer(
-            unread_response,
-            many=True)
-        unread_messages_serializer = IdentifierMessageSerializer(
-            unread_messages,
+        unread_messages_serializer = UnreadMessageSerializer(
+            request.user.unread_messages.all(),
             context={'request': request},
             many=True)
         return Response({
-            'unread_by_room': unread_response_serializer.data,
             'messages': unread_messages_serializer.data
         })
 
@@ -163,7 +148,7 @@ class MessageViewSet(viewsets.ViewSet):
         message = serializer.save(
             author=user,
             pending_reception=room.participants.all(),
-            pending_read=room.participants.all())
+            pending_read=room.participants.exclude(id=request.user.id))
         # Update activity timestamp of rooms
         room.save()
         # Push to participants

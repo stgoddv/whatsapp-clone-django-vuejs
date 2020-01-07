@@ -6,15 +6,10 @@ from chat.models import Message, Room
 User = get_user_model()
 
 
-class UnreadMessagesSerializer(serializers.Serializer):
-    room_id = serializers.IntegerField()
-    unread_count = serializers.IntegerField()
-
-
-class IdentifierMessageSerializer(serializers.ModelSerializer):
+class UnreadMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ('id',)
+        fields = ('id', 'room',)
 
 
 class MessageSerializer(serializers.ModelSerializer):
