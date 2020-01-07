@@ -28,7 +28,7 @@ class RoomWritingAPIView(APIView):
             request.user.rooms.all(),
             id=room_id)
         # Push writing signal to participants
-        for participant in room.participants.all():
+        for participant in room.participants.exclude(id=request.user.id):
             async_to_sync(channel_layer.group_send)(
                 f"group_general_user_{participant.id}", {
                     "type": "chat_writing",
