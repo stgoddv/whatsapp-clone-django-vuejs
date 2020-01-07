@@ -51,6 +51,7 @@ export default {
     },
     sendMessage() {
       if (this.room && this.body.trim()) {
+        this.timerId = null;
         this.body = checkText(this.body);
         let front_key = uuid4();
         let sendingMessage = {
