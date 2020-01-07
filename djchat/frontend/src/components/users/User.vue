@@ -17,11 +17,30 @@
           <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
         <div class="flex justify-between">
-          <p v-if="lastMessage" class="text-gray-600 text-md text-left">
-            {{ lastMessage.body }}
-          </p>
-          <p v-else></p>
-          <p v-if="unreadMessages && unreadMessages != 0" class="circle mx-1">
+
+          <!-- Last message -->
+          <div v-if="lastMessage">
+            <p
+              v-if="whosWriting"
+              class="text-gray-600 text-md text-left italic"
+            >
+              {{ whosWriting }} is writing...
+            </p>
+            <p
+              v-else
+              class="text-gray-600 text-md text-left"
+            >
+              {{ lastMessage.body }}
+            </p>
+          </div>
+
+          <div v-else></div>
+
+          <!-- Unread messages -->
+          <p
+            v-if="unreadMessages && unreadMessages != 0"
+            class="circle mx-1"
+          >
             {{ unreadMessages }}
           </p>
         </div>
@@ -33,7 +52,14 @@
 <script>
 import dateFormat from "dateformat";
 
+import { EventBus } from "@/eventBus";
+
 export default {
+  data() {
+    return {
+      whosWriting: ""
+    };
+  },
   computed: {
     lastActivity() {
       let last_activity = dateFormat(
@@ -53,6 +79,22 @@ export default {
     unreadMessages() {
       let unreadMessages = Object.values(this.$store.state.unreadMessages);
       return unreadMessages.filter(el => el === this.room.id).length;
+    }
+  },
+  created() {
+    EventBus.$on("writing", data => {
+      if (this.room.id === data.room_id) {
+        let user = this.$store.state.users[data.user_id];
+        this.whosWriting = user.username;
+        setTimeout(() => {
+          this.whosWriting = "";
+        }, 10000);
+      }
+    });
+  },
+  watch: {
+    lastMessage() {
+      this.whosWriting = "";
     }
   },
   props: {
