@@ -22,12 +22,16 @@ const mutations = {
         Object.assign(message, element);
       } else {
         if (element.room in state.roomMessages) {
-          Vue.set(state.roomMessages, element.room, [
-            ...state.roomMessages[element.room],
-            element
-          ]);
+          if (!(element.front_key in state.receivedMessages)) {
+            Vue.set(state.roomMessages, element.room, [
+              ...state.roomMessages[element.room],
+              element
+            ]);
+            Vue.set(state.receivedMessages, element.front_key, null);
+          }
         } else {
           Vue.set(state.roomMessages, element.room, [element]);
+          Vue.set(state.receivedMessages, element.front_key, null);
         }
       }
     });
