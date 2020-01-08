@@ -108,6 +108,11 @@ export default {
             this.fetchingMessages = false;
           });
       }
+    },
+    hasUnreadMessagesInRoom() {
+      return Object.values(this.$store.state.unreadMessages).includes(
+        this.selectedRoom
+      );
     }
   },
   mounted() {
@@ -124,13 +129,15 @@ export default {
   },
   watch: {
     selectedRoom() {
+      setTimeout(() => this.scrollToBottom(), 10);
       this.fetchingMessages = false;
       this.noMoreMessages = false;
       if (!this.messages || this.messages.length < 3) {
         this.fetchPastMessages();
       }
-      setTimeout(() => this.scrollToBottom(), 10);
-      this.$store.dispatch("markRoomAsRead", this.selectedRoom);
+      if (this.hasUnreadMessagesInRoom()) {
+        this.$store.dispatch("markRoomAsRead", this.selectedRoom);
+      }
     },
     messages() {
       this.$nextTick(() => {
