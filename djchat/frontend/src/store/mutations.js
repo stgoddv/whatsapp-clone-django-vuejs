@@ -21,21 +21,21 @@ const mutations = {
         delete message.sending;
         Object.assign(message, element);
       } else {
-        if (element.room in state.room_messages) {
-          Vue.set(state.room_messages, element.room, [
-            ...state.room_messages[element.room],
+        if (element.room in state.roomMessages) {
+          Vue.set(state.roomMessages, element.room, [
+            ...state.roomMessages[element.room],
             element
           ]);
         } else {
-          Vue.set(state.room_messages, element.room, [element]);
+          Vue.set(state.roomMessages, element.room, [element]);
         }
       }
     });
   },
   LINK_PAST_MESSAGES_TO_ROOM(state, { pastMessages, roomId }) {
-    Vue.set(state.room_messages, roomId, [
+    Vue.set(state.roomMessages, roomId, [
       ...pastMessages,
-      ...state.room_messages[roomId]
+      ...state.roomMessages[roomId]
     ]);
   },
   SET_SELECTED_ROOM(state, roomId) {

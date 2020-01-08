@@ -119,7 +119,7 @@ export default {
     },
     messages() {
       let selectedRoom = this.$store.state.selectedRoom;
-      return this.$store.state.room_messages[selectedRoom];
+      return this.$store.state.roomMessages[selectedRoom];
     }
   },
   watch: {

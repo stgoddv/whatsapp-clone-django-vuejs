@@ -2,7 +2,7 @@ const state = {
   selectedRoom: null,
   rooms: {},
   users: {},
-  room_messages: {},
+  roomMessages: {},
   unreadMessages: {},
 
   // Update signals
