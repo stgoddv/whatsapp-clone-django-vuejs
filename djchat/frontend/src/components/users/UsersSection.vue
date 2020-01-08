@@ -1,6 +1,6 @@
 <template>
   <div class="shadow-md border rounded-lg bg-white" style="">
-    <search class="mt-3" />
+    <search @updateSearch="currentSearch = $event" class="mt-3" />
     <!-- Lista de usuarios -->
     <div
       class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
@@ -12,6 +12,7 @@
           :key="room.id"
           @click="selectRoom(room.id)"
           class="user-row"
+          v-show="checkIfRowInQueriedResults(room.id)"
         >
           <user
             :room="room"
@@ -31,7 +32,8 @@ import Search from "@/components/Search.vue";
 export default {
   data() {
     return {
-      users: []
+      users: [],
+      currentSearch: ""
     };
   },
   components: {
@@ -41,6 +43,12 @@ export default {
   methods: {
     selectRoom(roomId) {
       this.$store.commit("SET_SELECTED_ROOM", roomId);
+    },
+    getValues(obj) {
+      return [obj.group_name];
+    },
+    checkIfRowInQueriedResults(id) {
+      return this.queriedResults.indexOf(id) != -1;
     }
   },
   computed: {
@@ -49,6 +57,19 @@ export default {
         return new Date(b.last_activity) - new Date(a.last_activity);
       });
       return sortedRooms;
+    },
+    queriedResults() {
+      var _this2 = this;
+      let list = this.rooms;
+      if (this.currentSearch == "") return list.map(row => row.id);
+      let queriedResults = list.filter(row => {
+        let value = _this2
+          .getValues(row)
+          .toString()
+          .toLowerCase();
+        return value.indexOf(_this2.currentSearch.toLowerCase()) != -1;
+      });
+      return queriedResults.map(row => row.id);
     }
   }
 };
