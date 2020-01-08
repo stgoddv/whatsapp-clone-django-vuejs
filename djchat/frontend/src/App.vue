@@ -22,6 +22,7 @@ export default {
       );
       chatSocket.onmessage = async function(e) {
         var data = JSON.parse(e.data);
+        console.log(data);
         var message = data["message"];
         if (message === "update") {
           await _this.$store.dispatch("fetchUnreadMessages");

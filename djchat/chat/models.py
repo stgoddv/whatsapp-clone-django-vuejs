@@ -66,20 +66,22 @@ class Message(models.Model):
                 })
 
     def remove_user_from_pending(self, user):
-        self.pending_reception.remove(user)
-        if not self.pending_reception.exists():
-            self.signal_to_room('update_message', {
-                'message_id': self.id,
-                'kind': 'all_received'
-            })
+        if self.pending_reception.filter(id=user.id).exists():
+            self.pending_reception.remove(user)
+            if not self.pending_reception.exists():
+                self.signal_to_room('update_message', {
+                    'message_id': self.id,
+                    'kind': 'all_received'
+                })
 
     def mark_as_read(self, user):
-        self.pending_read.remove(user)
-        if not self.pending_read.exists():
-            self.signal_to_room('update_message', {
-                'message_id': self.id,
-                'kind': 'all_read'
-            })
+        if self.pending_read.filter(id=user.id).exists():
+            self.pending_read.remove(user)
+            if not self.pending_read.exists():
+                self.signal_to_room('update_message', {
+                    'message_id': self.id,
+                    'kind': 'all_read'
+                })
 
 
 class Room(models.Model):
