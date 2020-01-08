@@ -14,10 +14,10 @@ const mutations = {
   LINK_MESSAGES_TO_ROOM(state, messages) {
     messages.forEach(element => {
       let front_key = element.front_key;
-      if (state.sendingStatus.has(front_key)) {
+      if (state.sendingPool.has(front_key)) {
         // Pending sending status
-        let message = state.sendingStatus.get(front_key);
-        state.sendingStatus.delete(front_key);
+        let message = state.sendingPool.get(front_key);
+        state.sendingPool.delete(front_key);
         delete message.sending;
         Object.assign(message, element);
       } else {
@@ -42,7 +42,7 @@ const mutations = {
     state.selectedRoom = roomId;
   },
   ADD_MESSAGE_TO_SENDING(state, message) {
-    state.sendingStatus.set(message.front_key, message);
+    state.sendingPool.set(message.front_key, message);
   },
   ADD_UNREAD_MESSAGES(state, messages) {
     state.unreadMessages = {};
