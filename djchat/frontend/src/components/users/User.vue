@@ -6,11 +6,19 @@
     :class="{ 'bg-green-200': isSelected }"
   >
     <div class="flex items-center">
-      <img
+      <!-- <img
         class="w-10 h-10 rounded-full mr-4 mr-5 ml-2"
         src="@/assets/avatars/jonathan.jpg"
         alt="Avatar of Jonathan Reinink"
-      />
+      /> -->
+      <div
+        class="avatar-circle flex-none mr-3"
+        :style="
+          `background-color: rgb(${getColor.red},${getColor.green},${getColor.blue});`
+        "
+      >
+        {{ room.group_name.charAt(0).toUpperCase() }}
+      </div>
       <div class="text-sm w-full">
         <div class="flex justify-between">
           <p class="text-gray-900 text-left">{{ room.group_name }}</p>
@@ -49,6 +57,7 @@
 <script>
 import dateFormat from "dateformat";
 
+import { colorOffsets, getHash } from "@/global/variables.js";
 import { EventBus } from "@/eventBus";
 
 export default {
@@ -66,6 +75,18 @@ export default {
     }
   },
   computed: {
+    getColor() {
+      let username = this.room.group_name;
+      let { red, green, blue } = colorOffsets;
+      red = (getHash(username) + red) ** 2 % 256;
+      green = (getHash(username) + green) ** 2 % 256;
+      blue = (getHash(username) + blue) ** 2 % 256;
+      return {
+        red,
+        green,
+        blue
+      };
+    },
     lastActivity() {
       let last_activity = dateFormat(
         new Date(this.room.last_activity),
@@ -128,5 +149,16 @@ export default {
   line-height: 20px;
   text-align: center;
   background: #38b2ac;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 25px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  font-weight: 600;
 }
 </style>
