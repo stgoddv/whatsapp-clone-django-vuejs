@@ -68,6 +68,7 @@ class Message(models.Model):
     def remove_user_from_pending(self, user):
         if self.pending_reception.filter(id=user.id).exists():
             self.pending_reception.remove(user)
+            # If there are no more pending then signal
             if not self.pending_reception.exists():
                 self.signal_to_room('update_message', {
                     'message_id': self.id,
@@ -77,6 +78,7 @@ class Message(models.Model):
     def mark_as_read(self, user):
         if self.pending_read.filter(id=user.id).exists():
             self.pending_read.remove(user)
+            # If there are no more pending then signal
             if not self.pending_read.exists():
                 self.signal_to_room('update_message', {
                     'message_id': self.id,

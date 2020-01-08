@@ -71,10 +71,18 @@ export default {
       return this.$store.state.allRead;
     }
   },
-  created() {
-    if (this.message.id in this.$store.state.unreadMessages) {
-      this.$store.dispatch("markMessageAsRead", this.message.id);
+  methods: {
+    markMessageAsRead() {
+      setTimeout(() => {
+        // Timeout to avoid race condition with markRoomAsRead
+        if (this.message.id in this.$store.state.unreadMessages) {
+          this.$store.dispatch("markMessageAsRead", this.message.id);
+        }
+      }, 100);
     }
+  },
+  created() {
+    this.markMessageAsRead();
   }
 };
 </script>
