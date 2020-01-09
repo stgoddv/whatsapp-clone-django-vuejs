@@ -1,8 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.api.serializers import UserSerializer
+from rest_framework import viewsets
 
 from django.contrib.auth import get_user_model
+
+from users.api.serializers import UserSerializer
 
 User = get_user_model()
 
@@ -31,6 +33,39 @@ class CreateInvitationAPIView(APIView):
         pass
 
 
-class InvitationAPIView(APIView):
-    def get(self, request, format=None):
+class InvitationViewSet(viewsets.ViewSet):
+    pass
+    # def list(self, request):
+    #     queryset = User.objects.all()
+    #     serializer = UserSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+
+    # def retrieve(self, request, pk=None):
+    #     queryset = User.objects.all()
+    #     user = get_object_or_404(queryset, pk=pk)
+    #     serializer = UserSerializer(user)
+    #     return Response(serializer.data)
+
+
+class AcceptInvitationAPIView(APIView):
+    def post(self, request, format=None):
+        pass
+
+
+class DeclineInvitationAPIView(APIView):
+    def post(self, request, format=None):
+        pass
+
+
+class FriendsViewSet(viewsets.ViewSet):
+    pass
+
+
+class DeleteFriendAPIView(APIView):
+    def post(self, request, format=None):
+        pass
+
+
+class BlockFriendAPIView(APIView):
+    def post(self, request, format=None):
         pass
