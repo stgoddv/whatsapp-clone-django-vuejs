@@ -6,8 +6,8 @@ urlpatterns = [
     path('users/', UsersAPIView.as_view()),
 
     # path('invitations', InvitationAPIView.as_view()),
-    # path('invitations/<int:invitation_id>', InvitationAPIView.as_view()),
     # path('invitations?direction=sent|received', InvitationAPIView.as_view()),
+    # path('invitations/<int:invitation_id>', InvitationAPIView.as_view()),
 
     # path('invitations/create', CreateInvitationAPIView.as_view()),
 
