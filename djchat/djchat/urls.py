@@ -33,6 +33,7 @@ urlpatterns = [
     # Apps Endpoints
     path('api/v1/', include('chat.api.urls')),
     path('api/v1/', include('users.api.urls')),
+    path('api/v1/', include('friends.api.urls')),
 
     # Swagger
     path('api/v1/', schema_view),
