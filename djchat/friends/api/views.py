@@ -75,7 +75,7 @@ class FriendshipAcceptAPIView(APIView):
             request.user.friendship_requests_received, id=friendship_request_id
         )
         f_request.accept()
-        return FriendsAPIView.get(self, request, user_id=request.user.id)
+        return FriendshipRequestListAPIView.get(self, request)
 
 
 class FriendshipRejectAPIView(APIView):

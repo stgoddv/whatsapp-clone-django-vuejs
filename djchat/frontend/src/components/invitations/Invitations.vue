@@ -7,6 +7,7 @@
       <!-- Selection Tabs -->
       <div class="tabs-selection bg-white">
         <nav class="flex flex-wrap px-1">
+          <!-- Sent Tab -->
           <button
             @click="selectedTab = 0"
             class="w-1/2 text-gray-600 py-3 block hover:text-blue-500 focus:outline-none"
@@ -17,6 +18,8 @@
           >
             Sent
           </button>
+
+          <!-- Received Tab -->
           <button
             @click="selectedTab = 1"
             class="w-1/2 text-gray-600 py-3 block hover:text-blue-500 focus:outline-none"
@@ -38,22 +41,17 @@
             v-if="Object.entries(sentInvitations).length !== 0"
             class="sent-list"
           >
-            <div
-              v-for="invitation in sentInvitations"
-              :key="invitation.id"
-            >
+            <div v-for="invitation in sentInvitations" :key="invitation.id">
               {{ invitation.to_user.name }}
               <user-invitation
-                @cancel="cancelInvitation"
                 :invitation="invitation"
+                :user="invitation.to_user"
+                @remove="cancelInvitation"
               />
             </div>
           </div>
 
-          <div
-            v-else
-            class="sent-list empty"
-          >
+          <div v-else class="sent-list empty">
             <p class="text-sm mt-8">Say hello to a friend!</p>
 
             <invite-button
@@ -67,24 +65,36 @@
         </div>
 
         <!-- Received Tab -->
-        <div v-else>
-          <p class="text-sm mt-8">You have not received any invitation yet</p>
+        <div v-if="selectedTab === 1">
+          <div v-if="receivedInvitations.length !== 0" class="sent-list">
+            <div v-for="invitation in receivedInvitations" :key="invitation.id">
+              {{ invitation.from_user.name }}
+              <user-invitation
+                received
+                :invitation="invitation"
+                :user="invitation.from_user"
+                @add="acceptInvitation"
+                @remove="rejectInvitation"
+              />
+            </div>
+          </div>
 
-          <invite-button
-            class="absolute"
-            style="top: 55%; 
+          <div v-else class="sent-list empty">
+            <p class="text-sm mt-8">You have not received any invitation yet</p>
+
+            <invite-button
+              class="absolute"
+              style="top: 55%; 
             -ms-transform: translateY(-50%); transform: translateY(-50%);
             -ms-transform: translateX(-50%); transform: translateX(-50%);"
-            @action="showModal = true"
-          />
+              @action="showModal = true"
+            />
+          </div>
         </div>
       </div>
     </div>
 
-    <card-modal
-      :showing="showModal"
-      @close="showModal = false"
-    >
+    <card-modal :showing="showModal" @close="showModal = false">
       <div class="modal-header">
         <h2 class="text-xl font-bold text-gray-900">Add a Friend!</h2>
         <p class="mt-3">
@@ -103,10 +113,7 @@
               v-model="friendEmail"
             />
           </div>
-          <p
-            v-if="error"
-            class="text-sm text-red-500"
-          >* {{ error }}</p>
+          <p v-if="error" class="text-sm text-red-500">* {{ error }}</p>
         </div>
       </div>
 
@@ -150,6 +157,12 @@ export default {
     UserInvitation
   },
   methods: {
+    acceptInvitation(invitationId) {
+      this.$store.dispatch("acceptFriendRequest", invitationId);
+    },
+    rejectInvitation(invitationId) {
+      this.$store.dispatch("rejectFriendRequest", invitationId);
+    },
     cancelInvitation(invitationId) {
       this.$store.dispatch("cancelFriendRequest", invitationId);
     },
@@ -185,6 +198,11 @@ export default {
   computed: {
     sentInvitations() {
       return this.$store.state.sentInvitations;
+    },
+    receivedInvitations() {
+      return Object.values(this.$store.state.receivedInvitations).filter(
+        el => !el.rejected
+      );
     }
   }
 };

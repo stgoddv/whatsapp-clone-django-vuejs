@@ -154,6 +154,39 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  fetchReceivedInvitations({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/v1/friends/requests/received")
+        .then(response => {
+          commit("SET_RECEIVED_INVITATIONS", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
+  rejectFriendRequest({ commit }, invitationId) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/friends/requests/reject/${invitationId}`)
+        .then(response => {
+          commit("SET_RECEIVED_INVITATIONS", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
+  acceptFriendRequest({ commit }, invitationId) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/friends/requests/accept/${invitationId}`)
+        .then(response => {
+          commit("SET_RECEIVED_INVITATIONS", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 

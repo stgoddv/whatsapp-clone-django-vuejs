@@ -13,15 +13,14 @@
         class="avatar-circle flex-none mr-3"
         style="background-color: rgb(70,70,70);"
       >
-        {{ invitation.to_user.username.charAt(0).toUpperCase() }}
+        {{ user.username.charAt(0).toUpperCase() }}
       </div>
 
       <div class="text-sm w-full">
-
         <!-- Username -->
         <div class="flex justify-between">
           <p class="text-gray-900 text-left">
-            {{ invitation.to_user.username }}
+            {{ user.username }}
           </p>
         </div>
 
@@ -29,21 +28,33 @@
         <div class="body-section flex items-center">
           <div>
             <p class="text-gray-600 text-md text-left">
-              {{ invitation.to_user.email }}
+              {{ user.email }}
             </p>
           </div>
         </div>
       </div>
 
       <!-- Cancel request button -->
-      <div class="mx-3">
+      <div v-if="received" class="mx-2">
+        <i
+          class="material-icons p-2 rounded-full shadow hover:shadow-lg
+            cursor-pointer hover:shadow hover:bg-green-300 border"
+          style="transition: background-color 0.3s, box-shadow 0.3s;"
+          @click="$emit('add', invitation.id)"
+          >person_add</i
+        >
+      </div>
+
+      <!-- Cancel request button -->
+      <div class="mx-2">
         <i
           class="material-icons p-2 rounded-full shadow hover:shadow-lg
             cursor-pointer hover:shadow hover:bg-red-300 border"
-          @click="$emit('cancel', invitation.id)"
-        >delete</i>
+          style="transition: background-color 0.3s, box-shadow 0.3s;"
+          @click="$emit('remove', invitation.id)"
+          >delete</i
+        >
       </div>
-
     </div>
   </div>
 </template>
@@ -56,6 +67,14 @@ export default {
     invitation: {
       type: Object,
       required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    },
+    received: {
+      type: Boolean,
+      required: false
     }
   },
   methods: {
