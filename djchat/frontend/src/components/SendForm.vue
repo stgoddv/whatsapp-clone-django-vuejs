@@ -81,7 +81,7 @@ export default {
   },
   watch: {
     body(newValue) {
-      if (newValue != "") {
+      if (newValue != "" && this.room) {
         this.throttleFunction(
           () => this.$store.dispatch("postWriting", this.room),
           10000

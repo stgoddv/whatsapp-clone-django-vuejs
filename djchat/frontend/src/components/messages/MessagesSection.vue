@@ -15,7 +15,7 @@
     <div
       ref="messages"
       class="messages-section border rounded-lg border-teal-500 chat scrollbar overflow-y-auto overflow-x-hidden"
-      style="min-height: 20rem; max-height: 25rem;"
+      style="height: 70vh;"
       @scroll="onScroll"
     >
       <div v-if="$store.state.selectedRoom">

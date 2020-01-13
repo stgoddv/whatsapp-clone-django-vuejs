@@ -16,7 +16,11 @@ const state = {
   allRead: {},
 
   // Sending messages pool
-  sendingPool: new Map()
+  sendingPool: new Map(),
+
+  // Invitations
+  sentInvitations: {},
+  receivedInvitations: {}
 };
 
 export default state;

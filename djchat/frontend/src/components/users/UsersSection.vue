@@ -4,7 +4,7 @@
     <!-- Lista de usuarios -->
     <div
       class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
-      style="height: 15rem;"
+      style="height: 40vh;"
     >
       <transition-group>
         <div

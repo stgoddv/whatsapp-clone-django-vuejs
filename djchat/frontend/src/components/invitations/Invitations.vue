@@ -2,7 +2,7 @@
   <div class="invitations-tabs">
     <div
       class="shadow-md border rounded-lg bg-white mt-3 relative"
-      style="height: 15rem;"
+      style="height: 39vh;"
     >
       <!-- Selection Tabs -->
       <div class="tabs-selection bg-white">
@@ -34,45 +34,54 @@
       <div class="tabs-content">
         <!-- Sent Tab -->
         <div v-if="selectedTab === 0">
-          <p class="text-sm mt-8">Say hello to a friend!</p>
+          <div
+            v-if="Object.entries(sentInvitations).length !== 0"
+            class="sent-list"
+          >
+            <div
+              v-for="invitation in sentInvitations"
+              :key="invitation.id"
+            >
+              {{ invitation.to_user.name }}
+              <user-invitation :invitation="invitation" />
+            </div>
+          </div>
 
-          <button
-            @click="showModal = true"
-            class="absolute py-2 px-4 shadow-md no-underline 
-          rounded-full bg-blue-500 text-white font-sans font-semibold 
-          text-sm border-blue-500 btn-primary hover:text-white 
-          hover:bg-blue-400 focus:outline-none 
-          active:shadow-none mr-2"
-            style="top: 55%; 
+          <div
+            v-else
+            class="sent-list empty"
+          >
+            <p class="text-sm mt-8">Say hello to a friend!</p>
+
+            <invite-button
+              class="absolute"
+              style="top: 55%; 
             -ms-transform: translateY(-50%); transform: translateY(-50%);
             -ms-transform: translateX(-50%); transform: translateX(-50%);"
-          >
-            Invite a Friend
-          </button>
+              @action="showModal = true"
+            />
+          </div>
         </div>
 
         <!-- Received Tab -->
         <div v-else>
           <p class="text-sm mt-8">You have not received any invitation yet</p>
 
-          <button
-            @click="showModal = true"
-            class="absolute py-2 px-4 shadow-md no-underline 
-          rounded-full bg-blue-500 text-white font-sans font-semibold 
-          text-sm border-blue-500 btn-primary hover:text-white 
-          hover:bg-blue-400 focus:outline-none 
-          active:shadow-none mr-2"
+          <invite-button
+            class="absolute"
             style="top: 55%; 
             -ms-transform: translateY(-50%); transform: translateY(-50%);
             -ms-transform: translateX(-50%); transform: translateX(-50%);"
-          >
-            Invite a Friend
-          </button>
+            @action="showModal = true"
+          />
         </div>
       </div>
     </div>
 
-    <card-modal :showing="showModal" @close="showModal = false">
+    <card-modal
+      :showing="showModal"
+      @close="showModal = false"
+    >
       <div class="modal-header">
         <h2 class="text-xl font-bold text-gray-900">Add a Friend!</h2>
         <p class="mt-3">
@@ -106,6 +115,9 @@
 </template>
 
 <script>
+import InviteButton from "./InviteButton";
+import UserInvitation from "./UserInvitation";
+
 import CardModal from "@/components/Modal.vue";
 
 export default {
@@ -116,7 +128,15 @@ export default {
     };
   },
   components: {
-    CardModal
+    CardModal,
+    InviteButton,
+    UserInvitation
+  },
+  methods: {},
+  computed: {
+    sentInvitations() {
+      return this.$store.state.sentInvitations;
+    }
   }
 };
 </script>

@@ -111,6 +111,17 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  fetchSentInvitations({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/v1/friends/requests/sent")
+        .then(response => {
+          commit("SET_SENT_INVITATIONS", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 
