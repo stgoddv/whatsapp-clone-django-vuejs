@@ -16,14 +16,14 @@ from friends.signals import (
     friendship_request_viewed,
     friendship_request_accepted,
     friendship_removed,
-    follower_created,
-    follower_removed,
-    followee_created,
-    followee_removed,
-    following_created,
-    following_removed,
-    block_created,
-    block_removed,
+    # follower_created,
+    # follower_removed,
+    # followee_created,
+    # followee_removed,
+    # following_created,
+    # following_removed,
+    # block_created,
+    # block_removed,
 )
 
 AUTH_USER_MODEL = get_user_model()
