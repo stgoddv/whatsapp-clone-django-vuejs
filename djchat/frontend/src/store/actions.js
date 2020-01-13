@@ -122,6 +122,38 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  getUserIdFromEmail(none, email) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/users?email=${email}`)
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
+  addFriend({ commit }, userId) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/friends/add/${userId}`)
+        .then(response => {
+          commit("SET_SENT_INVITATIONS", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
+  cancelFriendRequest({ commit }, invitationId) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/friends/requests/cancel/${invitationId}`)
+        .then(response => {
+          commit("SET_SENT_INVITATIONS", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 

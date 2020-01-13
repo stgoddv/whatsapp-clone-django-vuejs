@@ -1,7 +1,6 @@
 <template>
   <div
-    class="user-row border-b px-3 py-3 select-none
-    cursor-pointer rounded-lg hover:shadow hover:bg-green-200"
+    class="user-row border-b px-3 py-3 select-none rounded-lg"
     style="transition: box-shadow 0.3s, background-color 0.3s;"
   >
     <div class="flex items-center">
@@ -16,15 +15,18 @@
       >
         {{ invitation.to_user.username.charAt(0).toUpperCase() }}
       </div>
+
       <div class="text-sm w-full">
+
+        <!-- Username -->
         <div class="flex justify-between">
           <p class="text-gray-900 text-left">
             {{ invitation.to_user.username }}
           </p>
         </div>
 
+        <!-- Email -->
         <div class="body-section flex items-center">
-          <!-- Last message -->
           <div>
             <p class="text-gray-600 text-md text-left">
               {{ invitation.to_user.email }}
@@ -32,6 +34,16 @@
           </div>
         </div>
       </div>
+
+      <!-- Cancel request button -->
+      <div class="mx-3">
+        <i
+          class="material-icons p-2 rounded-full shadow hover:shadow-lg
+            cursor-pointer hover:shadow hover:bg-red-300 border"
+          @click="$emit('cancel', invitation.id)"
+        >delete</i>
+      </div>
+
     </div>
   </div>
 </template>

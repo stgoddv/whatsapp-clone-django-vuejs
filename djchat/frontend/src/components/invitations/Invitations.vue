@@ -43,7 +43,10 @@
               :key="invitation.id"
             >
               {{ invitation.to_user.name }}
-              <user-invitation :invitation="invitation" />
+              <user-invitation
+                @cancel="cancelInvitation"
+                :invitation="invitation"
+              />
             </div>
           </div>
 
@@ -97,14 +100,26 @@
               id="email"
               type="email"
               placeholder="email"
+              v-model="friendEmail"
             />
           </div>
+          <p
+            v-if="error"
+            class="text-sm text-red-500"
+          >* {{ error }}</p>
         </div>
       </div>
 
       <div class="action-buttons mt-6">
         <button
-          class="bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
+          class="mx-3 bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
+          @click="addFriend"
+        >
+          Send
+        </button>
+
+        <button
+          class="mx-3 bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
           @click="showModal = false"
         >
           Close
@@ -124,7 +139,9 @@ export default {
   data() {
     return {
       selectedTab: 0,
-      showModal: false
+      showModal: false,
+      friendEmail: "",
+      error: ""
     };
   },
   components: {
@@ -132,7 +149,39 @@ export default {
     InviteButton,
     UserInvitation
   },
-  methods: {},
+  methods: {
+    cancelInvitation(invitationId) {
+      this.$store.dispatch("cancelFriendRequest", invitationId);
+    },
+    async addFriend() {
+      let userId = null;
+      try {
+        let response = await this.$store.dispatch(
+          "getUserIdFromEmail",
+          this.friendEmail
+        );
+        userId = response.data.id;
+      } catch (error) {
+        if (error.response.status === 404) {
+          this.error = "User not found.";
+        } else {
+          this.error = "An error has occurred. Please try again later.";
+        }
+        return;
+      }
+      try {
+        await this.$store.dispatch("addFriend", userId);
+        this.showModal = false;
+      } catch (error) {
+        if (error.response.status === 400) {
+          this.error = "You have already sent an invitation.";
+        } else {
+          this.error = "An error has occurred. Please try again later.";
+        }
+        return;
+      }
+    }
+  },
   computed: {
     sentInvitations() {
       return this.$store.state.sentInvitations;

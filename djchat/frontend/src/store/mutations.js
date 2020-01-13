@@ -73,6 +73,7 @@ const mutations = {
     Vue.set(state.allRead, message_id, true);
   },
   SET_SENT_INVITATIONS(state, sentInvitations) {
+    state.sentInvitations = {};
     sentInvitations.forEach(element => {
       Vue.set(state.sentInvitations, element.id, element);
     });
