@@ -7,6 +7,7 @@ from .views import (
     FriendshipRemoveAPIView,
     FriendshipAcceptAPIView,
     FriendshipRejectAPIView,
+    FriendshipCancelAPIView,
     FriendshipRequestListAPIView,
     FriendshipSentRequestListAPIView,
     FriendshipRequestListRejectedAPIView,
@@ -26,16 +27,16 @@ urlpatterns = [
     path('friends/remove/<int:user_id>', FriendshipRemoveAPIView.as_view(),
          name="friendship_remove_friends"),
 
-    path('friends/accept/<int:friendship_request_id>',
+    path('friends/requests/accept/<int:friendship_request_id>',
          FriendshipAcceptAPIView.as_view(), name="friendship_accept"),
 
-    path('friends/reject/<int:friendship_request_id>',
+    path('friends/requests/reject/<int:friendship_request_id>',
          FriendshipRejectAPIView.as_view(), name="friendship_reject"),
 
-    path('friends/cancel/<int:friendship_request_id>',
-         FriendshipRejectAPIView.as_view(), name="friendship_cancel"),
+    path('friends/requests/cancel/<int:friendship_request_id>',
+         FriendshipCancelAPIView.as_view(), name="friendship_cancel"),
 
-    path('friends/requests',
+    path('friends/requests/received',
          FriendshipRequestListAPIView.as_view(), name="friendship_request_list"),
 
     path('friends/requests/sent',
@@ -44,7 +45,7 @@ urlpatterns = [
     path('friends/requests/rejected',
          FriendshipRequestListRejectedAPIView.as_view(), name="friendship_requests_rejected"),
 
-    path('friends/request/<int:friendship_request_id>',
+    path('friends/requests/<int:friendship_request_id>',
          FriendshipRequestDetailAPIView.as_view(), name="friendship_requests_detail"),
 
 ]
