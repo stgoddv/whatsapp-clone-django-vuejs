@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'webpack_loader',
 
-    'chat',
+    'chat.apps.ChatConfig',
     'users',
     'friends',
 ]

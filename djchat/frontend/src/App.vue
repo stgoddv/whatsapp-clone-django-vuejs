@@ -27,6 +27,12 @@ export default {
           await _this.$store.dispatch("fetchUnreadMessages");
           await _this.$store.dispatch("fetchMessages");
           EventBus.$emit("update");
+        } else if (message === "update_rooms") {
+          console.log("actualizando rooms");
+        } else if (message === "update_received") {
+          _this.$store.dispatch("fetchReceivedInvitations");
+        } else if (message === "update_sent") {
+          _this.$store.dispatch("fetchSentInvitations");
         } else if (message === "writing") {
           EventBus.$emit("writing", data.data);
         } else if (message === "update_message") {

@@ -107,3 +107,12 @@ class Room(models.Model):
     class Meta:
         verbose_name = "Sala"
         verbose_name_plural = "Salas"
+
+    def signal_to_room(self, message, data={}):
+        for participant in self.participants.all():
+            async_to_sync(channel_layer.group_send)(
+                f"group_general_user_{participant.id}", {
+                    "type": "chat_message",
+                    "message": message,
+                    'data': data
+                })
