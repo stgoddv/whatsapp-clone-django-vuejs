@@ -7,13 +7,35 @@
         font-family: "Playfair Display", serif;
     }
 
+    .outer-area {
+        padding-top: 80px;
+    }
+
     .auth-box {
-        border: 3px solid lightgray;
+        border: 1px solid lightgray;
         border-radius: 10px;
         padding-top: 25px;
         padding-bottom: 25px;
         width: 600px;
         margin: auto;
+        text-align: center;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        background-color: white;
+    }
+
+    .auth-box .login-form-container input {
+        border-radius: 15px;
+        padding: 0.5rem;
+        font-size: 16px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    .auth-box .login-form-container label {
+        margin-bottom: 5px;
+    }
+
+    .auth-box .login-form-container .control-group {
+        margin-bottom: 1rem;
     }
 
     .login-form-container {
@@ -26,8 +48,26 @@
         margin: auto;
     }
 
-    .outer-area {
-        margin-top: 100px;
+    .auth-box .login-form-container button.blue {
+        color: white;
+        background: #4C8FFB;
+        border: 1px #3079ED solid;
+        box-shadow: inset 0 1px 0 #80B0FB;
+        cursor: pointer;
+        padding: 10px 15px;
+        font-size: 15px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    .auth-box .login-form-container button.blue:hover {
+        border: 1px #2F5BB7 solid;
+        box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
+        background: #3F83F1;
+    }
+
+    .auth-box .login-form-container button.blue:active {
+        box-shadow: inset 0 2px 5px #2370FE;
     }
 </style>
 {% endblock %}

@@ -1,10 +1,18 @@
 <template>
   <div class="bg-white">
     <!-- Search Panel -->
-    <div
-      class="flex items-center justify-center search-panel border-b"
-      style="height: 9vh"
-    >
+    <div class="flex items-center search-panel border-b" style="height: 9vh">
+      <!-- Avatar -->
+      <div
+        class="avatar-circle flex-none mx-3 select-none cursor-pointer hover:shadow-md"
+        :style="
+          `background-color: rgb(${getColor.red},${getColor.green},${getColor.blue}); transition: box-shadow 0.3s;`
+        "
+      >
+        <!-- {{ room.group_name.charAt(0).toUpperCase() }} -->
+        A
+      </div>
+
       <search @updateSearch="currentSearch = $event" />
     </div>
 
@@ -33,6 +41,8 @@
 import User from "./User.vue";
 import Search from "@/components/Search.vue";
 
+import { colorOffsets, getHash } from "@/global/variables.js";
+
 export default {
   data() {
     return {
@@ -56,6 +66,19 @@ export default {
     }
   },
   computed: {
+    getColor() {
+      // let username = this.room.group_name;
+      let username = "A";
+      let { red, green, blue } = colorOffsets;
+      red = (getHash(username) + red) ** 2 % 256;
+      green = (getHash(username) + green) ** 2 % 256;
+      blue = (getHash(username) + blue) ** 2 % 256;
+      return {
+        red,
+        green,
+        blue
+      };
+    },
     rooms() {
       let sortedRooms = Object.values(this.$store.state.rooms).sort((a, b) => {
         return new Date(b.last_activity) - new Date(a.last_activity);
@@ -82,6 +105,17 @@ export default {
 <style scoped>
 .user-row {
   transition: all 0.5s;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 25px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  font-weight: 600;
 }
 
 /* Scrollbar */

@@ -1,10 +1,37 @@
 <template>
   <div class="relative">
     <div
-      class="flex items-center justify-center profile-panel border-b"
+      class="flex items-center justify-between profile-panel border-b"
       style="height: 9vh;"
     >
-      <p>Profile panel</p>
+      <!-- Group Avatar -->
+      <div class="avatar-container">
+        <div v-if="selectedRoom" class="flex items-center">
+          <!-- Avatar -->
+          <div
+            class="avatar-circle flex-none mx-3 select-none cursor-pointer hover:shadow-md"
+            :style="
+              `background-color: rgb(${getColor.red},${getColor.green},${getColor.blue}); transition: box-shadow 0.3s;`
+            "
+          >
+            {{
+              $store.state.rooms[selectedRoom].group_name
+                .charAt(0)
+                .toUpperCase()
+            }}
+          </div>
+
+          <!-- Profile Name -->
+          <p class="cursor-pointer">
+            {{ $store.state.rooms[selectedRoom].group_name }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Menu Icon -->
+      <div class="cursor-pointer mr-3">
+        <i class="material-icons text-2xl mx-1">menu</i>
+      </div>
     </div>
 
     <!-- Fallback when no room is selected yet -->
@@ -43,10 +70,12 @@
         </div>
 
         <!-- Messages section -->
-        <div v-for="message in messages" :key="message.id">
-          <!-- Sent or received -->
-          <sent-message :message="message" v-if="message.is_owner" />
-          <received-message :message="message" v-else />
+        <div class="mx-auto max-w-2xl mb-3 px-1">
+          <div v-for="message in messages" :key="message.id">
+            <!-- Sent or received -->
+            <sent-message :message="message" v-if="message.is_owner" />
+            <received-message :message="message" v-else />
+          </div>
         </div>
 
         <!-- Fetching older messages alert -->
@@ -72,6 +101,8 @@
 <script>
 import SentMessage from "./SentMessage.vue";
 import ReceivedMessage from "./ReceivedMessage.vue";
+
+import { colorOffsets, getHash } from "@/global/variables.js";
 
 export default {
   data() {
@@ -133,6 +164,18 @@ export default {
     this.scrollToBottom();
   },
   computed: {
+    getColor() {
+      let username = this.$store.state.rooms[this.selectedRoom].group_name;
+      let { red, green, blue } = colorOffsets;
+      red = (getHash(username) + red) ** 2 % 256;
+      green = (getHash(username) + green) ** 2 % 256;
+      blue = (getHash(username) + blue) ** 2 % 256;
+      return {
+        red,
+        green,
+        blue
+      };
+    },
     selectedRoom() {
       return this.$store.state.selectedRoom;
     },
@@ -187,6 +230,17 @@ div.sticky {
   -moz-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   position: absolute;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 25px;
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  font-weight: 600;
 }
 
 /* Scrollbar */

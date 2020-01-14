@@ -21,22 +21,62 @@
       </div>
       <div class="text-sm w-full">
         <div class="flex justify-between">
-          <p class="text-gray-900 text-left">{{ room.group_name }}</p>
+          <p class="text-gray-900 text-base text-left">{{ room.group_name }}</p>
           <p class="text-gray-600 text-xs text-left">{{ lastActivity }}</p>
         </div>
 
         <div class="body-section flex items-center">
           <!-- Last message -->
           <div class="flex-1" v-if="lastMessage">
-            <p
-              v-if="whosWriting"
-              class="text-gray-600 text-md text-left italic"
-            >
-              {{ whosWriting }} is writing...
-            </p>
-            <p v-else class="text-gray-600 text-md text-left">
-              {{ truncateString(lastMessage.body, 35) }}
-            </p>
+            <!-- User is writing... -->
+            <div v-if="whosWriting">
+              <p class="text-gray-600 text-md text-left italic">
+                {{ whosWriting }} is writing...
+              </p>
+            </div>
+
+            <!-- Last message  -->
+            <div v-else class="flex text-gray-600 text-md text-left">
+              <div v-if="lastMessage.is_owner">
+                <!-- Sending icons -->
+                <i
+                  v-if="lastMessage.sending"
+                  class="material-icons mr-1"
+                  style="font-size: 16px;"
+                  >access_time</i
+                >
+                <i
+                  v-if="
+                    allReceived[lastMessage.id] ||
+                      lastMessage.all_received ||
+                      false
+                  "
+                  class="material-icons mr-1"
+                  :class="{
+                    'font-bold text-teal-400':
+                      allRead[lastMessage.id] || lastMessage.all_read || false
+                  }"
+                  style="font-size: 16px;"
+                  >done_all</i
+                >
+                <i
+                  v-if="
+                    !lastMessage.sending &&
+                      !(
+                        allReceived[lastMessage.id] ||
+                        lastMessage.all_received ||
+                        false
+                      )
+                  "
+                  class="material-icons mr-1"
+                  style="font-size: 16px;"
+                  >done</i
+                >
+              </div>
+              <p>
+                {{ truncateString(lastMessage.body, 35) }}
+              </p>
+            </div>
           </div>
 
           <!-- Unread messages -->
@@ -75,6 +115,12 @@ export default {
     }
   },
   computed: {
+    allReceived() {
+      return this.$store.state.allReceived;
+    },
+    allRead() {
+      return this.$store.state.allRead;
+    },
     getColor() {
       let username = this.room.group_name;
       let { red, green, blue } = colorOffsets;
