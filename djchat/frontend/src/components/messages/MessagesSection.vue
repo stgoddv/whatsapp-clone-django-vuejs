@@ -1,21 +1,35 @@
 <template>
   <div class="relative">
+    <div
+      class="flex items-center justify-center profile-panel border-b"
+      style="height: 9vh;"
+    >
+      <p>Profile panel</p>
+    </div>
+
     <!-- Fallback when no room is selected yet -->
     <div v-if="!$store.state.selectedRoom" class="alert">
-      <div
-        class="select-none mt-6 border 
-        border-teal-500 shadow rounded-lg py-3"
-        style="background-color: rgba(255,255,255,0.6);"
-      >
-        <p class="px-3">Selecciona una conversación para empezar!</p>
+      <div class="select-none mt-6">
+        <!-- Chat Icon -->
+        <i
+          class="material-icons mb-4 bg-white p-6 
+        shadow-lg rounded-full"
+          style="font-size: 48px;"
+          >chat_bubble_outline</i
+        >
+
+        <!-- Message -->
+        <p class=" py-2 px-4 bg-white shadow-lg rounded-full">
+          Talk to a Friend!
+        </p>
       </div>
     </div>
 
     <!-- Messages window -->
     <div
       ref="messages"
-      class="messages-section border rounded-lg border-teal-500 chat scrollbar overflow-y-auto overflow-x-hidden"
-      style="height: 70vh;"
+      class="messages-section chat scrollbar overflow-y-auto overflow-x-hidden"
+      style="height: 68vh;"
       @scroll="onScroll"
     >
       <div v-if="$store.state.selectedRoom">

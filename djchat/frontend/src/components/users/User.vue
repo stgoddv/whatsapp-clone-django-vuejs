@@ -1,7 +1,7 @@
 <template>
   <div
     class="user-row border-b px-3 py-3 select-none
-    cursor-pointer rounded-lg hover:shadow hover:bg-green-200"
+    cursor-pointer hover:shadow hover:bg-green-200"
     style="transition: box-shadow 0.3s, background-color 0.3s;"
     :class="{ 'bg-green-200': isSelected }"
   >

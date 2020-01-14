@@ -1,9 +1,6 @@
 <template>
   <div class="invitations-tabs">
-    <div
-      class="shadow-md border rounded-lg bg-white mt-3 relative"
-      style="height: 39vh;"
-    >
+    <div class="bg-white relative" style="height: 40vh;">
       <!-- Selection Tabs -->
       <div class="tabs-selection bg-white">
         <nav class="flex flex-wrap px-1">

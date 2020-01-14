@@ -1,11 +1,15 @@
 <template>
-  <div class="shadow-md border rounded-lg bg-white" style="">
-    <search @updateSearch="currentSearch = $event" class="mt-3" />
-    <!-- Lista de usuarios -->
+  <div class="bg-white">
+    <!-- Search Panel -->
     <div
-      class="scrollbar overflow-y-auto user-list mt-3 px-3 pt-1 border"
-      style="height: 40vh;"
+      class="flex items-center justify-center search-panel border-b"
+      style="height: 9vh"
     >
+      <search @updateSearch="currentSearch = $event" />
+    </div>
+
+    <!-- Lista de usuarios -->
+    <div class="scrollbar overflow-y-auto user-list" style="height: 40vh;">
       <transition-group>
         <div
           v-for="room in rooms"
