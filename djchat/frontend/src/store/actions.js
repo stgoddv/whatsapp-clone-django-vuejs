@@ -6,6 +6,21 @@ const actions = {
     commit("SET_USERS", users);
     commit("LINK_MESSAGES_TO_ROOM", messages);
   },
+  fetchRooms({ dispatch }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/v1/rooms/")
+        .then(response => {
+          dispatch("syncDB", {
+            rooms: response.data.rooms,
+            messages: response.data.messages,
+            users: response.data.users
+          });
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
+  },
   fetchRecentActivity({ dispatch }) {
     return new Promise((resolve, reject) => {
       axios

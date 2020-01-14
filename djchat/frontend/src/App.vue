@@ -28,7 +28,7 @@ export default {
           await _this.$store.dispatch("fetchMessages");
           EventBus.$emit("update");
         } else if (message === "update_rooms") {
-          console.log("actualizando rooms");
+          _this.$store.dispatch("fetchRooms");
         } else if (message === "update_received") {
           _this.$store.dispatch("fetchReceivedInvitations");
         } else if (message === "update_sent") {
@@ -53,6 +53,7 @@ export default {
     this.$store.dispatch("fetchSentInvitations");
     this.$store.dispatch("fetchReceivedInvitations");
     // First fetch older pending messages and then the recent ones
+    await this.$store.dispatch("fetchRooms");
     await this.$store.dispatch("fetchUnreadMessages");
     await this.$store.dispatch("fetchMessages");
     await this.$store.dispatch("fetchRecentActivity");
