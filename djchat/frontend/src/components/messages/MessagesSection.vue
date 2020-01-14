@@ -33,8 +33,14 @@
       </div>
 
       <!-- Menu Icon -->
-      <div class="cursor-pointer mr-3">
-        <i class="material-icons text-2xl mx-1">menu</i>
+      <div class="cursor-pointer mr-3 dropdown">
+        <i class="material-icons text-2xl mx-1 dropbtn">more_vert</i>
+        <div class="dropdown-content">
+          <a href="/accounts/logout/" class="flex">
+            <i class="flex-1 material-icons mr-2">exit_to_app</i>
+            <p class="flex-1">Logout</p>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -266,5 +272,46 @@ div.sticky {
 /* Handle on hover */
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* DROPDOWN */
+
+/* Style The Dropdown Button */
+.dropbtn {
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /* min-width: 120px; */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }
 </style>
