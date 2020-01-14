@@ -13,7 +13,12 @@
         A
       </div>
 
-      <search @updateSearch="currentSearch = $event" />
+      <div class="flex-grow ">
+        <search
+          class="max-w-xs mx-auto"
+          @updateSearch="currentSearch = $event"
+        />
+      </div>
     </div>
 
     <!-- Lista de usuarios -->

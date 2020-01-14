@@ -1,6 +1,6 @@
 <template>
-  <div class="text-gray-600 mx-2">
-    <div class="relative mx-auto" style="max-width: 16rem;">
+  <div class="text-gray-600">
+    <div class="relative mx-auto">
       <input
         class="bg-white focus:outline-none focus:shadow-outline 
       border border-gray-300 rounded-full py-1 px-4 block w-full 
