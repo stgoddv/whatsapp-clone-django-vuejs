@@ -29,7 +29,7 @@
     <div
       ref="messages"
       class="messages-section chat scrollbar overflow-y-auto overflow-x-hidden"
-      style="height: 68vh;"
+      style="height: 67vh;"
       @scroll="onScroll"
     >
       <div v-if="$store.state.selectedRoom">
