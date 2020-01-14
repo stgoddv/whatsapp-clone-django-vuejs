@@ -8,6 +8,7 @@
         :style="
           `background-color: rgb(${getColor.red},${getColor.green},${getColor.blue}); transition: box-shadow 0.3s;`
         "
+        @click="$emit('profile')"
       >
         <!-- {{ room.group_name.charAt(0).toUpperCase() }} -->
         A

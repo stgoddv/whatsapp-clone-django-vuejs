@@ -6,7 +6,11 @@
     >
       <!-- Group Avatar -->
       <div class="avatar-container">
-        <div v-if="selectedRoom" class="flex items-center">
+        <div
+          v-if="selectedRoom"
+          class="flex items-center"
+          @click="$emit('profile-sidenav')"
+        >
           <!-- Avatar -->
           <div
             class="avatar-circle flex-none mx-3 select-none cursor-pointer hover:shadow-md"
