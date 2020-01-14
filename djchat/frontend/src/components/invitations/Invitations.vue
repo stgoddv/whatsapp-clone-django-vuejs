@@ -1,5 +1,45 @@
 <template>
   <div class="invitations-tabs">
+    <card-modal class="px-3" :showing="showModal" @close="showModal = false">
+      <div class="modal-header">
+        <h2 class="text-xl font-bold text-gray-900">Add a Friend!</h2>
+        <p class="mt-3">
+          Enter his / her email and wait for their answer.
+        </p>
+      </div>
+
+      <div class="modal-body mt-3">
+        <div class="max-w-xs mx-auto">
+          <div class="mb-4">
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              placeholder="email"
+              v-model="friendEmail"
+            />
+          </div>
+          <p v-if="error" class="text-sm text-red-500">* {{ error }}</p>
+        </div>
+      </div>
+
+      <div class="action-buttons mt-6">
+        <button
+          class="mx-3 bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
+          @click="addFriend"
+        >
+          Send
+        </button>
+
+        <button
+          class="mx-3 bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
+          @click="showModal = false"
+        >
+          Close
+        </button>
+      </div>
+    </card-modal>
+
     <div class="bg-white relative" style="height: 40vh;">
       <!-- Selection Tabs -->
       <div class="tabs-selection bg-white">
@@ -90,46 +130,6 @@
         </div>
       </div>
     </div>
-
-    <card-modal :showing="showModal" @close="showModal = false">
-      <div class="modal-header">
-        <h2 class="text-xl font-bold text-gray-900">Add a Friend!</h2>
-        <p class="mt-3">
-          Enter his / her email and wait for their answer.
-        </p>
-      </div>
-
-      <div class="modal-body mt-3">
-        <div class="max-w-xs mx-auto">
-          <div class="mb-4">
-            <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="email"
-              type="email"
-              placeholder="email"
-              v-model="friendEmail"
-            />
-          </div>
-          <p v-if="error" class="text-sm text-red-500">* {{ error }}</p>
-        </div>
-      </div>
-
-      <div class="action-buttons mt-6">
-        <button
-          class="mx-3 bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
-          @click="addFriend"
-        >
-          Send
-        </button>
-
-        <button
-          class="mx-3 bg-blue-600 text-white px-4 py-2 text-sm uppercase tracking-wide font-bold rounded-lg"
-          @click="showModal = false"
-        >
-          Close
-        </button>
-      </div>
-    </card-modal>
   </div>
 </template>
 
