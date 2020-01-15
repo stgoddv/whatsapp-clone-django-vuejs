@@ -202,6 +202,16 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  deleteRoom(none, roomId) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`/api/v1/rooms/${roomId}/delete`)
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 

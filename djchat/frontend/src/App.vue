@@ -29,6 +29,12 @@ export default {
           EventBus.$emit("update");
         } else if (message === "update_rooms") {
           _this.$store.dispatch("fetchRooms");
+        } else if (message === "room_delete") {
+          const { room_id } = data.data;
+          if (_this.$store.state.selectedRoom === room_id) {
+            _this.$store.commit("SET_SELECTED_ROOM", null);
+          }
+          _this.$store.commit("REMOVE_ROOM", room_id);
         } else if (message === "update_received") {
           _this.$store.dispatch("fetchReceivedInvitations");
         } else if (message === "update_sent") {

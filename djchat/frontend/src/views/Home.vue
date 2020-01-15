@@ -107,7 +107,7 @@
 
           <!-- Envio de mensaje -->
           <div class="relative">
-            <p v-if="whosWriting" class="absolute left-0 text-xs">
+            <p v-if="whosWriting" class="absolute left-0 text-xs ml-3">
               {{ whosWriting }} is writing...
             </p>
             <send-form class="mt-5 mx-5" />

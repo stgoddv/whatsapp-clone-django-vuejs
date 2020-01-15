@@ -45,6 +45,9 @@ const mutations = {
   SET_SELECTED_ROOM(state, roomId) {
     state.selectedRoom = roomId;
   },
+  REMOVE_ROOM(state, roomId) {
+    Vue.delete(state.rooms, roomId);
+  },
   ADD_MESSAGE_TO_SENDING(state, message) {
     state.sendingPool.set(message.front_key, message);
   },

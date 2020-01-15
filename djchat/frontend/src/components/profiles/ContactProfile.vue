@@ -73,6 +73,7 @@
           <div
             class="bg-white shadow py-5 px-6 mt-3 
               select-none cursor-pointer hover:bg-gray-200"
+            @click="deleteChat"
           >
             <div class="text-left flex items-center">
               <i class="material-icons text-red-600" style="font-size: 28px;"
@@ -92,7 +93,19 @@ import { colorOffsets, getHash } from "@/global/variables.js";
 
 export default {
   props: ["rightSidenav"],
+  methods: {
+    deleteChat() {
+      const roomId = this.getRoom.id;
+      this.$store.commit("SET_SELECTED_ROOM", null);
+      this.$store.dispatch("deleteRoom", roomId);
+      this.$emit("toggleRightSidenav");
+    }
+  },
   computed: {
+    getRoom() {
+      let roomId = this.$store.state.selectedRoom;
+      return this.$store.state.rooms[roomId];
+    },
     getColor() {
       // let username = this.room.group_name;
       let username = "A";
