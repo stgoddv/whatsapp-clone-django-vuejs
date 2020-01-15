@@ -2,7 +2,7 @@
   <div class="relative">
     <div
       class="flex items-center justify-between profile-panel border-b"
-      style="height: 9vh;"
+      style="height: 10vh;"
     >
       <!-- Group Avatar -->
       <div class="avatar-container">
@@ -66,7 +66,7 @@
     <div
       ref="messages"
       class="messages-section chat scrollbar overflow-y-auto overflow-x-hidden"
-      style="height: 67vh;"
+      style="height: 75vh;"
       @scroll="onScroll"
     >
       <div v-if="$store.state.selectedRoom">
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Messages section -->
-        <div class="mx-auto max-w-2xl mb-3 px-1">
+        <div class="mx-auto max-w-3xl mb-3 px-1">
           <div v-for="message in messages" :key="message.id">
             <!-- Sent or received -->
             <sent-message :message="message" v-if="message.is_owner" />

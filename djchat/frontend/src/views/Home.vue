@@ -8,12 +8,9 @@
       id="overlay"
     ></div>
 
-    <div class="flex flex-wrap py-5 px-12">
+    <div class="flex flex-wrap">
       <div class="w-1/3">
-        <div
-          class="relative border border-r-0 rounded-l-lg bg-white"
-          style="height: 90vh;"
-        >
+        <div class="relative bg-white h-screen">
           <!-- Left Sidenavs -->
           <div
             class="absolute my-profile-sidenav bg-gray-200"
@@ -27,15 +24,15 @@
               <!-- Close Button -->
               <button
                 aria-label="close"
-                class="absolute top-0 right-0 text-xl text-white my-2 mx-2 closebtn"
+                class="absolute top-0 right-0 text-xl text-white mx-2 closebtn"
                 @click.prevent="toggleLeftSidenav"
               >
                 ×
               </button>
 
               <!-- Header -->
-              <div class="bg-teal-500">
-                <p class="text-white py-5 text-left mx-6 text-lg">My Profile</p>
+              <div class="bg-teal-500" style="height: 10vh;">
+                <p class="text-white pt-3 text-left mx-6 text-xl">My Profile</p>
               </div>
 
               <!-- User Details -->
@@ -98,8 +95,7 @@
 
       <div class="w-2/3">
         <div
-          class="relative flex flex-col justify-between border rounded-r-lg bg-white"
-          style="height: 90vh;"
+          class="relative flex flex-col justify-between border-l bg-white h-screen"
         >
           <!-- Right Sidenavs -->
           <div
@@ -114,15 +110,15 @@
               <!-- Close Button -->
               <button
                 aria-label="close"
-                class="absolute top-0 left-0 text-xl text-white my-2 mx-2 closebtn"
+                class="absolute top-0 left-0 text-xl text-white mx-2 closebtn"
                 @click.prevent="toggleRightSidenav"
               >
                 ×
               </button>
 
               <!-- Header -->
-              <div class="bg-teal-500">
-                <p class="text-white py-5 text-center text-lg">
+              <div class="bg-teal-500" style="height: 10vh;">
+                <p class="text-white pt-3 text-center text-xl">
                   Contact Details
                 </p>
               </div>

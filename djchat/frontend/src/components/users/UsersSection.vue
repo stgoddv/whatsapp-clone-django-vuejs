@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white">
     <!-- Search Panel -->
-    <div class="flex items-center search-panel border-b" style="height: 9vh">
+    <div class="flex items-center search-panel border-b" style="height: 10vh">
       <!-- Avatar -->
       <div
         class="avatar-circle flex-none mx-3 select-none cursor-pointer hover:shadow-md"
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Lista de usuarios -->
-    <div class="scrollbar overflow-y-auto user-list" style="height: 40vh;">
+    <div class="scrollbar overflow-y-auto user-list" style="height: 50vh;">
       <transition-group>
         <div
           v-for="room in rooms"

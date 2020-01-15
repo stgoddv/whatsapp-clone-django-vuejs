@@ -1,5 +1,7 @@
 <template>
-  <div class="send-form flex items-center border rounded-lg border-teal-500">
+  <div
+    class="send-form flex items-center border rounded-lg border-teal-500 shadow-md"
+  >
     <input
       class="ml-3 text-lg appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
       type="text"
