@@ -97,77 +97,10 @@
         <div
           class="relative flex flex-col justify-between border-l bg-white h-screen"
         >
-          <!-- Right Sidenavs -->
-          <div
-            class="absolute user-profile-sidenav right-0 bg-gray-200"
-            :style="
-              `height: 100%; width: 25rem; z-index:10; 
-            transform: translate(${rightSidenav ? 0 : 150}%);
-            transition: transform 0.5s ease-out;`
-            "
-          >
-            <div class="relative w-full">
-              <!-- Close Button -->
-              <button
-                aria-label="close"
-                class="absolute top-0 left-0 text-xl text-white mx-2 closebtn"
-                @click.prevent="toggleRightSidenav"
-              >
-                ×
-              </button>
-
-              <!-- Header -->
-              <div class="bg-teal-500" style="height: 10vh;">
-                <p class="text-white pt-3 text-center text-xl">
-                  Contact Details
-                </p>
-              </div>
-
-              <!-- User Details -->
-              <div class="user-details">
-                <div class="bg-white shadow py-8">
-                  <!-- Avatar -->
-                  <div
-                    class="avatar-main-circle flex-none mx-auto 
-                  select-none cursor-pointer hover:shadow-md"
-                    :style="
-                      `background-color: rgb(${getColor.red},${getColor.green},${getColor.blue}); 
-          transition: box-shadow 0.3s;`
-                    "
-                  >
-                    <!-- {{ room.group_name.charAt(0).toUpperCase() }} -->
-                    A
-                  </div>
-
-                  <!-- Username -->
-                  <div class="text-center mt-3">
-                    <p class="text-lg">Admin</p>
-                  </div>
-                </div>
-
-                <!-- Description -->
-                <form class="bg-white shadow py-3 px-6 mt-3">
-                  <p class="text-left text-sm text-teal-500">Description</p>
-                  <div
-                    class="flex items-center border-b border-b-2 border-teal-500 py-2"
-                  >
-                    <input
-                      class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                      type="text"
-                      placeholder="Add some info."
-                      aria-label="Description"
-                    />
-                    <button
-                      class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                      type="button"
-                    >
-                      Save
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+          <contact-profile
+            :rightSidenav="rightSidenav"
+            @toggleRightSidenav="toggleRightSidenav"
+          />
 
           <!-- Seccion de mensajes -->
           <messages-section @profile-sidenav="toggleRightSidenav" />
@@ -197,6 +130,7 @@ import SendForm from "@/components/SendForm.vue";
 import MessagesSection from "@/components/messages/MessagesSection.vue";
 import UsersSection from "@/components/users/UsersSection.vue";
 import Invitations from "@/components/invitations/Invitations.vue";
+import ContactProfile from "@/components/profiles/ContactProfile.vue";
 
 import { colorOffsets, getHash } from "@/global/variables.js";
 
@@ -205,7 +139,8 @@ export default {
     SendForm,
     MessagesSection,
     UsersSection,
-    Invitations
+    Invitations,
+    ContactProfile
   },
   data() {
     return {
