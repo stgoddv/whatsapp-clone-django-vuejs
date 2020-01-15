@@ -291,7 +291,7 @@ div.sticky {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #e6fffa;
   /* min-width: 120px; */
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -307,7 +307,7 @@ div.sticky {
 
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
+  background-color: #b2f5ea;
 }
 
 /* Show the dropdown menu on hover */

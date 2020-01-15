@@ -273,7 +273,7 @@ export default {
   top: 0;
   right: 25px;
   font-size: 36px;
-  margin-left: 50px;
+  margin-left: 30px;
 }
 
 .avatar-main-circle {
