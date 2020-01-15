@@ -53,7 +53,15 @@
                 selectedTab === 0
             }"
           >
-            Sent
+            <div class="flex justify-center">
+              <p>Sent</p>
+              <p
+                v-if="Object.keys(sentInvitations).length"
+                class="mx-3 circle bg-indigo-500"
+              >
+                {{ Object.keys(sentInvitations).length }}
+              </p>
+            </div>
           </button>
 
           <!-- Received Tab -->
@@ -65,7 +73,15 @@
                 selectedTab === 1
             }"
           >
-            Received
+            <div class="flex justify-center">
+              <p>Received</p>
+              <p
+                v-if="Object.keys(receivedInvitations).length"
+                class="mx-3 circle bg-orange-500"
+              >
+                {{ Object.keys(receivedInvitations).length }}
+              </p>
+            </div>
           </button>
         </nav>
       </div>
@@ -204,3 +220,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  line-height: 20px;
+  text-align: center;
+}
+</style>
