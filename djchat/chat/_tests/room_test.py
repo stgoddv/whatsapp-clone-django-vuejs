@@ -78,3 +78,12 @@
 # Que efectivamente pueda marcar los mensajes de una room como leidos
 
 # Que toda la room quede como leido para mi y no para los demás
+
+
+# Delete room
+
+# que se pueda eliminar la room si el usuario pertenece a ella
+
+# que no lo pueda hacer si no pertenece
+
+# que efectivamente si es private entonces la relacion de amistad se acabe

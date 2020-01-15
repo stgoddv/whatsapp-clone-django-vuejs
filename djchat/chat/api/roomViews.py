@@ -12,9 +12,35 @@ from django.shortcuts import get_object_or_404
 from users.api.serializers import UserSerializer
 from .serializers import RoomSerializer, MessageSerializer
 from chat.models import Room, Message
+from friends.api.views import FriendshipRemoveAPIView
 
 channel_layer = get_channel_layer()
 User = get_user_model()
+
+
+class RoomDeleteAPIView(APIView):
+    """
+    Delete the room
+    """
+
+    def post(self, request, room_id, format=None):
+        # Get room
+        room = get_object_or_404(
+            request.user.rooms.all(),
+            id=room_id)
+        # Signal deletion to participants
+        room.signal_to_room(
+            'room_delete',
+            data={'room_id': room.id})
+        # Delete friendship if private
+        if (room.kind == 1):
+            user_1 = room.participants.all()[0]
+            user_2 = room.participants.all()[1]
+            user_id = user_2.id if user_1 == request.user else user_1.id
+            FriendshipRemoveAPIView.post(self, request, user_id)
+        # Delete room
+        room.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class RoomMarkAsReadAPIView(APIView):
