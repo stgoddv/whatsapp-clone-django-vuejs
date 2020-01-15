@@ -16,7 +16,7 @@
 
       <div class="flex-grow ">
         <search
-          class="max-w-xs mx-auto"
+          class="max-w-xs mx-auto pr-3"
           @updateSearch="currentSearch = $event"
         />
       </div>
