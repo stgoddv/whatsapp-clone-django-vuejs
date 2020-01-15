@@ -228,9 +228,8 @@ div.sticky {
 }
 
 .chat {
-  background-image: url("~@/assets/imgs/main-bg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url("~@/assets/imgs/main-bg.png");
+  background-repeat: repeat;
 }
 
 .alert {
