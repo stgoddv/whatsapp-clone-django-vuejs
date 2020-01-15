@@ -8,26 +8,52 @@
     }
 
     .outer-area {
-        padding-top: 80px;
+        padding-top: 50px;
     }
 
     .auth-box {
         border: 1px solid lightgray;
-        border-radius: 10px;
-        padding-top: 25px;
+        border-radius: 20px;
         padding-bottom: 25px;
         width: 600px;
         margin: auto;
         text-align: center;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         background-color: white;
     }
 
+    .auth-box h1 {
+        margin-top: 5px;
+    }
+
+    .auth-box .headline {
+        background-color: #38b2ac;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 10px;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .auth-box .login-form-container .wrap-input {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 27px;
+        z-index: 1;
+        margin-bottom: 40px;
+    }
+
     .auth-box .login-form-container input {
-        border-radius: 15px;
-        padding: 0.5rem;
+        outline: none;
+        border: none;
+        overflow: visible;
         font-size: 16px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        line-height: 1.2;
+        background-color: #ebebeb !important;
+        border-radius: 27px;
+        padding: 0 35px 0 35px;
+        height: 55px;
+        width: 14rem;
     }
 
     .auth-box .login-form-container label {
@@ -48,26 +74,69 @@
         margin: auto;
     }
 
-    .auth-box .login-form-container button.blue {
-        color: white;
-        background: #4C8FFB;
-        border: 1px #3079ED solid;
-        box-shadow: inset 0 1px 0 #80B0FB;
+    .auth-box .login-form-container button {
+        outline: none !important;
+        border: none;
+        background: transparent;
+    }
+
+    .auth-box .login-form-container button:hover {
         cursor: pointer;
-        padding: 10px 15px;
-        font-size: 15px;
-        border-radius: 5px;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     }
 
-    .auth-box .login-form-container button.blue:hover {
-        border: 1px #2F5BB7 solid;
-        box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
-        background: #3F83F1;
+    .auth-box .login-form-container button.login-btn {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        width: 24rem;
+        height: 50px;
+        background-color: #38b2ac;
+        border-radius: 25px;
+
+        font-size: 18px;
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
     }
 
-    .auth-box .login-form-container button.blue:active {
-        box-shadow: inset 0 2px 5px #2370FE;
+    .auth-box .login-form-container .container-login-btn {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .auth-box .login-form-container button.login-btn:hover {
+        background-color: #285e61;
+    }
+
+    .auth-box .login-form-container a {
+        color: #38b2ac;
+        line-height: 1.4;
+        text-transform: uppercase;
+        text-decoration: none;
+        background-color: transparent;
+        transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+    }
+
+    .auth-box .login-form-container a:hover {
+        text-decoration: none;
+        color: #285e61;
     }
 </style>
 {% endblock %}
