@@ -65,7 +65,7 @@
     <!-- Messages window -->
     <div
       ref="messages"
-      class="messages-section chat scrollbar overflow-y-auto overflow-x-hidden"
+      class="messages-section chat scrollbar overflow-y-auto overflow-x-hidden border-b"
       style="height: 75vh;"
       @scroll="onScroll"
     >
