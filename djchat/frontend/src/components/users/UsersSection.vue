@@ -39,6 +39,14 @@
           />
         </div>
       </transition-group>
+
+      <div v-if="!rooms.length" class="sent-list empty">
+        <div class="text-sm mt-8">
+          <p>You have not added any friends yet.</p>
+          <p>Say hello to a friend!</p>
+        </div>
+        <invite-button class="mt-5" />
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +54,7 @@
 <script>
 import User from "./User.vue";
 import Search from "@/components/Search.vue";
+import InviteButton from "@/components/invitations/InviteButton";
 
 import { colorOffsets, getHash } from "@/global/variables.js";
 
@@ -58,7 +67,8 @@ export default {
   },
   components: {
     User,
-    Search
+    Search,
+    InviteButton
   },
   methods: {
     selectRoom(roomId) {
