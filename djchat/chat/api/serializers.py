@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
+from users.api.serializers import UserSerializer
 from chat.models import Message, Room
 
 User = get_user_model()
@@ -44,6 +45,7 @@ class CreateMessageSerializer(serializers.ModelSerializer):
 class RoomSerializer(serializers.ModelSerializer):
     last_message = serializers.SerializerMethodField()
     group_name = serializers.SerializerMethodField()
+    group_profile = serializers.SerializerMethodField()
 
     class Meta:
         model = Room
@@ -63,4 +65,13 @@ class RoomSerializer(serializers.ModelSerializer):
             participants = list(obj.participants.all())
             participants.remove(current_user)
             return participants[0].username
+        return obj.group_name
+
+    def get_group_profile(self, obj):
+        if obj.kind == 1:
+            # If private then return name of the other participant
+            current_user = self.context['request'].user
+            participants = list(obj.participants.all())
+            participants.remove(current_user)
+            return UserSerializer(participants[0]).data
         return obj.group_name

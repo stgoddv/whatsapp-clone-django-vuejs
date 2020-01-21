@@ -87,3 +87,8 @@
 # que no lo pueda hacer si no pertenece
 
 # que efectivamente si es private entonces la relacion de amistad se acabe
+
+
+# Profile
+
+# que si es privado entonces se retorne el perfil correcto del usuario contrario
