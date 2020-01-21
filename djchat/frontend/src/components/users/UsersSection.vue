@@ -10,8 +10,7 @@
         "
         @click="$emit('profile')"
       >
-        <!-- {{ room.group_name.charAt(0).toUpperCase() }} -->
-        A
+        {{ getAvatarName }}
       </div>
 
       <div class="flex-grow ">
@@ -82,9 +81,16 @@ export default {
     }
   },
   computed: {
+    getUserProfile() {
+      return this.$store.state.userProfile || {};
+    },
+    getAvatarName() {
+      return this.getUserProfile.username
+        ? this.getUserProfile.username.charAt(0).toUpperCase()
+        : "";
+    },
     getColor() {
-      // let username = this.room.group_name;
-      let username = "A";
+      let username = this.getUserProfile.username || "";
       let { red, green, blue } = colorOffsets;
       red = (getHash(username) + red) ** 2 % 256;
       green = (getHash(username) + green) ** 2 % 256;

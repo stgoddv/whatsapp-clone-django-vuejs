@@ -9,19 +9,24 @@
             transition: transform 0.5s ease-out;`
       "
     >
-      <div class="relative w-full">
-        <!-- Close Button -->
-        <button
-          aria-label="close"
-          class="absolute top-0 right-0 text-xl text-white mx-2 closebtn"
-          @click.prevent="$emit('toggleLeftSidenav')"
+      <div class=" w-full">
+        <div
+          class="flex justify-between items-center px-5 bg-teal-500"
+          style="height: 10vh;"
         >
-          ×
-        </button>
+          <!-- Header -->
+          <div>
+            <p class="text-white text-left text-xl">My Profile</p>
+          </div>
 
-        <!-- Header -->
-        <div class="bg-teal-500" style="height: 10vh;">
-          <p class="text-white pt-3 text-left mx-6 text-xl">My Profile</p>
+          <!-- Close Button -->
+          <button
+            aria-label="close"
+            class="text-xl text-white closebtn"
+            @click.prevent="$emit('toggleLeftSidenav')"
+          >
+            ×
+          </button>
         </div>
 
         <!-- User Details -->
@@ -36,13 +41,12 @@
           transition: box-shadow 0.3s;`
               "
             >
-              <!-- {{ room.group_name.charAt(0).toUpperCase() }} -->
-              A
+              {{ getAvatarName }}
             </div>
 
             <!-- Username -->
             <div class="text-center mt-3">
-              <p class="text-lg">Admin</p>
+              <p class="text-lg capitalize">{{ getUsername }}</p>
             </div>
           </div>
 
@@ -76,11 +80,28 @@
 import { colorOffsets, getHash } from "@/global/variables.js";
 
 export default {
-  props: ["leftSidenav"],
+  props: {
+    leftSidenav: {
+      type: Boolean,
+      required: true
+    }
+  },
   computed: {
+    getUserProfile() {
+      return this.$store.state.userProfile || {};
+    },
+    getAvatarName() {
+      return this.getUserProfile.username
+        ? this.getUserProfile.username.charAt(0).toUpperCase()
+        : "";
+    },
+    getUsername() {
+      return this.$store.state.userProfile
+        ? this.$store.state.userProfile.username
+        : "";
+    },
     getColor() {
-      // let username = this.room.group_name;
-      let username = "A";
+      let username = this.getUserProfile.username || "";
       let { red, green, blue } = colorOffsets;
       red = (getHash(username) + red) ** 2 % 256;
       green = (getHash(username) + green) ** 2 % 256;
@@ -97,11 +118,7 @@ export default {
 
 <style scoped>
 .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
   font-size: 36px;
-  margin-left: 30px;
 }
 
 .avatar-main-circle {

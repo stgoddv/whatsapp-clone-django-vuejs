@@ -218,7 +218,7 @@ const actions = {
       axios
         .get("/api/v1/me")
         .then(response => {
-          commit('SET_USER_PROFILE', response.data);
+          commit("SET_USER_PROFILE", response.data);
           resolve(response);
         })
         .catch(error => reject(error));
