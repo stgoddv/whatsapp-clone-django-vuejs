@@ -9,21 +9,24 @@
             transition: transform 0.5s ease-out;`
       "
     >
-      <div class="relative w-full">
-        <!-- Close Button -->
-        <button
-          aria-label="close"
-          class="absolute top-0 left-0 text-xl text-white mx-2 closebtn"
-          @click.prevent="$emit('toggleRightSidenav')"
+      <div class="w-full">
+        <div
+          class="flex justify-between items-center px-5 bg-teal-500"
+          style="height: 10vh;"
         >
-          ×
-        </button>
+          <!-- Close Button -->
+          <button
+            aria-label="close"
+            class="text-xl text-white closebtn"
+            @click.prevent="$emit('toggleRightSidenav')"
+          >
+            ×
+          </button>
 
-        <!-- Header -->
-        <div class="bg-teal-500" style="height: 10vh;">
-          <p class="text-white pt-3 text-center text-xl">
-            Contact Details
-          </p>
+          <!-- Header -->
+          <div class="flex-grow">
+            <p class="text-white text-center text-xl">Contact Details</p>
+          </div>
         </div>
 
         <!-- User Details -->
@@ -38,34 +41,20 @@
           transition: box-shadow 0.3s;`
               "
             >
-              <!-- {{ room.group_name.charAt(0).toUpperCase() }} -->
-              A
+              {{ getAvatarName }}
             </div>
 
             <!-- Username -->
             <div class="text-center mt-3">
-              <p class="text-lg">Admin</p>
+              <p class="text-lg">{{ getUsername }}</p>
             </div>
           </div>
 
           <!-- Description -->
           <form class="bg-white shadow py-3 px-6 mt-3">
             <p class="text-left text-sm text-teal-500">Description</p>
-            <div
-              class="flex items-center border-b border-b-2 border-teal-500 py-2"
-            >
-              <input
-                class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                type="text"
-                placeholder="Add some info."
-                aria-label="Description"
-              />
-              <button
-                class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
-                type="button"
-              >
-                Save
-              </button>
+            <div class="flex items-center py-2">
+              <p class="cursor-default">{{ getUserTagline }}</p>
             </div>
           </form>
 
@@ -104,11 +93,24 @@ export default {
   computed: {
     getRoom() {
       let roomId = this.$store.state.selectedRoom;
-      return this.$store.state.rooms[roomId];
+      return this.$store.state.rooms[roomId] || {};
+    },
+    getGroupProfile() {
+      return this.getRoom.group_profile || {};
+    },
+    getAvatarName() {
+      return this.getGroupProfile.username
+        ? this.getGroupProfile.username.charAt(0).toUpperCase()
+        : "";
+    },
+    getUsername() {
+      return this.getGroupProfile ? this.getGroupProfile.username : "";
+    },
+    getUserTagline() {
+      return this.getGroupProfile ? this.getGroupProfile.tagline : "";
     },
     getColor() {
-      // let username = this.room.group_name;
-      let username = "A";
+      let username = this.getGroupProfile.username || "";
       let { red, green, blue } = colorOffsets;
       red = (getHash(username) + red) ** 2 % 256;
       green = (getHash(username) + green) ** 2 % 256;
@@ -125,11 +127,7 @@ export default {
 
 <style scoped>
 .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
   font-size: 36px;
-  margin-left: 30px;
 }
 
 .avatar-main-circle {
