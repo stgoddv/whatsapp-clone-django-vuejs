@@ -4,4 +4,8 @@ from django.conf import settings
 
 
 class CustomUser(AbstractUser):
-    pass
+    tagline = models.TextField(
+        verbose_name="description",
+        max_length=1024,
+        default='',
+        blank=True)

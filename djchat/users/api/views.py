@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
@@ -18,7 +18,11 @@ class UsersAPIView(APIView):
         return Response(serializer.data)
 
 
-class CurrentUserAPIView(APIView):
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+class CurrentUserAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        return self.request.user
+
+    def get_object(self):
+        return self.get_queryset()
