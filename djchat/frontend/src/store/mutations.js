@@ -86,6 +86,9 @@ const mutations = {
     receivedInvitations.forEach(element => {
       Vue.set(state.receivedInvitations, element.id, element);
     });
+  },
+  SET_USER_PROFILE(state, userProfile) {
+    state.userProfile = userProfile;
   }
 };
 

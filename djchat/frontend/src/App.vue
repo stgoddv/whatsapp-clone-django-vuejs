@@ -56,6 +56,7 @@ export default {
     }
   },
   async created() {
+    await this.$store.dispatch("fetchUserProfile");
     this.$store.dispatch("fetchSentInvitations");
     this.$store.dispatch("fetchReceivedInvitations");
     // First fetch older pending messages and then the recent ones

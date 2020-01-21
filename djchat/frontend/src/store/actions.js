@@ -212,6 +212,17 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  fetchUserProfile({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/v1/me")
+        .then(response => {
+          commit('SET_USER_PROFILE', response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 

@@ -20,7 +20,10 @@ const state = {
 
   // Invitations
   sentInvitations: {},
-  receivedInvitations: {}
+  receivedInvitations: {},
+
+  // User
+  userProfile: null
 };
 
 export default state;
