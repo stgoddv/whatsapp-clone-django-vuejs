@@ -199,7 +199,7 @@ export default {
       setTimeout(() => this.scrollToBottom(), 10);
       this.fetchingMessages = false;
       this.noMoreMessages = false;
-      if (!this.messages || this.messages.length < 3) {
+      if (!this.messages || this.messages.length < 8) {
         this.fetchPastMessages();
       }
       if (this.hasUnreadMessagesInRoom()) {
