@@ -223,6 +223,17 @@ const actions = {
         })
         .catch(error => reject(error));
     });
+  },
+  patchUserProfile({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios
+        .patch("/api/v1/me", payload)
+        .then(response => {
+          commit("SET_USER_PROFILE", response.data);
+          resolve(response);
+        })
+        .catch(error => reject(error));
+    });
   }
 };
 

@@ -56,20 +56,36 @@
             <div
               class="flex items-center border-b border-b-2 border-teal-500 py-2"
             >
-              <input
+              <!-- Tagline textarea -->
+              <textarea
                 class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                 type="text"
                 placeholder="Add some info."
                 aria-label="Description"
-              />
+                rows="3"
+                v-model="tagline"
+                :disabled="isPatching"
+              ></textarea>
+
+              <!-- Save button -->
               <button
-                class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+                class="flex-shrink-0 text-sm border-4 text-white py-1 px-2 rounded"
+                :class="{
+                  'bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700': !isPatching,
+                  'bg-gray-500': isPatching
+                }"
                 type="button"
+                :disabled="isPatching"
+                @click="patchUserProfile"
               >
                 Save
               </button>
             </div>
           </form>
+
+          <transition name="fade">
+            <success-alert v-if="showSuccess" class="m-3" />
+          </transition>
         </div>
       </div>
     </div>
@@ -77,13 +93,44 @@
 </template>
 
 <script>
+import SuccessAlert from "./SuccessAlert";
 import { colorOffsets, getHash } from "@/global/variables.js";
 
 export default {
+  components: {
+    SuccessAlert
+  },
+  data() {
+    return {
+      tagline: "",
+      isPatching: false,
+      showSuccess: false
+    };
+  },
   props: {
     leftSidenav: {
       type: Boolean,
       required: true
+    }
+  },
+  methods: {
+    async patchUserProfile() {
+      this.isPatching = true;
+      try {
+        await this.$store.dispatch("patchUserProfile", {
+          tagline: this.tagline
+        });
+        this.showSuccessAlert();
+      } catch (error) {
+        console.log(error);
+      }
+      this.isPatching = false;
+    },
+    showSuccessAlert() {
+      this.showSuccess = true;
+      setTimeout(() => {
+        this.showSuccess = false;
+      }, 5000);
     }
   },
   computed: {
@@ -100,6 +147,11 @@ export default {
         ? this.$store.state.userProfile.username
         : "";
     },
+    getUserTagline() {
+      return this.$store.state.userProfile
+        ? this.$store.state.userProfile.tagline
+        : "";
+    },
     getColor() {
       let username = this.getUserProfile.username || "";
       let { red, green, blue } = colorOffsets;
@@ -111,6 +163,16 @@ export default {
         green,
         blue
       };
+    }
+  },
+  watch: {
+    getUserTagline: function(value) {
+      this.tagline = value;
+    },
+    leftSidenav: function(value) {
+      if (value) {
+        this.tagline = this.getUserTagline;
+      }
     }
   }
 };
@@ -130,5 +192,13 @@ export default {
   line-height: 180px;
   text-align: center;
   font-weight: 600;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
