@@ -74,8 +74,6 @@ import InvitationModal from "@/components/invitations/InvitationModal.vue";
 import ContactProfile from "@/components/profiles/ContactProfile.vue";
 import UserProfile from "@/components/profiles/UserProfile.vue";
 
-import { colorOffsets, getHash } from "@/global/variables.js";
-
 export default {
   components: {
     SendForm,
@@ -96,19 +94,6 @@ export default {
   computed: {
     selectedRoom() {
       return this.$store.state.selectedRoom;
-    },
-    getColor() {
-      // let username = this.room.group_name;
-      let username = "A";
-      let { red, green, blue } = colorOffsets;
-      red = (getHash(username) + red) ** 2 % 256;
-      green = (getHash(username) + green) ** 2 % 256;
-      blue = (getHash(username) + blue) ** 2 % 256;
-      return {
-        red,
-        green,
-        blue
-      };
     }
   },
   watch: {
