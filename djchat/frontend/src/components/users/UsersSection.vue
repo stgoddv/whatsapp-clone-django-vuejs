@@ -40,7 +40,10 @@
       </transition-group>
 
       <!-- Fallback message -->
-      <invite-friend v-if="!rooms.length">
+      <invite-friend
+        v-if="!rooms.length"
+        @invite-action="$emit('invite-action')"
+      >
         <p>You have not added any friends yet.</p>
         <p>Say hello to a friend!</p>
       </invite-friend>

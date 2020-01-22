@@ -8,6 +8,8 @@
       id="overlay"
     ></div>
 
+    <invitation-modal ref="invitation-modal" />
+
     <div class="flex flex-wrap">
       <div class="w-1/3">
         <div class="relative bg-white h-screen">
@@ -22,10 +24,11 @@
             class="border-b"
             @profile="toggleLeftSidenav"
             @whosWriting="setWriting($event)"
+            @invite-action="openInvitationModal"
           />
 
           <!-- Seccion Invitaciones -->
-          <invitations />
+          <invitations @invite-action="openInvitationModal" />
         </div>
       </div>
 
@@ -67,6 +70,7 @@ import SendForm from "@/components/SendForm.vue";
 import MessagesSection from "@/components/messages/MessagesSection.vue";
 import UsersSection from "@/components/users/UsersSection.vue";
 import Invitations from "@/components/invitations/Invitations.vue";
+import InvitationModal from "@/components/invitations/InvitationModal.vue";
 import ContactProfile from "@/components/profiles/ContactProfile.vue";
 import UserProfile from "@/components/profiles/UserProfile.vue";
 
@@ -78,6 +82,7 @@ export default {
     MessagesSection,
     UsersSection,
     Invitations,
+    InvitationModal,
     ContactProfile,
     UserProfile
   },
@@ -112,6 +117,9 @@ export default {
     }
   },
   methods: {
+    openInvitationModal() {
+      this.$refs["invitation-modal"].open();
+    },
     setWriting(data) {
       const { value, room } = data;
       if (this.selectedRoom === room) {
