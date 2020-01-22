@@ -5,7 +5,10 @@
       style="height: 10vh;"
     >
       <!-- Group Avatar -->
-      <div class="avatar-container">
+      <div class="avatar-container flex">
+        <!-- Optional slot -->
+        <slot></slot>
+
         <div
           v-if="selectedRoom"
           class="flex items-center"

@@ -1,5 +1,6 @@
 <template>
   <div class="home overflow-hidden">
+    <!-- Invisible components -->
     <div
       @click="
         leftSidenav = rightSidenav = false;
@@ -7,16 +8,24 @@
       "
       id="overlay"
     ></div>
-
     <invitation-modal ref="invitation-modal" />
 
     <div class="flex flex-wrap">
-      <div class="w-1/3">
+      <div class="w-full md:w-1/3">
         <div class="relative bg-white h-screen">
           <!-- Left sidenav -->
           <user-profile
             :leftSidenav="leftSidenav"
             @toggleLeftSidenav="toggleLeftSidenav"
+          />
+
+          <SideRooms
+            v-if="width < 768"
+            ref="mobile-rooms"
+            :rightSidenav="rightSidenav"
+            :whosWriting="whosWriting"
+            @toggleLeftSidenav="toggleLeftSidenav"
+            @toggleRightSidenav="toggleRightSidenav"
           />
 
           <!-- Seccion conversaciones  -->
@@ -25,6 +34,7 @@
             @profile="toggleLeftSidenav"
             @whosWriting="setWriting($event)"
             @invite-action="openInvitationModal"
+            @selected-room="openMobileRooms"
           />
 
           <!-- Seccion Invitaciones -->
@@ -32,57 +42,33 @@
         </div>
       </div>
 
-      <div class="w-2/3">
-        <div
-          class="relative flex flex-col justify-between border-l bg-white h-screen"
-        >
-          <!-- Right sidenav -->
-          <contact-profile
-            :rightSidenav="rightSidenav"
-            @toggleRightSidenav="toggleRightSidenav"
-          />
-
-          <!-- Seccion de mensajes -->
-          <messages-section @profile-sidenav="toggleRightSidenav" />
-
-          <!-- Envio de mensaje -->
-          <div class="relative">
-            <p v-if="whosWriting" class="absolute left-0 text-xs ml-3">
-              {{ whosWriting }} is writing...
-            </p>
-            <send-form class="mt-5 mx-5" />
-          </div>
-
-          <!-- Footer Copyright -->
-          <div class="text-right mr-5">
-            <a style="font-size: 9px;" href="http://www.freepik.com"
-              >Background vector created by kjpargeter - www.freepik.com</a
-            >
-          </div>
-        </div>
+      <div v-if="width >= 768" class="w-2/3">
+        <rooms
+          :rightSidenav="rightSidenav"
+          :whosWriting="whosWriting"
+          @toggleRightSidenav="toggleRightSidenav"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SendForm from "@/components/SendForm.vue";
-import MessagesSection from "@/components/messages/MessagesSection.vue";
 import UsersSection from "@/components/users/UsersSection.vue";
 import Invitations from "@/components/invitations/Invitations.vue";
 import InvitationModal from "@/components/invitations/InvitationModal.vue";
-import ContactProfile from "@/components/profiles/ContactProfile.vue";
 import UserProfile from "@/components/profiles/UserProfile.vue";
+import Rooms from "@/components/rooms/Rooms.vue";
+import SideRooms from "@/components/rooms/SideRooms.vue";
 
 export default {
   components: {
-    SendForm,
-    MessagesSection,
     UsersSection,
     Invitations,
     InvitationModal,
-    ContactProfile,
-    UserProfile
+    UserProfile,
+    Rooms,
+    SideRooms
   },
   data() {
     return {
@@ -92,6 +78,9 @@ export default {
     };
   },
   computed: {
+    width() {
+      return this.$store.state.width;
+    },
     selectedRoom() {
       return this.$store.state.selectedRoom;
     }
@@ -104,6 +93,11 @@ export default {
   methods: {
     openInvitationModal() {
       this.$refs["invitation-modal"].open();
+    },
+    openMobileRooms() {
+      if ("mobile-rooms" in this.$refs && this.$refs["mobile-rooms"]) {
+        this.$refs["mobile-rooms"].open();
+      }
     },
     setWriting(data) {
       const { value, room } = data;

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <window-size />
     <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -11,9 +12,13 @@
 </template>
 
 <script>
+import WindowSize from "@/components/WindowSize.vue";
 import { EventBus } from "@/eventBus";
 
 export default {
+  components: {
+    WindowSize
+  },
   methods: {
     initializeWebSocketSupport() {
       var _this = this;

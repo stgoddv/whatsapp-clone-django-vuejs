@@ -4,7 +4,7 @@
     <div
       class="absolute user-profile-sidenav right-0 bg-gray-200"
       :style="
-        `height: 100%; width: 25rem; z-index:10; 
+        `height: 100%; width: ${Math.min(400, width)}px; z-index:10; 
             transform: translate(${rightSidenav ? 0 : 150}%);
             transition: transform 0.5s ease-out;`
       "
@@ -91,6 +91,9 @@ export default {
     }
   },
   computed: {
+    width() {
+      return this.$store.state.width;
+    },
     getRoom() {
       let roomId = this.$store.state.selectedRoom;
       return this.$store.state.rooms[roomId] || {};

@@ -23,7 +23,11 @@ const state = {
   receivedInvitations: {},
 
   // User
-  userProfile: null
+  userProfile: null,
+
+  // Window Size
+  width: null,
+  height: null
 };
 
 export default state;

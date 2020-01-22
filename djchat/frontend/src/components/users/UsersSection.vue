@@ -74,6 +74,7 @@ export default {
   methods: {
     selectRoom(roomId) {
       this.$store.commit("SET_SELECTED_ROOM", roomId);
+      this.$emit("selected-room");
     },
     getValues(obj) {
       return [obj.group_name];

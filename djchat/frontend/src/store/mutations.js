@@ -89,6 +89,12 @@ const mutations = {
   },
   SET_USER_PROFILE(state, userProfile) {
     state.userProfile = userProfile;
+  },
+  SET_CURRENT_WIDTH(state, width) {
+    state.width = width;
+  },
+  SET_CURRENT_HEIGHT(state, height) {
+    state.height = height;
   }
 };
 
