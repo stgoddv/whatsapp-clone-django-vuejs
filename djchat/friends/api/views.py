@@ -103,7 +103,7 @@ class FriendshipCancelAPIView(APIView):
             request.user.friendship_requests_sent, id=friendship_request_id
         )
         f_request.cancel()
-        return FriendshipRequestListAPIView.get(self, request)
+        return FriendshipSentRequestListAPIView.get(self, request)
 
 
 class FriendshipRequestListAPIView(APIView):
