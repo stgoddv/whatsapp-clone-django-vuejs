@@ -50,18 +50,20 @@
       <div class="tabs-content">
         <!-- Sent Tab -->
         <div v-if="selectedTab === 0">
-          <div
-            v-if="Object.entries(sentInvitations).length !== 0"
-            class="sent-list"
-          >
-            <div v-for="invitation in sentInvitations" :key="invitation.id">
-              {{ invitation.to_user.name }}
-              <user-invitation
-                :invitation="invitation"
-                :user="invitation.to_user"
-                @remove="cancelInvitation"
-              />
+          <div v-if="Object.entries(sentInvitations).length !== 0">
+            <div
+              class="sent-list scrollbar overflow-y-auto overflow-x-hidden"
+              style="max-height: 20vh;"
+            >
+              <div v-for="invitation in sentInvitations" :key="invitation.id">
+                <user-invitation
+                  :invitation="invitation"
+                  :user="invitation.to_user"
+                  @remove="cancelInvitation"
+                />
+              </div>
             </div>
+            <invite-friend @invite-action="$emit('invite-action')" />
           </div>
 
           <div v-else class="sent-list empty">
@@ -75,7 +77,6 @@
         <div v-if="selectedTab === 1">
           <div v-if="receivedInvitations.length !== 0" class="sent-list">
             <div v-for="invitation in receivedInvitations" :key="invitation.id">
-              {{ invitation.from_user.name }}
               <user-invitation
                 received
                 :invitation="invitation"
@@ -146,5 +147,26 @@ export default {
   color: #fff;
   line-height: 20px;
   text-align: center;
+}
+
+/* Scrollbar */
+/* width */
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>

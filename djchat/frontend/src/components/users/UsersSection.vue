@@ -41,6 +41,7 @@
 
       <!-- Fallback message -->
       <invite-friend
+        class="mt-8"
         v-if="!rooms.length"
         @invite-action="$emit('invite-action')"
       >

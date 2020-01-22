@@ -1,6 +1,6 @@
 <template>
   <div class="invite-friend">
-    <div class="text-sm mt-8">
+    <div class="text-sm">
       <slot></slot>
     </div>
     <invite-button @action="$emit('invite-action')" class="mt-5" />
