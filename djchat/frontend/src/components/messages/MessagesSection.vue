@@ -36,14 +36,20 @@
       </div>
 
       <!-- Menu Icon -->
-      <div class="cursor-pointer mr-3 dropdown">
+      <div
+        class="cursor-pointer mr-3 dropdown"
+        @mouseover="showContext = true"
+        @mouseleave="showContext = false"
+      >
         <i class="material-icons text-2xl mx-1 dropbtn">more_vert</i>
-        <div class="dropdown-content">
-          <a href="/accounts/logout/" class="flex">
-            <i class="flex-1 material-icons mr-2">exit_to_app</i>
-            <p class="flex-1">Logout</p>
-          </a>
-        </div>
+        <transition name="fade">
+          <div class="dropdown-content rounded-lg" v-if="showContext">
+            <a href="/accounts/logout/" class="flex rounded-lg">
+              <i class="flex-1 material-icons mr-2">exit_to_app</i>
+              <p class="flex-1">Logout</p>
+            </a>
+          </div>
+        </transition>
       </div>
     </div>
 
@@ -123,7 +129,8 @@ export default {
       fetchingMessages: false,
       fixScrollToBottom: true,
       noMoreMessages: false,
-      newMessagesReceived: false
+      newMessagesReceived: false,
+      showContext: false
     };
   },
   components: {
@@ -255,6 +262,17 @@ div.sticky {
   font-weight: 600;
 }
 
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
+
 /* Scrollbar */
 /* width */
 .scrollbar::-webkit-scrollbar {
@@ -291,10 +309,8 @@ div.sticky {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: none;
   position: absolute;
   background-color: #e6fffa;
-  /* min-width: 120px; */
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   right: 0;
@@ -310,10 +326,5 @@ div.sticky {
 /* Change color of dropdown links on hover */
 .dropdown-content a:hover {
   background-color: #b2f5ea;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 </style>
