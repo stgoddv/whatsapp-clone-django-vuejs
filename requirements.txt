@@ -1,7 +1,13 @@
+wheel
 Django==3.0.*
 channels
+channels-redis
 selenium
 djangorestframework
 markdown
 django-filter
 django-rest-swagger
+git+https://github.com/ubernostrum/django-registration.git
+django-crispy-forms
+six
+django-webpack-loader

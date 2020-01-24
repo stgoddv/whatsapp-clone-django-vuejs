@@ -1,0 +1,21 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block auth %}
+<div class="headline">
+    <h2>Create Your RealTime Chat Account</h2>
+</div>
+<div class='registration-form-container'>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="wrap-input">
+            {{ form|crispy }}
+        </div>
+        <div class="container-registration-btn">
+            <button type="submit" class="registration-btn">Create Account</button>
+        </div>
+    </form>
+    <p class="mt-2">Or <a href="{% url 'login' %}">Login</a></p>
+</div>
+
+{% endblock %}

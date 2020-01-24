@@ -1,0 +1,25 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block auth %}
+<div class="headline">
+    <h1>RealTime Chat</h1>
+    <p class="lead text-muted">Please login with your account</p>
+</div>
+
+<div class='login-form-container'>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="wrap-input">
+            {{ form|crispy }}
+        </div>
+
+        <div class="container-login-btn">
+            <button class="login-btn" type="submit">Login</button>
+        </div>
+
+    </form>
+    <p class="mt-2">Or <a href="{% url 'django_registration_register' %}">Create an Account</a></p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    html,
+    body {
+        height: 100%;
+        font-family: "Playfair Display", serif;
+    }
+
+    .outer-area {
+        padding: 30px;
+    }
+
+    .auth-box {
+        border: 1px solid lightgray;
+        border-radius: 20px;
+        padding-bottom: 25px;
+        max-width: 500px;
+        margin: auto;
+        text-align: center;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        background-color: white;
+    }
+
+    .auth-box h1 {
+        margin-top: 5px;
+    }
+
+    .auth-box .headline {
+        background-color: #38b2ac;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 10px;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .auth-box .login-form-container .wrap-input,
+    .auth-box .registration-form-container .wrap-input {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 27px;
+        z-index: 1;
+        margin-bottom: 40px;
+    }
+
+    .auth-box .login-form-container input,
+    .auth-box .registration-form-container input {
+        outline: none;
+        border: none;
+        overflow: visible;
+        font-size: 16px;
+        line-height: 1.2;
+        background-color: #ebebeb !important;
+        border-radius: 27px;
+        padding: 0 35px 0 35px;
+        height: 55px;
+        max-width: 14rem;
+    }
+
+    .auth-box .login-form-container label,
+    .auth-box .registration-form-container label {
+        margin-bottom: 5px;
+    }
+
+    .auth-box .login-form-container .control-group,
+    .auth-box .registration-form-container .control-group {
+        margin-bottom: 1rem;
+    }
+
+    .login-form-container {
+        max-width: 300px;
+        margin: auto;
+    }
+
+    .registration-form-container {
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .auth-box .login-form-container button,
+    .auth-box .registration-form-container button {
+        outline: none !important;
+        border: none;
+        background: transparent;
+    }
+
+    .auth-box .login-form-container button:hover,
+    .auth-box .registration-form-container button:hover {
+        cursor: pointer;
+    }
+
+    .auth-box .login-form-container button.login-btn,
+    .auth-box .registration-form-container button.registration-btn {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+        width: 100%;
+        height: 50px;
+        background-color: #38b2ac;
+        border-radius: 25px;
+
+        font-size: 18px;
+        color: #fff;
+        line-height: 1.2;
+        text-transform: uppercase;
+
+        -webkit-transition: all 0.4s;
+        -o-transition: all 0.4s;
+        -moz-transition: all 0.4s;
+        transition: all 0.4s;
+    }
+
+    .auth-box .login-form-container .container-login-btn,
+    .auth-box .registration-form-container .container-registration-btn {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: auto;
+        max-width: 17rem;
+    }
+
+    .auth-box .login-form-container button.login-btn:hover,
+    .auth-box .registration-form-container button.registration-btn:hover {
+        background-color: #285e61;
+    }
+
+    .auth-box .login-form-container a,
+    .auth-box .registration-form-container a {
+        color: #38b2ac;
+        line-height: 1.4;
+        text-transform: uppercase;
+        text-decoration: none;
+        background-color: transparent;
+        transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+    }
+
+    .auth-box .login-form-container a:hover,
+    .auth-box .registration-form-container a:hover {
+        text-decoration: none;
+        color: #285e61;
+    }
+
+    @media (max-width: 400px) {
+
+        .auth-box .login-form-container .container-login-btn,
+        .auth-box .registration-form-container .container-registration-btn {
+            max-width: 14rem;
+        }
+
+        .auth-box .login-form-container input,
+        .auth-box .registration-form-container input {
+            max-width: 10rem;
+        }
+    }
+
+    @media (max-width: 350px) {
+
+        .auth-box .login-form-container .container-login-btn,
+        .auth-box .registration-form-container .container-registration-btn {
+            max-width: 12rem;
+        }
+
+        .auth-box .login-form-container input,
+        .auth-box .registration-form-container input {
+            max-width: 8rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="outer-area">
+    <div class="auth-box text-center">
+        {% block auth %}
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock %}
