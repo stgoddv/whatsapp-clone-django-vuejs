@@ -100,7 +100,7 @@
         justify-content: center;
         align-items: center;
         padding: 0 20px;
-        width: 24rem;
+        width: 100%;
         height: 50px;
         background-color: #38b2ac;
         border-radius: 25px;
@@ -118,7 +118,6 @@
 
     .auth-box .login-form-container .container-login-btn,
     .auth-box .registration-form-container .container-registration-btn {
-        width: 100%;
         display: -webkit-box;
         display: -webkit-flex;
         display: -moz-box;
@@ -126,6 +125,8 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        margin: auto;
+        max-width: 17rem;
     }
 
     .auth-box .login-form-container button.login-btn:hover,
@@ -148,6 +149,32 @@
     .auth-box .registration-form-container a:hover {
         text-decoration: none;
         color: #285e61;
+    }
+
+    @media (max-width: 400px) {
+
+        .auth-box .login-form-container .container-login-btn,
+        .auth-box .registration-form-container .container-registration-btn {
+            max-width: 14rem;
+        }
+
+        .auth-box .login-form-container input,
+        .auth-box .registration-form-container input {
+            max-width: 10rem;
+        }
+    }
+
+    @media (max-width: 350px) {
+
+        .auth-box .login-form-container .container-login-btn,
+        .auth-box .registration-form-container .container-registration-btn {
+            max-width: 12rem;
+        }
+
+        .auth-box .login-form-container input,
+        .auth-box .registration-form-container input {
+            max-width: 8rem;
+        }
     }
 </style>
 {% endblock %}
