@@ -31,20 +31,14 @@
 
 <script>
 import Rooms from "./Rooms";
-// import SuccessAlert from "./SuccessAlert";
-import { colorOffsets, getHash } from "@/global/variables.js";
 
 export default {
   components: {
-    // SuccessAlert
     Rooms
   },
   data() {
     return {
-      tagline: "",
-      show: false,
-      isPatching: false,
-      showSuccess: false
+      show: false
     };
   },
   props: {
@@ -60,65 +54,12 @@ export default {
   methods: {
     open() {
       this.show = true;
-    },
-    async patchUserProfile() {
-      this.isPatching = true;
-      try {
-        await this.$store.dispatch("patchUserProfile", {
-          tagline: this.tagline
-        });
-        this.showSuccessAlert();
-      } catch (error) {
-        console.log(error);
-      }
-      this.isPatching = false;
-    },
-    showSuccessAlert() {
-      this.showSuccess = true;
-      setTimeout(() => {
-        this.showSuccess = false;
-      }, 5000);
-    }
-  },
-  computed: {
-    getUserProfile() {
-      return this.$store.state.userProfile || {};
-    },
-    getAvatarName() {
-      return this.getUserProfile.username
-        ? this.getUserProfile.username.charAt(0).toUpperCase()
-        : "";
-    },
-    getUsername() {
-      return this.$store.state.userProfile
-        ? this.$store.state.userProfile.username
-        : "";
-    },
-    getUserTagline() {
-      return this.$store.state.userProfile
-        ? this.$store.state.userProfile.tagline
-        : "";
-    },
-    getColor() {
-      let username = this.getUserProfile.username || "";
-      let { red, green, blue } = colorOffsets;
-      red = (getHash(username) + red) ** 2 % 256;
-      green = (getHash(username) + green) ** 2 % 256;
-      blue = (getHash(username) + blue) ** 2 % 256;
-      return {
-        red,
-        green,
-        blue
-      };
     }
   },
   watch: {
-    getUserTagline: function(value) {
-      this.tagline = value;
-    },
-    leftSidenav: function(value) {
-      if (value) {
-        this.tagline = this.getUserTagline;
+    show: function(value) {
+      if (!value) {
+        this.$store.commit("SET_SELECTED_ROOM", null);
       }
     }
   }
