@@ -1,4 +1,4 @@
-# Whatsapp Vuejs Django Clone
+# Whatsapp Vuejs Django Channels Clone
 
 A real time chat personal project built upon django, django rest framework, django channels and vuejs.
 
@@ -22,7 +22,7 @@ The idea came up when a customer ask me to built a chat for his app. I notice th
 
 It's important to emphasize that although this architecture could work in a production enviroment for small to medium size companies, this isn't really suitable for large scale deployment as whatsapp or telegram, for example. For that cases the recommended architecture and technologies are based on XAMPP.
 
-### Installation
+### Installation for dev vesion
 
 1. First create a virtual machine with python
 
@@ -36,25 +36,75 @@ It's important to emphasize that although this architecture could work in a prod
 
 > pip3 install -r requirements.txt
 
+4. Cd into django folder and apply migrations
+
+> cd djchat && python manage.py migrate
+
+5. Run django backend
+
+> python manage.py runserver
+
+6. Open a new terminal and cd into frontend folder
+
+> cd djchat/frontend
+
+7. Install required modules
+
+> npm i
+
+8. Finally run frontend dev mode
+
+> npm run serve
+
 
 ### Features
+
+Latest version: 1.0  
+* Login and register forms
+* Send, receive, accept and reject invitations from another users
+* Profile with personal editable tagline
+* Emoticons supported
+
+Messages behaviour:  
+* Message received by the server is marked with 1 check
+* Message received by the other user is marked with 2 checks
+* Message read by the other user is marked with a colored double check
 
 
 ### WorkInProgress
 
+Currently the efforts are focused on:  
+* More unit testings in backend and frontend
+* Refactory of the Vuex messages architecture
+* There are some things that should be communicated by channels and not by rest API
+
 
 ### Roadmap
 
+* Two way registration for email verification
+* Dockerization 
+* JWT cookie support
+* Groups support
+* Block users
+* Upload avatars
+* Optional sound when new message arrives
+* General settings panel
+* Emoticons selector
+* Send pictures
+* Send videos
+* Send links
+
+Please understand that this is a project that I'm doing as a hobby in my little free time. Feel free to make PR if you can work on some functionality.
 
 ### Contribution
 
-This is a pretty basic project that I did in a weekend. If you want to contribute improving this, adding more functionality of fixing issues I'll be glad to receive PR.
+This is a pretty basic project that I did in a couple weeks. If you want to contribute improving this, adding more functionality of fixing issues I'll be glad to receive PR.
 
 ### License
 
 MIT License
 
-Copyright (c) 2019 Santiago Díaz de Valdés Williamson
+Copyright (c) 2020 Santiago Díaz de Valdés Williamson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
