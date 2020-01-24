@@ -16,8 +16,25 @@ A real time chat personal project built upon django, django rest framework, djan
 
 ### Motivation
 
+This is an educational project trying to replicate some famous real time chat app.
+
+The idea came up when a customer ask me to built a chat for his app. I notice that there aren't chat projects involving django channels and vueJs so I decided to make an open source chat.
+
+It's important to emphasize that although this architecture could work in a production enviroment for small to medium size companies, this isn't really suitable for large scale deployment as whatsapp or telegram, for example. For that cases the recommended architecture and technologies are based on XAMPP.
 
 ### Installation
+
+1. First create a virtual machine with python
+
+> python3 -m venv venv
+
+2. Activate the environment
+
+> source venv/bin/activate
+
+3. Install required dependencies
+
+> pip3 install -r requirements.txt
 
 
 ### Features
