@@ -22,7 +22,7 @@
       @click.prevent="sendMessage()"
     >
       <send-icon size="1.5x" class="custom-class inline-block"></send-icon>
-      <p class="inline-block mx-3 text-lg">Enviar</p>
+      <p class="inline-block mx-3 text-lg">Send</p>
     </button>
   </div>
 </template>
