@@ -19,6 +19,8 @@
           @updateSearch="currentSearch = $event"
         />
       </div>
+
+      <Menu v-if="width < 768" />
     </div>
 
     <!-- Lista de usuarios -->
@@ -53,6 +55,7 @@
 </template>
 
 <script>
+import Menu from "@/components/Menu.vue";
 import User from "./User.vue";
 import Search from "@/components/Search.vue";
 import InviteFriend from "@/components/invitations/InviteFriend";
@@ -68,6 +71,7 @@ export default {
   },
   components: {
     User,
+    Menu,
     Search,
     InviteFriend
   },
@@ -84,6 +88,9 @@ export default {
     }
   },
   computed: {
+    width() {
+      return this.$store.state.width;
+    },
     getUserProfile() {
       return this.$store.state.userProfile || {};
     },
