@@ -2,6 +2,8 @@
 
 A real time chat personal project built upon django, django rest framework, django channels and vuejs.
 
+建立在django，django rest框架，django频道和vuejs之上的实时聊天个人项目。
+
 ![Demo](https://github.com/stgoddv/django-channels-tutorial/blob/develop/demo/demo.gif?raw=true)
 
 # Table of Contents
