@@ -1,0 +1,42 @@
+Todoes:
+
+V 1.0
+- readme
+
+
+Roadmap:
+  * grupos
+  * bloqueo
+  * avatares con picture subible
+  * sonido al llegar mensaje
+  * configuración general
+
+
+V 2.0
+- repensar arquitectura de mensajes
+- pasar sistema a ws
+- getattr django para configuracion desde setting
+- agregar el resto de endpoints (follow y block)
+
+
+¿Cómo debería ser en teoría esto?
+
+- chats
+
+- roomMessages
+
+- roomParticipants
+
+- messages: {
+  ids (frontend id)
+} 
+
+- users: {
+  ids
+}
+
+* recent messages trae mensajes recientes
+{
+  message_id (frontend_id)
+  room_id
+}
